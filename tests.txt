@@ -1,0 +1,63 @@
+prove([], '|', [not, not, not, a]).
+prove([], '|', [not, not, a]).
+prove([], '|', [not, a]).
+
+prove([], '|', [a, 'V', b]).
+prove([], '|', [a, '&', b]).
+
+prove([], '|', [not, '{', a, '&', b, '}']).
+prove([], '|', [not, '{', a, 'V', b, '}']).
+
+prove([], '|', [f, '&', '{', a, '&', b, '}']).
+prove([], '|', [f, '&', '{', a, 'V', b, '}']).
+
+prove([], '|', [f, 'V', '{', a, '&', b, '}']).
+prove([], '|', [f, 'V', '{', a, 'V', b, '}']).
+
+
+
+
+prove([not, not, not, p, '&', not, not, not, q], '+').
+prove([not, not, not, p, '&', not, not, q], '+').
+prove([not, not, not, p, '&', not, q], '+').
+prove([not, not, not, p, '&', q], '+').
+prove([not, not, p, '&', not, not, not, q], '+').
+prove([not, p, '&', not, not, not, q], '+').
+prove([p, '&', not, not, not, q], '+').
+prove([not, not, p, '&', not, not, q], '+').
+prove([not, p, '&', not, q], '+').
+prove([p, '&', q], '+').
+
+prove([not, not, not, p, 'V', not, not, not, q], '+').
+prove([not, not, not, p, 'V', not, not, q], '+').
+prove([not, not, not, p, 'V', not, q], '+').
+prove([not, not, not, p, 'V', q], '+').
+prove([not, not, p, 'V', not, not, not, q], '+').
+prove([not, p, 'V', not, not, not, q], '+').
+prove([p, 'V', not, not, not, q], '+').
+prove([not, not, p, 'V', not, not, q], '+').
+prove([not, p, 'V', not, q], '+').
+prove([p, 'V', q], '+').
+
+prove([not, not, not, p, '&', not, not, not, q], '-').
+prove([not, not, not, p, '&', not, not, q], '-').
+prove([not, not, not, p, '&', not, q], '-').
+prove([not, not, not, p, '&', q], '-').
+prove([not, not, p, '&', not, not, not, q], '-').
+prove([not, p, '&', not, not, not, q], '-').
+prove([p, '&', not, not, not, q], '-').
+prove([not, not, p, '&', not, not, q], '-').
+prove([not, p, '&', not, q], '-').
+prove([p, '&', q], '-').
+
+prove([not, not, not, p, 'V', not, not, not, q], '-').
+prove([not, not, not, p, 'V', not, not, q], '-').
+prove([not, not, not, p, 'V', not, q], '-').
+prove([not, not, not, p, 'V', q], '-').
+prove([not, not, p, 'V', not, not, not, q], '-').
+prove([not, p, 'V', not, not, not, q], '-').
+prove([p, 'V', not, not, not, q], '-').
+prove([not, not, p, 'V', not, not, q], '-').
+prove([not, p, 'V', not, q], '-').
+prove([p, 'V', q], '-').
+
