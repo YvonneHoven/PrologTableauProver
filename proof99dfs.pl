@@ -87,7 +87,7 @@ proof(A, '&', B, '-'):- ( prf(A, '-'), write(A), writeln(",-") ); retract(prf(A,
 
 
 finprove([[H]|[]], S):- finprove(H, S).
-prove([H|[]], S):- H\=[_], prf([H], S).
+prove([H|[]], S):- H\=[_], H\=not, H\=atm(not,_), prf([H], S).
 prove([], _).
 prove(['{', not, A, B, not, C, '}'|T], S):- proof([atm(not,A), B, atm(not,C)], S), prove(T, S).
 prove(['{', not, A, B, C, '}'|T], S):- C\=not, proof([atm(not,A), B, C], S), prove(T, S).
@@ -174,10 +174,10 @@ prove([not, '{', H, 'V', H2, '}'|T], '-'):- write("not"),
 write(H), write(" & not"), write(H2), writeln(", -"), proof(atm(not, H), '&', atm(not, H2), '-'), prove(T, '-').
 
 
-prove([not, not, not, A], S):- wrt([not,A],S).
-prove([not, not, A], S):- wrt(A,S). 
-prove([not, A], S):- wrt(A,S).
-prove([atm(not,(atm(not,A)))],S):-prove(A,S).
+prove([not, not, not, A], S):- wrt([not,not,not,A], S), wrt([not,A],S).
+prove([not, not, A], S):- wrt([not,not,A],S), wrt([A],S).  
+prove([not, A], S):- wrt(atm(not,A),S).
+prove([atm(not,(atm(not,A)))],S):- wrt([not,not,A],S), wrt([A],S). 
 
 prove([not, H|T], S):- H\=not, T\=['&'|_], T\=['V'|_], proof(atm(not, H), S), prove(T, S).
 
