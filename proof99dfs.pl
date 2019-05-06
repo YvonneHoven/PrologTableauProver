@@ -31,7 +31,7 @@ ass([not, A, 'V', not, not, C|T]):- C\=not, wrt([atm(not,A),'V',atm(not,atm(not,
 %%%%%%%%%%%%%%%%%%%%%%%%
 ass([not, A, 'V', not, C|T]):- C\=not, assert(prf(atm(not,A),'V',atm(not,C), '+')), wrt([atm(not,A),'V',atm(not,C)], '+'), ass(T), assert(toprove([atm(not,A), 'V', atm(not,C)], '+')).
 ass([not, A, 'V', C|T]):- C\=not, assert(prf(atm(not,A),'V',C, '+')), wrt([atm(not,A),'V',C], '+'), ass(T), assert(toprove([atm(not,A), 'V', C], '+')).
-ass([A, 'V', not, C|T]):- assert(prf(A,'V',atm(not,C), '+')), wrt([A,'V',atm(not,C)], '+'), ass(T), assert(toprove([A, 'V', atm(not,C)], '+')).
+ass([A, 'V', not, C|T]):- C\=not, assert(prf(A,'V',atm(not,C), '+')), wrt([A,'V',atm(not,C)], '+'), ass(T), assert(toprove([A, 'V', atm(not,C)], '+')).
 ass([A, 'V', C|T]):- C\=not, assert(prf(A,'V',C, '+')), wrt([A,'V',C], '+'), ass(T), prove([A, 'V', C], '+').
 
 
