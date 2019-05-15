@@ -70,9 +70,9 @@ proof(A, '&', B, '&', C, '+'):- wrt(A, '+'), wrt(B, '+'), wrt(C, '+').
 proof(A, 'V', B, '-'):- wrt(A, '-'), wrt(B, '-').
 proof(A, 'V', B, 'V', C, '-'):- wrt(A, '-'), wrt(B, '-'), wrt(C, '-').
 
-%proof(atm(not, A), '+'):- prf(atm(not,A), '+').   %%
+proof(atm(not, A), '+'):- wrt(atm(not,A), '+').   %%
 
-%proof(atm(not, A), '-'):- prf(atm(not,A), '-').   %%
+proof(atm(not, A), '-'):- wrt(atm(not,A), '-').   %%
 
 
 %%%%%%%%%%%%%%%verschilmetBFS%%%%%%%%%%%%%%%%%%%%%%%%
@@ -155,12 +155,12 @@ prove([H,'V', H3|T], '-'):- H3\=not, proof(H, 'V', H3, '-'), prove(T, '-').
 %%%%%%%%%%%%%%%%%%%%%%?????????????????%%%%%%%%%%%%%%%%%%%%
 %prove(['{', H, '&', H2, '}', '&', H3|T], S):- prove([H, '&', '{', H2, '&', H3, '}'|T], S).
 %prove(['{', H, 'V', H2, '}', 'V', H3|T], S):- prove([H, 'V', '{', H2, 'V', H3, '}'|T], S).
-prove(['{', H, 'V', H2, '}', '&', H3|T], '+'):- wrt(H3, '+'), prove(H, 'V', H2, '+'), prove(T, '+').
-prove(['{', H, '&', H2, '}', 'V', H3|T], '-'):- wrt(H3, '+'), prove(H, '&', H2, '-'), prove(T, '-').
+prove(['{', H, 'V', H2, '}', '&', H3|T], '+'):- wrt(H3, '+'), proof(H, 'V', H2, '+'), prove(T, '+').
+prove(['{', H, '&', H2, '}', 'V', H3|T], '-'):- wrt(H3, '+'), proof(H, '&', H2, '-'), prove(T, '-').
 prove(['{', H, '&', H2, '}', 'V', H3|T], '+'):- prove([H, '&', H2|T], '+'), write("     OR   "), wrt(H3, '+'), prove(T, '+').  
 prove(['{', H, 'V', H2, '}', '&', H3|T], '-'):- wrt(H3, '-'), write("     OR   "), prove([H, 'V', H2|T], '-'), prove(T, '-'). 
-%prove([not, H|T], '+'):-proof(atm(not,H), '+'), prove(T, '+').
-%prove([not, H|T], '-'):-proof(atm(not,H), '-'), prove(T, '-').
+prove([not, H|T], '+'):-proof(atm(not,H), '+'), prove(T, '+').
+prove([not, H|T], '-'):-proof(atm(not,H), '-'), prove(T, '-').
 
 
 prove([not, '{', H, '&', H2, '}'|T], '+'):- wrt([not, '{', H, '&', H2, '}'|T], '+'), wrt([atm(not,H), 'V', atm(not,H2)], '+'), proof(atm(not, H), 'V', atm(not, H2), '+'), prove(T, '+').
