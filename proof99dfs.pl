@@ -91,9 +91,9 @@ proof(A, '&', B, '&', C, '-'):- ( wrt(A, '-') ) ; ( retract(prf(A, '-')), writel
 finprove([[H]|[]], S):- finprove(H, S).
 prove([H|[]], S):- H\=[_], H\=not, H\=atm(not,_), wrt([H], S).
 prove([], _).
-prove(['{', not, A, B, not, C, '}'|T], S):- proof([atm(not,A), B, atm(not,C)], S), prove(T, S).
-prove(['{', not, A, B, C, '}'|T], S):- C\=not, proof([atm(not,A), B, C], S), prove(T, S).
-prove(['{', A, B, not, C, '}'|T], S):- proof([A, B, atm(not,C)], S), prove(T, S).
+prove(['{', not, A, B, not, C, '}'|T], S):- proof(atm(not,A), B, atm(not,C), S), prove(T, S).
+prove(['{', not, A, B, C, '}'|T], S):- C\=not, proof(atm(not,A), B, C, S), prove(T, S).
+prove(['{', A, B, not, C, '}'|T], S):- proof(A, B, atm(not,C), S), prove(T, S).
 prove(['{', A, B, C, '}'|T], S):- B\=not, proof(A, B, C, S), prove(T, S).
 
 
