@@ -78,8 +78,8 @@ proof(atm(not, A), '-'):- wrt(atm(not,A), '-').   %%
 
 
 %%%%%%%%%%%%%%%verschilmetBFS%%%%%%%%%%%%%%%%%%%%%%%%
-proof(A, 'V', B, '+'):- ( wrt(A, '+'), write(A), writeln(",+") ); ( retract(prf(A, '+')), writeln("\\"), wrt(B, '+'), write(B), writeln(",+") ).
-proof(A, '&', B, '-'):- ( wrt(A, '-'), write(A), writeln(",-") ); ( retract(prf(A, '-')), writeln("\\"), wrt(B, '-'), write(B), writeln(",-") ).
+proof(A, 'V', B, '+'):- ( wrt(A, '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt(B, '+'), write(B), writeln(",+") ).
+proof(A, '&', B, '-'):- ( wrt(A, '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt(B, '-'), write(B), writeln(",-") ).
 
 proof(A, 'V', B, '+'):- ( wrt(A, '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt(B, '+') ).
 proof(A, 'V', B, 'V', C, '+'):- ( wrt(A, '+') ) ; ( retract(prf(A, '+')), writeln("\\"), wrt(B, '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt(C, '+') ).
