@@ -30,11 +30,11 @@ ass(['{', A, 'V', C, '}'|T]):- C\=not, wrt(['{',A,'V',C,'}'], '+'), ass(T), prov
 
 %%%%%%%%%%%%%%%%verschilmetBFS%%%%%%%%%%%%%%%%%%%%%%
 ass([not, A, 'V', not, not, not, C|T]):- wrt([atm(not,A),'V',atm(not,atm(not,atm(not,C)))], '+'), ass(T), prove([atm(not,A), 'V', atm(not,atm(not,atm(not,C)))], '+').
-ass([not, A, 'V', not, not, C|T]):- wrt([atm(not,A),'V',atm(not,atm(not,C))], '+'), ass(T), prove([atm(not,A), 'V', atm(not,atm(not,C))], '+').
-ass([not, A, 'V', not, C|T]):- wrt([atm(not,A),'V',atm(not,C)], '+'), ass(T), prove([atm(not,A), 'V', atm(not,C)], '+').
-ass([not, A, 'V', C|T]):- wrt([atm(not,A),'V',C], '+'), ass(T), prove([A, 'V', C], '+').
-ass([A, 'V', not, C|T]):- wrt([A,'V',atm(not,C)], '+'), ass(T), prove([A, 'V', atm(not,C)], '+').
-ass([A, 'V', C|T]):- wrt([A,'V',C], '+'), ass(T), prove([A, 'V', C], '+').
+ass([not, A, 'V', not, not, C|T]):- C\=not, wrt([atm(not,A),'V',atm(not,atm(not,C))], '+'), ass(T), prove([atm(not,A), 'V', atm(not,atm(not,C))], '+').
+ass([not, A, 'V', not, C|T]):- C\=not, wrt([atm(not,A),'V',atm(not,C)], '+'), ass(T), prove([atm(not,A), 'V', atm(not,C)], '+').
+ass([not, A, 'V', C|T]):- C\=not, wrt([atm(not,A),'V',C], '+'), ass(T), prove([A, 'V', C], '+').
+ass([A, 'V', not, C|T]):- C\=not, wrt([A,'V',atm(not,C)], '+'), ass(T), prove([A, 'V', atm(not,C)], '+').
+ass([A, 'V', C|T]):- C\=not, wrt([A,'V',C], '+'), ass(T), prove([A, 'V', C], '+').
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -111,7 +111,7 @@ prove([H, '&', '{', H2, '&', H3, '}'|T], '-'):- ( wrt(H, '-'), prove(T, '-') ) ;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-prove([not,H,'&',not,not,not,H3|T], '+'):- wrt([atm(not,H), '&', atm(not,atm(not,atm(not,H3)))|T], '+'), proof(atm(not,H), '&', atm(not,atm(not,atm(not,H3))), '+'), prove(T, '+').
+prove([not,H,'&',not,not,not,H3|T], '+'):- H3\=not, wrt([atm(not,H), '&', atm(not,atm(not,atm(not,H3)))|T], '+'), proof(atm(not,H), '&', atm(not,atm(not,atm(not,H3))), '+'), prove(T, '+').
 prove([not,H,'&',not,not,H3|T], '+'):- H3\=not, wrt([atm(not,H), '&', atm(not,atm(not,H3))|T], '+'), proof(atm(not,H), '&', atm(not,atm(not,H3)), '+'), prove(T, '+').
 prove([not,H,'&',not,H3|T], '+'):-H3\=not, proof(atm(not,H), '&', atm(not,H3), '+'), prove(T, '+').
 prove([not,H,'&',H3|T], '+'):- H3\=not, proof(atm(not,H), '&', H3, '+'), prove(T, '+').
@@ -122,23 +122,23 @@ prove([H,'&',H3|T], '+'):- H3\=not, proof(H, '&', H3, '+'), prove(T, '+').
 
 
 %%%%%%%%%%%%%%%%%verschilmetBFS%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-prove([not, H,'V', not,not,not, H3|T], '+'):- wrt([atm(not,H),'V',atm(not,atm(not,atm(not,H3)))|T], '+'), proof(atm(not,H), 'V', atm(not,atm(not,atm(not,H3))), '+'), prove(T, '+').  
-prove([not, H,'V', not,not, H3|T], '+'):- wrt([atm(not,H),'V',atm(not,atm(not,H3))|T], '+'), proof(atm(not,H), 'V', atm(not,atm(not,H3)), '+'), prove(T, '+'). 
-prove([not, H,'V', not, H3|T], '+'):- wrt([atm(not,H),'V',atm(not,H3)|T], '+'), proof(atm(not,H), 'V', atm(not,H3), '+'), prove(T, '+'). 
-prove([not, H,'V',H3|T], '+'):- wrt([atm(not,H),'V',H3|T], '+'), proof(atm(not,H), 'V', H3, '+'), prove(T, '+'). 
+prove([not, H,'V', not,not,not, H3|T], '+'):- H3\=not, wrt([atm(not,H),'V',atm(not,atm(not,atm(not,H3)))|T], '+'), proof(atm(not,H), 'V', atm(not,atm(not,atm(not,H3))), '+'), prove(T, '+').  
+prove([not, H,'V', not,not, H3|T], '+'):- H3\=not, wrt([atm(not,H),'V',atm(not,atm(not,H3))|T], '+'), proof(atm(not,H), 'V', atm(not,atm(not,H3)), '+'), prove(T, '+'). 
+prove([not, H,'V', not, H3|T], '+'):- H3\=not, wrt([atm(not,H),'V',atm(not,H3)|T], '+'), proof(atm(not,H), 'V', atm(not,H3), '+'), prove(T, '+'). 
+prove([not, H,'V',H3|T], '+'):- H3\=not, wrt([atm(not,H),'V',H3|T], '+'), proof(atm(not,H), 'V', H3, '+'), prove(T, '+'). 
 prove([H,'V', not, not, not, H3|T], '+'):- wrt([H,'V',atm(not,atm(not,atm(not,H3)))|T], '+'), proof(H, 'V', atm(not,atm(not,atm(not,H3))), '+'), prove(T, '+'). 
-prove([H,'V', not, not, H3|T], '+'):- wrt([H,'V',atm(not,atm(not,H3))|T], '+'), proof(H, 'V', atm(not,atm(not,H3)), '+'), prove(T, '+'). 
-prove([H,'V', not, H3|T], '+'):- wrt([H,'V',atm(not,H3)|T], '+'), proof(H, 'V', atm(not,H3), '+'), prove(T, '+'). 
-prove([H,'V',H3|T], '+'):- wrt([H,'V',H3|T], '+'), proof(H, 'V', H3, '+'), prove(T, '+').
+prove([H,'V', not, not, H3|T], '+'):- H3\=not, wrt([H,'V',atm(not,atm(not,H3))|T], '+'), proof(H, 'V', atm(not,atm(not,H3)), '+'), prove(T, '+'). 
+prove([H,'V', not, H3|T], '+'):- H3\=not, wrt([H,'V',atm(not,H3)|T], '+'), proof(H, 'V', atm(not,H3), '+'), prove(T, '+'). 
+prove([H,'V',H3|T], '+'):- H3\=not, wrt([H,'V',H3|T], '+'), proof(H, 'V', H3, '+'), prove(T, '+').
 
-prove([not, H,'&', not,not,not, H3|T], '-'):-  wrt([atm(not,H),'&',atm(not,atm(not,atm(not,H3)))|T], '-'), proof(atm(not,H), '&', atm(not,atm(not,atm(not,H3))), '-'), prove(T, '-').   
-prove([not, H,'&', not,not, H3|T], '-'):- wrt([atm(not,H),'&',atm(not,atm(not,H3))|T], '-'), proof(atm(not,H), '&', atm(not,atm(not,H3)), '-'), prove(T, '-').   
-prove([not, H,'&', not, H3|T], '-'):- wrt([atm(not,H),'&',atm(not,H3)|T], '-'), proof(atm(not,H), '&', atm(not,H3), '-'), prove(T, '-').  
-prove([not, H,'&',H3|T], '-'):- wrt([atm(not,H),'&',H3|T], '-'), proof(atm(not,H), '&', H3, '-'), prove(T, '-'). 
+prove([not, H,'&', not,not,not, H3|T], '-'):-  H3\=not, wrt([atm(not,H),'&',atm(not,atm(not,atm(not,H3)))|T], '-'), proof(atm(not,H), '&', atm(not,atm(not,atm(not,H3))), '-'), prove(T, '-').   
+prove([not, H,'&', not,not, H3|T], '-'):- H3\=not, wrt([atm(not,H),'&',atm(not,atm(not,H3))|T], '-'), proof(atm(not,H), '&', atm(not,atm(not,H3)), '-'), prove(T, '-').   
+prove([not, H,'&', not, H3|T], '-'):- H3\=not, wrt([atm(not,H),'&',atm(not,H3)|T], '-'), proof(atm(not,H), '&', atm(not,H3), '-'), prove(T, '-').  
+prove([not, H,'&',H3|T], '-'):- H3\=not, wrt([atm(not,H),'&',H3|T], '-'), proof(atm(not,H), '&', H3, '-'), prove(T, '-'). 
 prove([H,'&', not, not, not, H3|T], '-'):- wrt([H,'&',atm(not,atm(not,atm(not,H3)))|T], '-'), proof(H, '&', atm(not,atm(not,atm(not,H3))), '-'), prove(T, '-').   
-prove([H,'&', not, not, H3|T], '-'):- wrt([H,'&',atm(not,atm(not,H3))|T], '-'), proof(H, '&', atm(not,atm(not,H3)), '-'), prove(T, '-').  
-prove([H,'&', not, H3|T], '-'):- wrt([H,'&',atm(not,H3)|T], '-'), proof(H, '&', atm(not,H3), '-'), prove(T, '-'). 
-prove([H,'&',H3|T], '-'):- wrt([H,'&',H3|T], '-'), proof(H, '&', H3, '-'), prove(T, '-').
+prove([H,'&', not, not, H3|T], '-'):- H3\=not, wrt([H,'&',atm(not,atm(not,H3))|T], '-'), proof(H, '&', atm(not,atm(not,H3)), '-'), prove(T, '-').  
+prove([H,'&', not, H3|T], '-'):- H3\=not, wrt([H,'&',atm(not,H3)|T], '-'), proof(H, '&', atm(not,H3), '-'), prove(T, '-'). 
+prove([H,'&',H3|T], '-'):- H3\=not, wrt([H,'&',H3|T], '-'), proof(H, '&', H3, '-'), prove(T, '-').
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
