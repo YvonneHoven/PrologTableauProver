@@ -67,24 +67,24 @@ check([], []).% prepareAnswer.
 finprove([], _).
 
 
-proof(A, '&', B, '+'):- wrt(A, '+'), wrt(B, '+').
-proof(A, '&', B, '&', C, '+'):- wrt(A, '+'), wrt(B, '+'), wrt(C, '+').
-proof(A, 'V', B, '-'):- wrt(A, '-'), wrt(B, '-').
-proof(A, 'V', B, 'V', C, '-'):- wrt(A, '-'), wrt(B, '-'), wrt(C, '-').
+proof(A, '&', B, '+'):- wrt([A], '+'), wrt([B], '+').
+proof(A, '&', B, '&', C, '+'):- wrt([A], '+'), wrt([B], '+'), wrt([C], '+').
+proof(A, 'V', B, '-'):- wrt([A], '-'), wrt([B], '-').
+proof(A, 'V', B, 'V', C, '-'):- wrt([A], '-'), wrt([B], '-'), wrt([C], '-').
 
-proof(atm(not, A), '+'):- wrt(atm(not,A), '+').   %%
+proof(atm(not, A), '+'):- wrt([atm(not,A)], '+').   %%
 
-proof(atm(not, A), '-'):- wrt(atm(not,A), '-').   %%
+proof(atm(not, A), '-'):- wrt([atm(not,A)], '-').   %%
 
 
 %%%%%%%%%%%%%%%verschilmetBFS%%%%%%%%%%%%%%%%%%%%%%%%
-proof(A, 'V', B, '+'):- ( wrt(A, '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt(B, '+'), write(B), writeln(",+") ).
-proof(A, '&', B, '-'):- ( wrt(A, '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt(B, '-'), write(B), writeln(",-") ).
+proof(A, 'V', B, '+'):- ( wrt([A], '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt([B], '+') ).
+proof(A, '&', B, '-'):- ( wrt([A], '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt([B], '-') ).
 
-proof(A, 'V', B, '+'):- ( wrt(A, '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt(B, '+') ).
-proof(A, 'V', B, 'V', C, '+'):- ( wrt(A, '+') ) ; ( retract(prf(A, '+')), writeln("\\"), wrt(B, '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt(C, '+') ).
-proof(A, '&', B, '-'):- ( wrt(A, '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt(B, '-') ).
-proof(A, '&', B, '&', C, '-'):- ( wrt(A, '-') ) ; ( retract(prf(A, '-')), writeln("\\"), wrt(B, '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt(C, '-') ).
+proof(A, 'V', B, '+'):- ( assert(prf(A, '+')), wrt([A], '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt([B], '+') ).
+proof(A, 'V', B, 'V', C, '+'):- ( assert(prf(A, '+')), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([C], '+') ).
+proof(A, '&', B, '-'):- ( assert(prf(A, '-')), wrt([A], '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt([B], '-') ).
+proof(A, '&', B, '&', C, '-'):- ( assert(prf(A, '-')), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([C], '-') ).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
