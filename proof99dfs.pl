@@ -50,7 +50,9 @@ prepareAnswer:- findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL),
     	write('negative literals: '), nl, write("|"), printList(NL, '-').
 
 wrt([],S):- write(","), writeln(S).
-wrt([atm(not,A)|T],S):- write("not"), write(A), wrt(T,S).
+wrt([atm(not,atm(not,atm(not,A)))|T],S):- write("notnotnot"), write(A), wrt(T,S).
+wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot"), write(A), wrt(T,S).
+wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not"), write(A), wrt(T,S).
 wrt([H|T],S):- H\=atm(not,_), write(H), wrt(T,S).
 
 prove(A, '|', C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), nl, prove(C, '-'), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP),  check(TP, FP).
