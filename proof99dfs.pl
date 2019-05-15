@@ -53,9 +53,9 @@ wrt([],S):- write(","), writeln(S).
 wrt([atm(not,A)|T],S):- write("not"), write(A), wrt(T,S).
 wrt([H|T],S):- H\=atm(not,_), write(H), wrt(T,S).
 
-prove(A, '|', C):- ass(A), C\=[_], C\=[not,_], wrt(C, '-'), nl, prove(C, '-'), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP),  check(TP, FP).
-prove(A, '|', C):- ass(A), C=[_], wrt(C, '-'), nl, findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP),  check(TP, FP).
-prove(A, '|', C):- ass(A), C=[not,_], wrt(C, '-'), nl, findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP),  check(TP, FP).
+prove(A, '|', C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), nl, prove(C, '-'), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP),  check(TP, FP).
+prove(A, '|', C):- C=[_], ass(A), wrt(C, '-'), nl, findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP),  check(TP, FP).
+prove(A, '|', C):- C=[not,_], ass(A), wrt(C, '-'), nl, findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP),  check(TP, FP).
 
 check(TP, FP):- TP\=[], FP\=[], write("//"), finprove(TP, '+'), finprove(FP, '-'), retractall(toprove(_,_)).% prepareAnswer.
 check(TP, []):- TP\=[], write("//"), finprove(TP, '+'), retractall(toprove(_,_)).% prepareAnswer.
