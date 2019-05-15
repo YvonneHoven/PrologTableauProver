@@ -29,7 +29,7 @@ ass(['{', A, 'V', C, '}'|T]):- C\=not, wrt(['{',A,'V',C,'}'], '+'), ass(T), prov
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%verschilmetBFS%%%%%%%%%%%%%%%%%%%%%%
-ass([not, A, 'V', not, not, not, C|T]):- wrt([atm(not,A),'V',atm(not,atm(not,atm(not,C)))], '+'), ass(T), prove([atm(not,A), 'V', atm(not,atm(not,atm(not,C))], '+')).
+ass([not, A, 'V', not, not, not, C|T]):- wrt([atm(not,A),'V',atm(not,atm(not,atm(not,C)))], '+'), ass(T), prove([atm(not,A), 'V', atm(not,atm(not,atm(not,C)))], '+').
 ass([not, A, 'V', not, not, C|T]):- wrt([atm(not,A),'V',atm(not,atm(not,C))], '+'), ass(T), prove([atm(not,A), 'V', atm(not,atm(not,C))], '+').
 ass([not, A, 'V', not, C|T]):- wrt([atm(not,A),'V',atm(not,C)], '+'), ass(T), prove([atm(not,A), 'V', atm(not,C)], '+').
 ass([not, A, 'V', C|T]):- wrt([atm(not,A),'V',C], '+'), ass(T), prove([A, 'V', C], '+').
@@ -163,15 +163,14 @@ prove(['{', H, 'V', H2, '}', '&', H3|T], '-'):- wrt(H3, '-'), write("     OR   "
 %prove([not, H|T], '-'):-proof(atm(not,H), '-'), prove(T, '-').
 
 
-prove([not, '{', H, '&', H2, '}'|T], '+'):- write("not"), write(H), write(" V not"), write(H2), writeln(", +"), proof(atm(not, H), 'V', atm(not, H2), '+'), prove(T, '+').
+prove([not, '{', H, '&', H2, '}'|T], '+'):- wrt([not, '{', H, '&', H2, '}'|T], '+'), wrt([atm(not,H), 'V', atm(not,H2)], '+'), proof(atm(not, H), 'V', atm(not, H2), '+'), prove(T, '+').
 
-prove([not, '{', H, 'V', H2, '}'|T], '+'):- write("not"), write(H), write(" & not"), write(H2), writeln(", +"), 
+prove([not, '{', H, 'V', H2, '}'|T], '+'):- wrt([not, '{', H, 'V', H2, '}'|T], '+'), wrt([atm(not,H), '&', atm(not,H2)], '+'), 
 proof(atm(not, H), '&', atm(not, H2), '+'), prove(T, '+').
 
-prove([not, '{', H, '&', H2, '}'|T], '-'):- write("not"), write(H), write(" V not"), write(H2), writeln(", -"), proof(atm(not, H), 'V', atm(not, H2), '-'), prove(T, '-').
+prove([not, '{', H, '&', H2, '}'|T], '-'):- wrt([not, '{', H, '&', H2, '}'|T], '-'), wrt([atm(not,H), 'V', atm(not,H2)], '-'), proof(atm(not, H), 'V', atm(not, H2), '-'), prove(T, '-').
 
-prove([not, '{', H, 'V', H2, '}'|T], '-'):- write("not"), 
-write(H), write(" & not"), write(H2), writeln(", -"), proof(atm(not, H), '&', atm(not, H2), '-'), prove(T, '-').
+prove([not, '{', H, 'V', H2, '}'|T], '-'):- wrt([not, '{', H, 'V', H2, '}'|T], '-'), wrt([atm(not,H), '&', atm(not,H2)], '-'), proof(atm(not, H), '&', atm(not, H2), '-'), prove(T, '-').
 
 
 prove([not, not, not, A], S):- wrt([not,not,not,A], S), wrt([not,A],S).
