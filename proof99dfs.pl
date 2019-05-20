@@ -1,21 +1,28 @@
 :- dynamic prf(_,_).
+:- dynamic assprove(_,_).
+:- dynamic toprove/2.
 :- discontiguous proof/6.
 :- discontiguous proof/4.
 :- discontiguous toprove/2.
 :- discontiguous prove/2.
 :- discontiguous finprove/2.
-:- dynamic toprove/2.
+
 
 ass([]).
-%ass([not, not, H|T]):- T\=['&'|_], T\=['V'|_], wrt([not, not, H|T], '+'), ass([H|T]).
-%ass([not, H|T]):- H\=not, T\=['V'|_], T\=['&'|_], assert(prf(atm(not,H),'+')), write("not"), write(H), writeln(",+"), ass(T).
-assprove(List, '+'):-prove(List, '+').
+ass([not, not, H]):- wrt([not, not, H], '+'), assert(assprove([not,not,H],'+')).
+ass([not, H]):- assert(prf(atm(not,H),'+')), wrt([H], '+').
 
 ass(['{', not, A, '&', not, C, '}'|T]):- wrt(['{',atm(not,A),'&',atm(not,C),'}'], '+'), ass(T), assert(assprove([atm(not,A), '&', atm(not,C)], '+')).
-ass(['{', atm(not,A), '&', C, '}'|T]):- C\=not, wrt(['{',atm(not,A),'&',C,'}'], '+'), ass(T), assert(assprove([atm(not,A), '&', C], '+')).
-ass(['{', A, '&', atm(not,C), '}'|T]):- wrt(['{',A,'&',atm(not,C),'}'], '+'), ass(T), assert(assprove([A, '&', atm(not,C)], '+')).
+ass(['{', not, A, '&', not, C, '}'|T]):- wrt(['{',A,'&',atm(not,C),'}'], '+'), ass(T), assert(assprove([A, '&', atm(not,C)], '+')).
+ass(['{', not, A, '&', not, C, '}'|T]):- wrt(['{',atm(not,A),'&',C,'}'], '+'), ass(T), assert(assprove([atm(not,A), '&', C], '+')).
+ass(['{', not, A, '&', not, C, '}'|T]):- wrt(['{',atm(not,atm(not,A)),'&',atm(not,atm(not,C)),'}'], '+'), ass(T), assert(assprove([atm(not,atm(not,A)), '&', atm(not,atm(not,C))], '+')).
+%ass(['{', atm(not,A), '&', C, '}'|T]):- C\=not, wrt(['{',atm(not,A),'&',C,'}'], '+'), ass(T), assert(assprove([atm(not,A), '&', C], '+')).
+%ass(['{', A, '&', atm(not,C), '}'|T]):- wrt(['{',A,'&',atm(not,C),'}'], '+'), ass(T), assert(assprove([A, '&', atm(not,C)], '+')).
 ass(['{', A, '&', C, '}'|T]):- C\=not, wrt(['{',A,'&',C,'}'], '+'), ass(T), assert(assprove([A, '&', C], '+')).
 
+ass([not,not, A, '&', not,not, C|T]):- wrt([atm(not,atm(not,A)),'&',atm(not,atm(not,C))], '+'), ass(T), assert(assprove([atm(not,atm(not,A)), '&', atm(not,atm(not,C))], '+')).
+ass([not, A, '&', not,not, C|T]):- wrt([atm(not,A),'&',atm(not,atm(not,C))], '+'), ass(T), assert(assprove([atm(not,A), '&', atm(not,atm(not,C))], '+')).
+ass([A, '&', not,not, C|T]):- C\=not, wrt([A,'&',atm(not,atm(not,C))], '+'), ass(T), assert(assprove([A, '&', atm(not,atm(not,C))], '+')).
 ass([not,not, A, '&', not, C|T]):- wrt([atm(not,atm(not,A)),'&',atm(not,C)], '+'), ass(T), assert(assprove([atm(not,atm(not,A)), '&', atm(not,C)], '+')).
 ass([not,not, A, '&', C|T]):- C\=not, wrt([atm(not,atm(not,A)),'&',C], '+'), ass(T), assert(assprove([atm(not,atm(not,A)), '&', C], '+')).
 ass([not, A, '&', not, C|T]):- wrt([atm(not,A),'&',atm(not,C)], '+'), ass(T), assert(assprove([atm(not,A), '&', atm(not,C)], '+')).
@@ -25,6 +32,9 @@ ass([A, '&', C|T]):- C\=not, wrt([A,'&',C], '+'), ass(T), assert(assprove([A, '&
 
 
 %%%%%%%%%%%%%%%%verschilmetBFS%%%%%%%%%%%%%%%%%%%%%%
+ass(['{', not,not, A, 'V', not,not, C, '}'|T]):- wrt(['{',atm(not,atm(not,A)),'V',atm(not,atm(not,C)),'}'], '+'), ass(T), assert(assprove([atm(not,atm(not,A)), 'V', atm(not,atm(not,C))], '+')).
+ass(['{', not, A, 'V', not,not, C, '}'|T]):- wrt(['{',atm(not,A),'V',atm(not,atm(not,C)),'}'], '+'), ass(T), assert(assprove([atm(not,A), 'V', atm(not,atm(not,C))], '+')).
+ass(['{', A, 'V', not,not, C, '}'|T]):- C\=not, wrt(['{',A,'V',atm(not,atm(not,C)),'}'], '+'), ass(T), assert(assprove([A, 'V', atm(not,atm(not,C))], '+')).
 ass(['{', not,not, A, 'V', not, C, '}'|T]):- wrt(['{',atm(not,atm(not,A)),'V',atm(not,C),'}'], '+'), ass(T), assert(assprove([atm(not,atm(not,A)), 'V', atm(not,C)], '+')).
 ass(['{', not,not, A, 'V', C, '}'|T]):- C\=not, wrt(['{',atm(not,atm(not,A)),'V',C,'}'], '+'), ass(T), assert(assprove([atm(not,atm(not,A)), 'V', C], '+')).
 ass(['{', not, A, 'V', not, C, '}'|T]):- wrt(['{',atm(not,A),'V',atm(not,C),'}'], '+'), ass(T), assert(assprove([atm(not,A), 'V', atm(not,C)], '+')).
@@ -67,7 +77,10 @@ prove(A, '|', C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], ass
 prove(A, '|', C):- C=[_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+'), AS), check(AS).
 prove(A, '|', C):- C=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+'), AS), check(AS).
 
-check(AS):- AS\=[], writeln("premises solving:"), assprove(AS, '+'), nl.
+check([[[]]]).
+check([[H]|T]):- H\=[[]], writeln("premises solving:"), prsolve([[H]|T]), nl, writeln("inferences solving:").
+prsolve([]).
+prsolve([[H]|T]):- prove(H, '+'), prsolve(T).
 
 
 proof(A, '&', B, '+'):- wrt([A], '+'), wrt([B], '+').
@@ -75,9 +88,9 @@ proof(A, '&', B, '&', C, '+'):- wrt([A], '+'), wrt([B], '+'), wrt([C], '+').
 proof(A, 'V', B, '-'):- wrt([A], '-'), wrt([B], '-').
 proof(A, 'V', B, 'V', C, '-'):- wrt([A], '-'), wrt([B], '-'), wrt([C], '-').
 
-proof(atm(not, A), '+'):- wrt([atm(not,A)], '+').   %%
-
-proof(atm(not, A), '-'):- wrt([atm(not,A)], '-').   %%
+%proof(atm(not, A), '+'):- wrt([atm(not,A)], '+').   %%
+%proof(atm(not,atm(not, A)), '+'):- wrt([A], '+').   
+%proof(atm(not, A), '-'):- wrt([atm(not,A)], '-').   %%
 
 
 %%%%%%%%%%%%%%%verschilmetBFS%%%%%%%%%%%%%%%%%%%%%%%%
@@ -187,7 +200,4 @@ prf([H|T], S):- H\=atm(not,_), H\=[], H\=[_], write(H), prf(T, S).%%_
 prf(A,S):- A\=[], A\=[_], A\= atm(not,_), A\=[_|_], write(A), write(","), write(S).%%_
 
 
-%hoe zinnen (antecedents) uit te breiden A&B&C (A&B)VC......
 %hoe met 1 atom als inference, dan printie 2x
-%hoe met inferences uit te breiden
-
