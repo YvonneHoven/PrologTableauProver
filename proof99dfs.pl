@@ -63,16 +63,11 @@ wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot"), write(A), wrt(T
 wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not"), write(A), wrt(T,S).
 wrt([H|T],S):- H\=atm(not,_), write(H), wrt(T,S).
 
-prove(A, '|', C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), nl, prove(C, '-'), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP),  check(TP, FP).
-prove(A, '|', C):- C=[_], ass(A), wrt(C, '-'), nl, findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP),  check(TP, FP).
-prove(A, '|', C):- C=[not,_], ass(A), wrt(C, '-'), nl, findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP),  check(TP, FP).
+prove(A, '|', C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+'), AS), check(AS), prove(C, '-').
+prove(A, '|', C):- C=[_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+'), AS), check(AS).
+prove(A, '|', C):- C=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+'), AS), check(AS).
 
-check(TP, FP):- TP\=[], FP\=[], write("//"), finprove(TP, '+'), finprove(FP, '-'), retractall(toprove(_,_)).% prepareAnswer.
-check(TP, []):- TP\=[], write("//"), finprove(TP, '+'), retractall(toprove(_,_)).% prepareAnswer.
-check([], FP):- FP\=[], write("//"), finprove(FP, '-'), retractall(toprove(_,_)).% prepareAnswer.
-check([], []).% prepareAnswer.
-
-finprove([], _).
+check(AS):- AS\=[], writeln("premises solving:"), assprove(AS, '+'), nl.
 
 
 proof(A, '&', B, '+'):- wrt([A], '+'), wrt([B], '+').
@@ -93,7 +88,6 @@ proof(A, '&', B, '&', C, '-'):- ( assert(prf(A, '-')), wrt([A], '-') ) ; ( retra
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-finprove([[H]|[]], S):- finprove(H, S).
 prove([H|[]], S):- H\=[_], H\=not, H\=atm(not,_), wrt([H], S).
 prove([], _).
 prove(['{', not, A, B, not, C, '}'|T], S):- proof(atm(not,A), B, atm(not,C), S), prove(T, S).
