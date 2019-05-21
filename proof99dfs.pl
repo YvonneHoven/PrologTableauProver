@@ -77,7 +77,7 @@ prove(A, '|', C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], ass
 prove(A, '|', C):- C=[_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+'), AS), check(AS).
 prove(A, '|', C):- C=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+'), AS), check(AS).
 
-check([[[]]]).
+check([]).
 check([[H]|T]):- H\=[[]], writeln("premises solving:"), prsolve([[H]|T]), nl, writeln("inferences solving:").
 prsolve([]).
 prsolve([[H]|T]):- prove(H, '+'), prsolve(T).
