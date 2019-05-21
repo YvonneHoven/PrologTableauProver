@@ -63,7 +63,7 @@ check(TP, []):- TP\=[], write("//"), finprove(TP, '+'), retractall(toprove(_,_))
 check([], FP):- FP\=[], write("//"), finprove(FP, '-'), retractall(toprove(_,_)).% prepareAnswer.
 check([], []).% prepareAnswer.
 
-check([[[]]]).
+check([]).
 check([[H]|T]):- H\=[[]], writeln("premises solving:"), prsolve([[H]|T]), nl, writeln("inferences solving:").
 prsolve([]).
 prsolve([[H]|T]):- prove(H, '+'), prsolve(T).
