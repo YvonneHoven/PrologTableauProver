@@ -7,11 +7,13 @@
 :- discontiguous prove/2.
 :- discontiguous finprove/2.
 
+%%%%%wrt(atmnot??
+
 
 ass([]).
-ass([not, not, not, H]):- wrt([not, not, not, H], '+'), assert(assprove([not,not,not,H],'+')).  %%%%%wrt(atmnot??
+ass([not, not, not, H]):- wrt([not, not, not, H], '+'), assert(assprove([not,not,not,H],'+')).  
 ass([not, not, H]):- wrt([not, not, H], '+'), assert(assprove([not,not,H],'+')).
-ass([not, H]):- assert(prf(atm(not,H),'+')), wrt([H], '+').
+ass([not, H]):-  wrt([atm(not,H)], '+'), assert(prf(atm(not,H),'+')).
 
 %%ass{A&B}
 ass(['{', not, not, A, '&', not, not, C, '}'|T]):- wrt(['{',atm(not,atm(not,A)),'&',atm(not,atm(not,C)),'}'], '+'), ass(T), assert(assprove([atm(not,atm(not,A)), '&', atm(not,atm(not,C))], '+')).
@@ -230,8 +232,10 @@ prove(['{', H, '&', H2, '}', '&', H3|T], S):- proof(H, '&', H2, '&', H3, S), pro
 prove(['{', H, 'V', H2, '}', 'V', H3|T], S):- proof(H, 'V', H2, 'V', H3, S), prove(T,S).
 prove(['{', H, 'V', H2, '}', '&', H3|T], '+'):- wrt(H3, '+'), wrt([H, 'V', H2], '+'), prove([H, 'V', H2], '+'), prove(T, '+').
 prove(['{', H, '&', H2, '}', 'V', H3|T], '-'):- wrt(H3, '+'), wrt([H, '&', H2], '-'), prove([H, '&', H2], '-'), prove(T, '-').
-prove(['{', H, '&', H2, '}', 'V', H3|T], '+'):- prove([H, '&', H2|T], '+'), write("     OR   "), wrt(H3, '+'), prove(T, '+').      %%%%%
-prove(['{', H, 'V', H2, '}', '&', H3|T], '-'):- wrt(H3, '-'), write("     OR   "), prove([H, 'V', H2|T], '-'), prove(T, '-').     %%%%
+prove(['{', H, '&', H2, '}', 'V', H3|T], '+'):- prove([H, '&', H2|T], '+'), write("     OR   "), wrt(H3, '+'), prove(T, '+').     
+%%%%%
+prove(['{', H, 'V', H2, '}', '&', H3|T], '-'):- wrt(H3, '-'), write("     OR   "), prove([H, 'V', H2|T], '-'), prove(T, '-').     
+%%%%
 %prove([not, H|T], '+'):-proof(atm(not,H), '+'), prove(T, '+').
 %prove([not, H|T], '-'):-proof(atm(not,H), '-'), prove(T, '-').
 
@@ -251,10 +255,6 @@ prove([not,not,not, H|T], S):- H\='{', H\=not, T\=['&'|_], T\=['V'|_], wrt([not,
 prove([not,not, H|T], S):- H\='{', H\=not, T\=['&'|_], T\=['V'|_], wrt([not,not,H], S), wrt([H],S), prove(T, S).
 prove([not, H|T], S):- H\='{', H\=not, T\=['&'|_], T\=['V'|_], wrt([not,H], S), prove(T, S).
 
-%prf(atm(not,A), S):- write("not"), write(A), write(","), write(S). 
-%prf([],S):- write(","), writeln(S).
-%prf([atm(not,A)|T], S):- write("not"), write(A), prf(T, S). 
-%prf([H|T], S):- H\=atm(not,_), H\=[], H\=[_], write(H), prf(T, S).%%_
-%prf(A,S):- A\=[], A\=[_], A\= atm(not,_), A\=[_|_], write(A), write(","), write(S).%%_
+
 
 %hoe met 1 atom als inference, dan printie 2x
