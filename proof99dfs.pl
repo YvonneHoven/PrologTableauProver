@@ -89,10 +89,10 @@ prsolve([[H]|T]):- prove(H, '+'), prsolve(T).
 
 
 proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '+'):- wrt([not,not,A], '+'), wrt([not,not,B], '+'), wrt([A], '+'), wrt([B], '+').
-proof(atm(not,atm(not,A)), '&', B, '+'):- wrt([not,not,B], '+'), wrt([B], '+'), wrt([A], '+'),.
+proof(atm(not,atm(not,A)), '&', B, '+'):- wrt([not,not,B], '+'), wrt([B], '+'), wrt([A], '+').
 proof(A, '&', atm(not,atm(not,B)), '+'):- wrt([A], '+'), wrt([not,not,B], '+'), wrt([B], '+').
 proof(A, '&', B, '+'):- wrt([A], '+'), wrt([B], '+').
-proof(atm(not,atm(not,A), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '+'):- wrt([not,not,A], '+'), wrt([not,not,B], '+'), wrt([not,not,C], '+')wrt([A], '+'), wrt([B], '+'), wrt([C], '+').
+proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '+'):- wrt([not,not,A], '+'), wrt([not,not,B], '+'), wrt([not,not,C], '+')wrt([A], '+'), wrt([B], '+'), wrt([C], '+').
 proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C, '+'):- wrt([not,not,A], '+'), wrt([not,not,B], '+'), wrt([C], '+'), wrt([A], '+'), wrt([B], '+').
 proof(atm(not,atm(not,A)), '&', B, '&', atm(not,atm(not,C)), '+'):- wrt([not,not,A], '+'), wrt([B], '+'), wrt([not,not,C], '+'), wrt([A], '+'), wrt([C], '+').
 proof(A, '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '+'):- wrt([A], '+'), wrt([not,not,B], '+'), wrt([C], '+'), wrt([B], '+').
