@@ -111,9 +111,9 @@ prsolve([[H]|T]):- prove(H, '+'), prsolve(T).
 
 
 %%proof(A&B+) proof(A&B&C+)
-proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '+'):- wrt([not,not,A], '+'), wrt([not,not,B], '+'), wrt([A], '+'), wrt([B], '+').
-proof(atm(not,atm(not,A)), '&', B, '+'):- A\=atm(not,atm(not,_)), wrt([not,not,B], '+'), wrt([B], '+'), wrt([A], '+').
-proof(A, '&', atm(not,atm(not,B)), '+'):- B\=atm(not,atm(not,_)), wrt([A], '+'), wrt([not,not,B], '+'), wrt([B], '+').
+proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '+'):- wrt([atm(not,atm(not,A))], '+'), wrt([not,not,B], '+'), wrt([A], '+'), wrt([B], '+').
+proof(atm(not,atm(not,A)), '&', B, '+'):- B\=atm(not,atm(not,_)), wrt([not,not,A], '+'), wrt([B], '+'), wrt([A], '+').
+proof(A, '&', atm(not,atm(not,B)), '+'):- A\=atm(not,atm(not,_)), wrt([A], '+'), wrt([not,not,B], '+'), wrt([B], '+').
 proof(A, '&', B, '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A], '+'), wrt([B], '+').
 proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '+'):- wrt([not,not,A], '+'), wrt([not,not,B], '+'), wrt([not,not,C], '+'), wrt([A], '+'), wrt([B], '+'), wrt([C], '+').
 proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C, '+'):- C\=atm(not,atm(not,_)), wrt([not,not,A], '+'), wrt([not,not,B], '+'), wrt([C], '+'), wrt([A], '+'), wrt([B], '+').
