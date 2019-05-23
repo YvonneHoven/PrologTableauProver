@@ -111,7 +111,7 @@ check([], FP):- FP\=[], write("//"), finprove(FP, '-'), retractall(toprove(_,_))
 check([], []).% prepareAnswer.
 
 check([]).
-check([[H]|T]):- H\=[[]], writeln("premises solving:"), prsolve([[H]|T]), nl.
+check([[H]|T]):- H\=[[]], writeln("premises solving:"), prsolve([[H]|T]), nl retractall(assprove(_,_)).
 prsolve([]).
 prsolve([[H]|T]):- prove(H, '+'), prsolve(T).
 
