@@ -105,7 +105,7 @@ prove(A, '|', C):- C=[_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+')
 prove(A, '|', C):- C=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+'), AS), check(AS).
 
 check([]).
-check([[H]|T]):- H\=[[]], writeln("premises solving:"), prsolve([[H]|T]), nl.
+check([[H]|T]):- H\=[[]], writeln("premises solving:"), prsolve([[H]|T]), nl, retractall(assprove(_,_)).
 prsolve([]).
 prsolve([[H]|T]):- prove(H, '+'), prsolve(T).
 
