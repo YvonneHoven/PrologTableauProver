@@ -152,8 +152,8 @@ proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), '+'):- wrt([atm(not,atm(not
 proof(atm(not,atm(not,A)), 'V', B, '+'):- B\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), 'V', B], '+'), assert(toprove([atm(not,atm(not,A)), 'V', B], '+')).
 proof(A, 'V', atm(not,atm(not,B)), '+'):- A\=atm(not,atm(not,_)), wrt([A, 'V', atm(not,atm(not,B))], '+'), assert(toprove([A, 'V', atm(not,atm(not,B))], '+')).
 proof(A, 'V', B, '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A, 'V', B], '+'), assert(toprove([A, 'V', B], '+')).
-finprove([atm(notatm(not,A)), 'V', atm(not,atm(not,B))], '+'):- prf(atm(not,atm(not,A)), '+'), write("   OR   "), prf(atm(not,atm(not,B)), '+'), nl.
-finprove([atm(notatm(not,A)), 'V', B], '+'):- B\=atm(not,atm(not,_)), prf(atm(not,atm(not,A)), '+'), write("   OR   "), prf(B, '+'), nl.
+finprove([atm(not,atm(not,A)), 'V', atm(not,atm(not,B))], '+'):- prf(atm(not,atm(not,A)), '+'), write("   OR   "), prf(atm(not,atm(not,B)), '+'), nl.
+finprove([atm(not,atm(not,A)), 'V', B], '+'):- B\=atm(not,atm(not,_)), prf(atm(not,atm(not,A)), '+'), write("   OR   "), prf(B, '+'), nl.
 finprove([A, 'V', atm(not,atm(not,B))], '+'):- A\=atm(not,atm(not,_)), prf(A, '+'), write("   OR   "), prf(atm(not,atm(not,B)), '+'), nl.
 finprove([A, 'V', B], '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), prf(A, '+'), write("   OR   "), prf(B, '+'), nl.
 
