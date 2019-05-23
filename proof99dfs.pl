@@ -234,7 +234,7 @@ prove([H,'&',not, not, H3|T], '+'):- H\=not, H3\=not, H3\=atm(not,_), H3\=atm(no
 prove([H,'&',not, H3|T], '+'):- H\=not, H3\=not, H3\=atm(not,_), H3\=atm(not,_), wrt([H, '&', atm(not,H3)], '+'), proof(H, '&', atm(not,H3), '+'), prove(T, '+').
 prove([H,'&',H3|T], '+'):- H\=not, H3\=not, H3\=atm(not,_), H3\=atm(not,_), wrt([H, '&', H3], '+'), proof(H, '&', H3, '+'), prove(T, '+').
 %%prove(A&B+)
-prove([atm(not,atm(not,atm(not,H))),'&',atm(not,atm(not,atm(not,H3)|T], '+'):- H\=not, H3\=not, H3\=atm(not,_), H3\=atm(not,_), wrt([atm(not,atm(not,atm(not,H))), '&', atm(not,atm(not,atm(not,H3)))|T], '+'), proof(atm(not,atm(not,atm(not,H))), '&', atm(not,atm(not,atm(not,H3))), '+'), prove(T, '+').
+prove([atm(not,atm(not,atm(not,H))),'&',atm(not,atm(not,atm(not,H3)))|T], '+'):- H\=not, H3\=not, H3\=atm(not,_), H3\=atm(not,_), wrt([atm(not,atm(not,atm(not,H))), '&', atm(not,atm(not,atm(not,H3)))|T], '+'), proof(atm(not,atm(not,atm(not,H))), '&', atm(not,atm(not,atm(not,H3))), '+'), prove(T, '+').
 prove([atm(not,atm(not,atm(not,H))),'&',atm(not,atm(not,H3))|T], '+'):- H\=not, H3\=not, H3\=atm(not,_), H3\=atm(not,_), wrt([atm(not,atm(not,atm(not,H))), '&', atm(not,atm(not,H3))|T], '+'), proof(atm(not,atm(not,atm(not,H))), '&', atm(not,atm(not,H3)), '+'), prove(T, '+').
 prove([atm(not,atm(not,atm(not,H))),'&',atm(not,H3)|T], '+'):- H\=not, H3\=not, H3\=atm(not,_), H3\=atm(not,_), wrt([atm(not,atm(not,atm(not,H))), '&', atm(not,H3)], '+'), proof(atm(not,atm(not,atm(not,H))), '&', atm(not,H3), '+'), prove(T, '+').
 prove([atm(not,atm(not,atm(not,H))),'&',H3|T], '+'):- H\=not, H3\=not, H3\=atm(not,_), H3\=atm(not,_), wrt([atm(not,atm(not,atm(not,H))), '&', H3], '+'), proof(atm(not,atm(not,atm(not,H))), '&', H3, '+'), prove(T, '+').
