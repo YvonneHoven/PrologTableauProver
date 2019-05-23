@@ -420,9 +420,9 @@ prove([not,not,not, H|T], S):- H\='{', H\=not, T\=['&'|_], T\=['V'|_], wrt([not,
 prove([not,not, H|T], S):- H\='{', H\=not, T\=['&'|_], T\=['V'|_], wrt([not,not,H], S), wrt([H],S), prove(T, S).
 prove([not, H|T], S):- H\='{', H\=not, T\=['&'|_], T\=['V'|_], wrt([not,H], S), prove(T, S). 
 
-prf(atm(not,atm(not,atm(not,A))), S):- write("notnotnot"), write(A), write(","), write(S). 
-prf(atm(not,atm(not,A)), S):- write("notnot"), write(A), write(","), write(S). 
-prf(atm(not,A), S):- write("not"), write(A), write(","), write(S). 
+prf(atm(not,atm(not,atm(not,A))), S):- A\=atm(not,_), write("notnotnot"), write(A), write(","), write(S). 
+prf(atm(not,atm(not,A)), S):- A\=atm(not,_), write("notnot"), write(A), write(","), write(S). 
+prf(atm(not,A), S):- A\=atm(not,_), write("not"), write(A), write(","), write(S).  
 prf([],S):- write(","), writeln(S).
 prf([atm(not,atm(not,atm(not,A)))|T], S):- write("notnotnot"), write(A), prf(T, S).
 prf([atm(not,atm(not,A))|T], S):- write("notnot"), write(A), prf(T, S).
