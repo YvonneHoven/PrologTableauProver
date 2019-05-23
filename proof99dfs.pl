@@ -112,65 +112,65 @@ prsolve([[H]|T]):- prove(H, '+'), prsolve(T).
 
 %%proof(A&B+) proof(A&B&C+)
 proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '+'):- wrt([not,not,A], '+'), wrt([not,not,B], '+'), wrt([A], '+'), wrt([B], '+').
-proof(atm(not,atm(not,A)), '&', B, '+'):- A\=atm(not,_), wrt([not,not,B], '+'), wrt([B], '+'), wrt([A], '+').
-proof(A, '&', atm(not,atm(not,B)), '+'):- B\=atm(not,_), wrt([A], '+'), wrt([not,not,B], '+'), wrt([B], '+').
-proof(A, '&', B, '+'):- A\=atm(not,_), B\=atm(not,_), wrt([A], '+'), wrt([B], '+').
+proof(atm(not,atm(not,A)), '&', B, '+'):- A\=atm(not,atm(not,_)), wrt([not,not,B], '+'), wrt([B], '+'), wrt([A], '+').
+proof(A, '&', atm(not,atm(not,B)), '+'):- B\=atm(not,atm(not,_)), wrt([A], '+'), wrt([not,not,B], '+'), wrt([B], '+').
+proof(A, '&', B, '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A], '+'), wrt([B], '+').
 proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '+'):- wrt([not,not,A], '+'), wrt([not,not,B], '+'), wrt([not,not,C], '+'), wrt([A], '+'), wrt([B], '+'), wrt([C], '+').
-proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C, '+'):- C\=atm(not,_), wrt([not,not,A], '+'), wrt([not,not,B], '+'), wrt([C], '+'), wrt([A], '+'), wrt([B], '+').
-proof(atm(not,atm(not,A)), '&', B, '&', atm(not,atm(not,C)), '+'):- B\=atm(not,_), wrt([not,not,A], '+'), wrt([B], '+'), wrt([not,not,C], '+'), wrt([A], '+'), wrt([C], '+').
-proof(A, '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '+'):- A\=atm(not,_), wrt([A], '+'), wrt([not,not,B], '+'), wrt([C], '+'), wrt([B], '+').
-proof(atm(not,atm(not,A)), '&', B, '&', C, '+'):- B\=atm(not,_), C\=atm(not,_), wrt([not,not,A], '+'), wrt([B], '+'), wrt([C], '+'), wrt([A], '+').
-proof(A, '&', atm(not,atm(not,B)), '&', C, '+'):- A\=atm(not,_), C\=atm(not,_), wrt([A], '+'), wrt([not,not,B], '+'), wrt([C], '+'), wrt([B], '+').
-proof(A, '&', B, '&', atm(not,atm(not,C)), '+'):- A\=atm(not,_), B\=atm(not,_), wrt([A], '+'), wrt([B], '+'), wrt([not,not,C], '+'), wrt([C], '+').
-proof(A, '&', B, '&', C, '+'):- A\=atm(not,_), B\=atm(not,_), C\=atm(not,_), wrt([A], '+'), wrt([C], '+'), wrt([B], '+').
+proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C, '+'):- C\=atm(not,atm(not,_)), wrt([not,not,A], '+'), wrt([not,not,B], '+'), wrt([C], '+'), wrt([A], '+'), wrt([B], '+').
+proof(atm(not,atm(not,A)), '&', B, '&', atm(not,atm(not,C)), '+'):- B\=atm(not,atm(not,_)), wrt([not,not,A], '+'), wrt([B], '+'), wrt([not,not,C], '+'), wrt([A], '+'), wrt([C], '+').
+proof(A, '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '+'):- A\=atm(not,atm(not,_)), wrt([A], '+'), wrt([not,not,B], '+'), wrt([C], '+'), wrt([B], '+').
+proof(atm(not,atm(not,A)), '&', B, '&', C, '+'):- B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([not,not,A], '+'), wrt([B], '+'), wrt([C], '+'), wrt([A], '+').
+proof(A, '&', atm(not,atm(not,B)), '&', C, '+'):- A\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([A], '+'), wrt([not,not,B], '+'), wrt([C], '+'), wrt([B], '+').
+proof(A, '&', B, '&', atm(not,atm(not,C)), '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A], '+'), wrt([B], '+'), wrt([not,not,C], '+'), wrt([C], '+').
+proof(A, '&', B, '&', C, '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([A], '+'), wrt([C], '+'), wrt([B], '+').
 
 %%proof(AVB-) proof(AVBVC-)
 proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), '-'):- wrt([not,not,A], '-'), wrt([B], '-'), wrt([A], '-').
-proof(atm(not,atm(not,A)), 'V', B, '-'):- A\=atm(not,_), wrt([not,not,A], '-'), wrt([B], '-'), wrt([A], '-').
-proof(A, 'V', atm(not,atm(not,B)), '-'):- B\=atm(not,_), wrt([A], '-'), wrt([not,not,B], '-'), wrt([B], '-').
-proof(A, 'V', B, '-'):- A\=atm(not,_), B\=atm(not,_), wrt([A], '-'), wrt([B], '-').
+proof(atm(not,atm(not,A)), 'V', B, '-'):- A\=atm(not,atm(not,_)), wrt([not,not,A], '-'), wrt([B], '-'), wrt([A], '-').
+proof(A, 'V', atm(not,atm(not,B)), '-'):- B\=atm(not,atm(not,_)), wrt([A], '-'), wrt([not,not,B], '-'), wrt([B], '-').
+proof(A, 'V', B, '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A], '-'), wrt([B], '-').
 proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C)), '-'):- wrt([not,not,A], '-'), wrt([not,not,B], '-'), wrt([not,not,C], '-'), wrt([A], '-'), wrt([B], '-'), wrt([C], '-').
-proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', C, '-'):- C\=atm(not,_), wrt([not,not,A], '-'), wrt([not,not,B], '-'), wrt([C], '-'), wrt([A], '-'), wrt([B], '-').
-proof(atm(not,atm(not,A)), 'V', B, 'V', atm(not,atm(not,C)), '-'):- B\=atm(not,_), wrt([not,not,A], '-'), wrt([B], '-'), wrt([not,not,C], '-'), wrt([A], '-'), wrt([C], '-').
-proof(A, 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C)), '-'):- A\=atm(not,_), wrt([A], '-'), wrt([not,not,B], '-'), wrt([not,not,C], '-'), wrt([B], '-'), wrt([C], '-').
-proof(atm(not,atm(not,A)), 'V', B, 'V', C, '-'):- B\=atm(not,_), C\=atm(not,_), wrt([not,not,A], '-'), wrt([B], '-'), wrt([C], '-'), wrt([A], '-').
-proof(A, 'V', atm(not,atm(not,B)), 'V', C, '-'):- A\=atm(not,_), C\=atm(not,_), wrt([A], '-'), wrt([not,not,B], '-'), wrt([C], '-'), wrt([B], '-').
-proof(A, 'V', B, 'V', atm(not,atm(not,C)), '-'):- A\=atm(not,_), B\=atm(not,_), wrt([A], '-'), wrt([B], '-'), wrt([not,not,C], '-'), wrt([C], '-').
-proof(A, 'V', B, 'V', C, '-'):- A\=atm(not,_), B\=atm(not,_), C\=atm(not,_), wrt([A], '-'), wrt([B], '-'), wrt([C], '-').
+proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', C, '-'):- C\=atm(not,atm(not,_)), wrt([not,not,A], '-'), wrt([not,not,B], '-'), wrt([C], '-'), wrt([A], '-'), wrt([B], '-').
+proof(atm(not,atm(not,A)), 'V', B, 'V', atm(not,atm(not,C)), '-'):- B\=atm(not,atm(not,_)), wrt([not,not,A], '-'), wrt([B], '-'), wrt([not,not,C], '-'), wrt([A], '-'), wrt([C], '-').
+proof(A, 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C)), '-'):- A\=atm(not,atm(not,_)), wrt([A], '-'), wrt([not,not,B], '-'), wrt([not,not,C], '-'), wrt([B], '-'), wrt([C], '-').
+proof(atm(not,atm(not,A)), 'V', B, 'V', C, '-'):- B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([not,not,A], '-'), wrt([B], '-'), wrt([C], '-'), wrt([A], '-').
+proof(A, 'V', atm(not,atm(not,B)), 'V', C, '-'):- A\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([A], '-'), wrt([not,not,B], '-'), wrt([C], '-'), wrt([B], '-').
+proof(A, 'V', B, 'V', atm(not,atm(not,C)), '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A], '-'), wrt([B], '-'), wrt([not,not,C], '-'), wrt([C], '-').
+proof(A, 'V', B, 'V', C, '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([A], '-'), wrt([B], '-'), wrt([C], '-').
 
 
 %%%%%%%%%%%%%%%verschilmetBFS%%%%%%%%%%%%%%%%%%%%%%%%
 %%proof(AVB+) 
 proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), '+'):- ( assert(prf(A, '+')), wrt([not,not,A], '+'), wrt([A], '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt([not,not,B], '+'), wrt([B], '+') ).
-proof(atm(not,atm(not,A)), 'V', B, '+'):- B\=atm(not,_), ( assert(prf(A, '+')), wrt([not,not,A], '+'), wrt([A], '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt([B], '+') ).
-proof(A, 'V', atm(not,atm(not,B)), '+'):- A\=atm(not,_), ( assert(prf(A, '+')), wrt([A], '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt([not,not,B], '+'), wrt([B], '+') ).
-proof(A, 'V', B, '+'):- A\=atm(not,_), B\=atm(not,_), ( assert(prf(A, '+')), wrt([A], '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt([B], '+') ).
+proof(atm(not,atm(not,A)), 'V', B, '+'):- B\=atm(not,atm(not,_)), ( assert(prf(A, '+')), wrt([not,not,A], '+'), wrt([A], '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt([B], '+') ).
+proof(A, 'V', atm(not,atm(not,B)), '+'):- A\=atm(not,atm(not,_)), ( assert(prf(A, '+')), wrt([A], '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt([not,not,B], '+'), wrt([B], '+') ).
+proof(A, 'V', B, '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), ( assert(prf(A, '+')), wrt([A], '+') ); ( retract(prf(A, '+')), writeln("\\"), wrt([B], '+') ).
 
 %%proof(AVBVC+)
 proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C)), '+'):- ( assert(prf(A, '+')), wrt([not,not,A], '+'), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([not,not,B], '+'), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '+') ).
-proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', C, '+'):- C\=atm(not,_), ( assert(prf(A, '+')), wrt([not,not,A], '+'), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([not,not,B], '+'), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([C], '+') ).
-proof(atm(not,atm(not,A)), 'V', B, 'V', atm(not,atm(not,C)), '+'):- B\=atm(not,_), ( assert(prf(A, '+')), wrt([not,not,A], '+'), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '+') ).
-proof(A, 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C)), '+'):- A\=atm(not,_), ( assert(prf(A, '+')), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([not,not,B], '+'), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '+') ).
-proof(atm(not,atm(not,A)), 'V', B, 'V', C, '+'):- B\=atm(not,_), C\=atm(not,_), ( assert(prf(A, '+')), wrt([not,not,A], '+'), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([C], '+') ).
-proof(A, 'V', atm(not,atm(not,B)), 'V', C, '+'):- A\=atm(not,_), C\=atm(not,_), ( assert(prf(A, '+')), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([not,not,B], '+'), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([C], '+') ).
-proof(A, 'V', B, 'V', atm(not,atm(not,C)), '+'):- A\=atm(not,_), B\=atm(not,_), ( assert(prf(A, '+')), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '+') ).
-proof(A, 'V', B, 'V', C, '+'):- A\=atm(not,_), B\=atm(not,_), C\=atm(not,_), ( assert(prf(A, '+')), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([C], '+') ).
+proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', C, '+'):- C\=atm(not,atm(not,_)), ( assert(prf(A, '+')), wrt([not,not,A], '+'), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([not,not,B], '+'), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([C], '+') ).
+proof(atm(not,atm(not,A)), 'V', B, 'V', atm(not,atm(not,C)), '+'):- B\=atm(not,atm(not,_)), ( assert(prf(A, '+')), wrt([not,not,A], '+'), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '+') ).
+proof(A, 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C)), '+'):- A\=atm(not,atm(not,_)), ( assert(prf(A, '+')), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([not,not,B], '+'), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '+') ).
+proof(atm(not,atm(not,A)), 'V', B, 'V', C, '+'):- B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), ( assert(prf(A, '+')), wrt([not,not,A], '+'), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([C], '+') ).
+proof(A, 'V', atm(not,atm(not,B)), 'V', C, '+'):- A\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), ( assert(prf(A, '+')), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([not,not,B], '+'), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([C], '+') ).
+proof(A, 'V', B, 'V', atm(not,atm(not,C)), '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), ( assert(prf(A, '+')), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '+') ).
+proof(A, 'V', B, 'V', C, '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), ( assert(prf(A, '+')), wrt([A], '+') ) ; ( retract(prf(A, '+')), writeln("\\"), assert(prf(B, '+')), wrt([B], '+') ) ; ( retract(prf(A, '+')), retract(prf(B, '+')), writeln("\\"), wrt([C], '+') ).
 
 %%proof(A&B-)
 proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '-'):- ( assert(prf(A, '-')), wrt([not,not,A], '+'), wrt([A], '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt([not,not,B], '+'), wrt([B], '-') ).
-proof(atm(not,atm(not,A)), '&', B, '-'):- B\=atm(not,_), ( assert(prf(A, '-')), wrt([not,not,A], '+'), wrt([A], '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt([B], '-') ).
-proof(A, '&', atm(not,atm(not,B)), '-'):- A\=atm(not,_), ( assert(prf(A, '-')), wrt([A], '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt([not,not,B], '+'), wrt([B], '-') ).
-proof(A, '&', B, '-'):- A\=atm(not,_), B\=atm(not,_), ( assert(prf(A, '-')), wrt([A], '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt([B], '-') ).
+proof(atm(not,atm(not,A)), '&', B, '-'):- B\=atm(not,atm(not,_)), ( assert(prf(A, '-')), wrt([not,not,A], '+'), wrt([A], '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt([B], '-') ).
+proof(A, '&', atm(not,atm(not,B)), '-'):- A\=atm(not,atm(not,_)), ( assert(prf(A, '-')), wrt([A], '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt([not,not,B], '+'), wrt([B], '-') ).
+proof(A, '&', B, '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), ( assert(prf(A, '-')), wrt([A], '-') ); ( retract(prf(A, '-')), writeln("\\"), wrt([B], '-') ).
 
 %%proof(A&B&C-)
 proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '-'):- ( assert(prf(A, '-')), wrt([not,not,A], '+'), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([not,not,B], '+'), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '-') ).
-proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C, '-'):- C\=atm(not,_), ( assert(prf(A, '-')), wrt([not,not,A], '+'), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([not,not,B], '+'), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([C], '-') ).
-proof(atm(not,atm(not,A)), '&', B, '&', atm(not,atm(not,C)), '-'):- B\=atm(not,_), ( assert(prf(A, '-')), wrt([not,not,A], '+'), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), wrt([not,not,C], '+'), writeln("\\"), wrt([C], '-') ).
-proof(A, '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '-'):- A\=atm(not,_), ( assert(prf(A, '-')), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([not,not,B], '+'), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '-') ).
-proof(atm(not,atm(not,A)), '&', B, '&', C, '-'):- B\=atm(not,_), C\=atm(not,_), ( assert(prf(A, '-')), wrt([not,not,A], '+'), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([C], '-') ).
-proof(A, '&', atm(not,atm(not,B)), '&', C, '-'):- A\=atm(not,_), C\=atm(not,_), ( assert(prf(A, '-')), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([not,not,B], '+'), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([C], '-') ).
-proof(A, '&', B, '&', atm(not,atm(not,C)), '-'):- A\=atm(not,_), B\=atm(not,_), ( assert(prf(A, '-')), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '-') ).
-proof(A, '&', B, '&', C, '-'):- A\=atm(not,_), B\=atm(not,_), C\=atm(not,_), ( assert(prf(A, '-')), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([C], '-') ).
+proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C, '-'):- C\=atm(not,atm(not,_)), ( assert(prf(A, '-')), wrt([not,not,A], '+'), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([not,not,B], '+'), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([C], '-') ).
+proof(atm(not,atm(not,A)), '&', B, '&', atm(not,atm(not,C)), '-'):- B\=atm(not,atm(not,_)), ( assert(prf(A, '-')), wrt([not,not,A], '+'), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), wrt([not,not,C], '+'), writeln("\\"), wrt([C], '-') ).
+proof(A, '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '-'):- A\=atm(not,atm(not,_)), ( assert(prf(A, '-')), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([not,not,B], '+'), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '-') ).
+proof(atm(not,atm(not,A)), '&', B, '&', C, '-'):- B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), ( assert(prf(A, '-')), wrt([not,not,A], '+'), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([C], '-') ).
+proof(A, '&', atm(not,atm(not,B)), '&', C, '-'):- A\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), ( assert(prf(A, '-')), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([not,not,B], '+'), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([C], '-') ).
+proof(A, '&', B, '&', atm(not,atm(not,C)), '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), ( assert(prf(A, '-')), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([not,not,C], '+'), wrt([C], '-') ).
+proof(A, '&', B, '&', C, '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), ( assert(prf(A, '-')), wrt([A], '-') ) ; ( retract(prf(A, '-')), writeln("\\"), assert(prf(B, '-')), wrt([B], '-') ) ; ( retract(prf(A, '-')), retract(prf(B, '-')), writeln("\\"), wrt([C], '-') ).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
