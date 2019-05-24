@@ -20,6 +20,7 @@ prove([not,{notH V notnot H2}]
 prove([not,{notnotH V not H2}]
 en de assert not{aVB}   assert not{a&B} varianten
 bij alle prove H H3 ook nog dat T\=[&] T\=[V]
+en fail24-5.png
 
 
 
