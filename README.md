@@ -12,6 +12,14 @@ https://web.usabilityscale.com/form?ex=-LeC_PUfa3pPKHmqqW_f&pr=-LeCZFV5fV0Ckr9n-
 
 
 
+BUGS:
+verschil aan nl aant einde bij de &regelonderelkaar
+indenten van de andere oplossingen en evt / \
+prove([not,{notnotH V notnot H2}] variaties toevoegen
+prove([not,{notH V notnot H2}]
+prove([not,{notnotH V not H2}]
+en de assert not{aVB}   assert not{a&B} varianten
+bij alle prove H H3 ook nog dat T\=[&] T\=[V]
 
 
 
