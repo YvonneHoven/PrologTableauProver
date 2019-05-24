@@ -183,7 +183,7 @@ proof(A, '&', B, '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A, 
 finprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B))], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), prf(atm(not,atm(not,A)), '-'), write("   OR   "), prf(atm(not,atm(not,B)), '-'), nl.
 finprove([atm(not,atm(not,A)), '&', B], '-'):- B\=atm(not,atm(not,_)), prf(atm(not,atm(not,A)), '-'), write("   OR   "), prf(B, '-'), nl.
 finprove([A, '&', atm(not,atm(not,B))], '-'):- A\=atm(not,atm(not,_)), prf(A, '-'), write("   OR   "), prf(atm(not,atm(not,B)), '-'), nl.
-finprove([A, '&', B], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), prf(A, '-'), write("   OR   "), prf(B, '-'), nl.
+finprove([A, '&', B], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), prf(A, '-'), write("   OR   "), prf(B, '-'), nl.
 
 %%proof(A&B&C-)
 proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-'), assert(toprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-')).
