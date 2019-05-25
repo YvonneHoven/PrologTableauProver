@@ -90,7 +90,7 @@ ass([not,not, '{', not,not,H, AO, H2, '}'|T], S):- wrt([not,not, '{', atm(not,at
 ass([not,not, '{', not,H, AO, not,not,H2, '}'|T], S):- wrt([not,not, '{', atm(not,H), AO, atm(not,atm(not,H2)), '}'], S), ass([atm(not,H), AO, atm(not,atm(not,H2))|T], S).
 ass([not,not, '{', not,H, AO, not,H2, '}'|T], S):- wrt([not,not, '{', atm(not,H), AO, atm(not,H2), '}'], S), ass([atm(not,H), AO, atm(not,H2)|T], S).
 ass([not,not, '{', not,H, AO, H2, '}'|T], S):- wrt([not,not, '{', atm(not,H), AO, H2, '}'], S), ass([atm(not,H), AO, H2|T], S).
-ass([not,not, '{', H, AO, not,not,H2, '}'|T], S):- wrt([not,not, '{', H, AO, atm(not,atm(not,H2), '}'], S), ass([H, AO, atm(not,atm(not,H2)|T], S).
+ass([not,not, '{', H, AO, not,not,H2, '}'|T], S):- wrt([not,not, '{', H, AO, atm(not,atm(not,H2)), '}'], S), ass([H, AO, atm(not,atm(not,H2))|T], S).
 ass([not,not, '{', H, AO, not,H2, '}'|T], S):- wrt([not,not, '{', H, AO, atm(not,H2), '}'], S), ass([H, AO, atm(not,H2)|T], S).
 %%assert notnot{}
 ass([not, '{', not,not,H, AO, not,not,H2, '}'|T], S):- ass([not, '{', atm(not,atm(not,H)), AO, atm(not,atm(not,H2)), '}'|T], S).
@@ -396,7 +396,7 @@ prove([not,not, '{', not,not,H, AO, H2, '}'|T], S):- prove([not,not, '{', atm(no
 prove([not,not, '{', not,H, AO, not,not,H2, '}'|T], S):- prove([not,not, '{', atm(not,H), AO, atm(not,atm(not,H2)), '}'|T], S).
 prove([not,not, '{', not,H, AO, not,H2, '}'|T], S):- prove([not,not, '{', atm(not,H), AO, atm(not,H2), '}'|T], S).
 prove([not,not, '{', not,H, AO, H2, '}'|T], S):- prove([not,not, '{', atm(not,H), AO, H2, '}'|T], S).
-prove([not,not, '{', H, AO, not,not,H2, '}'|T], S):- prove([not,not, '{', H, AO, atm(not,atm(not,H2), '}'|T], S).
+prove([not,not, '{', H, AO, not,not,H2, '}'|T], S):- prove([not,not, '{', H, AO, atm(not,atm(not,H2)), '}'|T], S).
 prove([not,not, '{', H, AO, not,H2, '}'|T], S):- prove([not,not, '{', H, AO, atm(not,H2), '}'|T], S).
 
 prove([not, '{', not,not,H, AO, not,not,H2, '}'|T], S):- prove([not, '{', atm(not,atm(not,H)), AO, atm(not,atm(not,H2)), '}'|T], S).
