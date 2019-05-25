@@ -83,6 +83,30 @@ ass([A, 'V', not,not, C|T]):- A\=not, C\=not, wrt([A,'V',atm(not,atm(not,C))], '
 ass([A, 'V', not, C|T]):- A\=not, C\=not, wrt([A,'V',atm(not,C)], '+'), ass(T), assert(assprove([A, 'V', atm(not,C)], '+')).
 ass([A, 'V', C|T]):- A\=not, C\=not, wrt([A,'V',C], '+'), ass(T), assert(assprove([A, 'V', C], '+')).
 
+%%assertnot{}
+ass([not,not, '{', not,not,H, AO, not,not,H2, '}'|T], S):- wrt([not,not, '{', atm(not,atm(not,H)), AO, atm(not,atm(not,H2)), '}'], S), ass([atm(not,atm(not,H)), AO, atm(not,atm(not,H2))|T], S).
+ass([not,not, '{', not,not,H, AO, not,H2, '}'|T], S):- wrt([not,not, '{', atm(not,atm(not,H)), AO, atm(not,H2), '}'], S), ass([atm(not,atm(not,H)), AO, atm(not,H2)|T], S).
+ass([not,not, '{', not,not,H, AO, H2, '}'|T], S):- wrt([not,not, '{', atm(not,atm(not,H)), AO, H2, '}'], S), ass([atm(not,atm(not,H)), AO, H2|T], S).
+ass([not,not, '{', not,H, AO, not,not,H2, '}'|T], S):- wrt([not,not, '{', atm(not,H), AO, atm(not,atm(not,H2)), '}'], S), ass([atm(not,H), AO, atm(not,atm(not,H2))|T], S).
+ass([not,not, '{', not,H, AO, not,H2, '}'|T], S):- wrt([not,not, '{', atm(not,H), AO, atm(not,H2), '}'], S), ass([atm(not,H), AO, atm(not,H2)|T], S).
+ass([not,not, '{', not,H, AO, H2, '}'|T], S):- wrt([not,not, '{', atm(not,H), AO, H2, '}'], S), ass([atm(not,H), AO, H2|T], S).
+ass([not,not, '{', H, AO, not,not,H2, '}'|T], S):- wrt([not,not, '{', H, AO, atm(not,atm(not,H2), '}'], S), ass([H, AO, atm(not,atm(not,H2)|T], S).
+ass([not,not, '{', H, AO, not,H2, '}'|T], S):- wrt([not,not, '{', H, AO, atm(not,H2), '}'], S), ass([H, AO, atm(not,H2)|T], S).
+%%assert notnot{}
+ass([not, '{', not,not,H, AO, not,not,H2, '}'|T], S):- ass([not, '{', atm(not,atm(not,H)), AO, atm(not,atm(not,H2)), '}'|T], S).
+ass([not, '{', not,not,H, AO, not,H2, '}'|T], S):- ass([not, '{', atm(not,atm(not,H)), AO, atm(not,H2), '}'|T], S).
+ass([not, '{', not,not,H, AO, H2, '}'|T], S):- ass([not, '{', atm(not,atm(not,H)), AO, H2, '}'|T], S).
+ass([not, '{', not,H, AO, not,not,H2, '}'|T], S):- ass([not, '{', atm(not,H), AO, atm(not,atm(not,H2)), '}'|T], S).
+ass([not, '{', not,H, AO, not,H2, '}'|T], S):- ass([not, '{', atm(not,H), AO, atm(not,H2), '}'|T], S).
+ass([not, '{', not,H, AO, H2, '}'|T], S):- ass([not, '{', atm(not,H), AO, H2, '}'|T], S).
+ass([not, '{', H, AO, not,not,H2, '}'|T], S):- ass([not, '{', H, AO, atm(not,atm(not,H2)), '}'|T], S).
+ass([not, '{', H, AO, not,H2, '}'|T], S):- ass([not, '{', H, AO, atm(not,H2), '}'|T], S).
+%%assert not{}
+ass([not, '{', H, '&', H2, '}'|T], '+'):- wrt([not, '{', H, '&', H2, '}'], '+'), wrt([not,H,'V',not,H2], '+'), assert(assprove(atm(not, H), 'V', atm(not, H2), '+')), nl, prove(T, '+').
+ass([not, '{', H, 'V', H2, '}'|T], '+'):- wrt([not, '{', H, 'V', H2, '}'], '+'), wrt([atm(not,H),'&',atm(not,H2)], '+'), assert(assprove(atm(not, H), '&', atm(not, H2), '+')), nl, prove(T, '+').
+ass([not, '{', H, '&', H2, '}'|T], '-'):- wrt([not, '{', H, '&', H2, '}'], '-'), wrt([atm(not,H),'V',atm(not,H2)], '-'), assert(assprove(atm(not, H), 'V', atm(not, H2), '-')), nl, prove(T, '-').
+ass([not, '{', H, 'V', H2, '}'|T], '-'):- wrt([not, '{', H, 'V', H2, '}'], '-'), wrt([atm(not,H),'&',atm(not,H2)], '-'), assert(assprove(atm(not, H), '&', atm(not, H2), '-')), nl, prove(T, '-'
+
 
 
 printList([], _) :- nl.
@@ -365,6 +389,24 @@ prove(['{', H, 'V', H2, '}', '&', H3|T], '+'):- wrt(['{', H, 'V', H2, '}', '&', 
 prove(['{', H, '&', H2, '}', 'V', H3|T], '-'):- wrt(['{', H, '&', H2, '}', 'V', H3], '-'), assert(toprove(['{', H, '&', H2, '}', 'V', H3], '-')), prove(T, '-').
 prove(['{', H, 'V', H2, '}', '&', H3|T], '-'):- wrt(['{', H, 'V', H2, '}', '&', H3], '-'), assert(toprove(['{', H, 'V', H2, '}', '&', H3], '-')), prove(T, '-').
 
+
+prove([not,not, '{', not,not,H, AO, not,not,H2, '}'|T], S):- prove([not,not, '{', atm(not,atm(not,H)), AO, atm(not,atm(not,H2)), '}'|T], S).
+prove([not,not, '{', not,not,H, AO, not,H2, '}'|T], S):- prove([not,not, '{', atm(not,atm(not,H)), AO, atm(not,H2), '}'|T], S).
+prove([not,not, '{', not,not,H, AO, H2, '}'|T], S):- prove([not,not, '{', atm(not,atm(not,H)), AO, H2, '}'|T], S).
+prove([not,not, '{', not,H, AO, not,not,H2, '}'|T], S):- prove([not,not, '{', atm(not,H), AO, atm(not,atm(not,H2)), '}'|T], S).
+prove([not,not, '{', not,H, AO, not,H2, '}'|T], S):- prove([not,not, '{', atm(not,H), AO, atm(not,H2), '}'|T], S).
+prove([not,not, '{', not,H, AO, H2, '}'|T], S):- prove([not,not, '{', atm(not,H), AO, H2, '}'|T], S).
+prove([not,not, '{', H, AO, not,not,H2, '}'|T], S):- prove([not,not, '{', H, AO, atm(not,atm(not,H2), '}'|T], S).
+prove([not,not, '{', H, AO, not,H2, '}'|T], S):- prove([not,not, '{', H, AO, atm(not,H2), '}'|T], S).
+
+prove([not, '{', not,not,H, AO, not,not,H2, '}'|T], S):- prove([not, '{', atm(not,atm(not,H)), AO, atm(not,atm(not,H2)), '}'|T], S).
+prove([not, '{', not,not,H, AO, not,H2, '}'|T], S):- prove([not, '{', atm(not,atm(not,H)), AO, atm(not,H2), '}'|T], S).
+prove([not, '{', not,not,H, AO, H2, '}'|T], S):- prove([not, '{', atm(not,atm(not,H)), AO, H2, '}'|T], S).
+prove([not, '{', not,H, AO, not,not,H2, '}'|T], S):- prove([not, '{', atm(not,H), AO, atm(not,atm(not,H2)), '}'|T], S).
+prove([not, '{', not,H, AO, not,H2, '}'|T], S):- prove([not, '{', atm(not,H), AO, atm(not,H2), '}'|T], S).
+prove([not, '{', not,H, AO, H2, '}'|T], S):- prove([not, '{', atm(not,H), AO, H2, '}'|T], S).
+prove([not, '{', H, AO, not,not,H2, '}'|T], S):- prove([not, '{', H, AO, atm(not,atm(not,H2)), '}'|T], S).
+prove([not, '{', H, AO, not,H2, '}'|T], S):- prove([not, '{', H, AO, atm(not,H2), '}'|T], S).
 
 prove([not,not, '{', H, '&', H2, '}'|T], '+'):- wrt([not,not, '{', H, '&', H2, '}'], '+'), wrt([H,'&',H2],'+'), proof(H, '&', H2, '+'), nl, prove(T, '+').
 prove([not, '{', H, '&', H2, '}'|T], '+'):- wrt([not, '{', H, '&', H2, '}'], '+'), wrt([not,H,'V',not,H2], '+'), write("  /\\"), proof(atm(not, H), 'V', atm(not, H2), '+'), nl, prove(T, '+').
