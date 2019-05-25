@@ -102,9 +102,8 @@ ass([not, '{', not,H, AO, H2, '}'|T]):- ass([not, '{', atm(not,H), AO, H2, '}'|T
 ass([not, '{', H, AO, not,not,H2, '}'|T]):- ass([not, '{', H, AO, atm(not,atm(not,H2)), '}'|T]).
 ass([not, '{', H, AO, not,H2, '}'|T]):- ass([not, '{', H, AO, atm(not,H2), '}'|T]).
 %%assert not{}
-ass([not, '{', H, '&', H2, '}'|T]):- wrt([not, '{', H, '&', H2, '}'], '+'), wrt([atm(not,H),'V',atm(not,H2)], '+'), assert(assprove(atm(not, H), 'V', atm(not, H2))), nl, prove(T, '+').
-ass([not, '{', H, 'V', H2, '}'|T]):- wrt([not, '{', H, 'V', H2, '}'], '+'), wrt([atm(not,H),'&',atm(not,H2)], '+'), assert(assprove(atm(not, H), '&', atm(not, H2))), nl, prove(T, '+').
-
+ass([not, '{', H, '&', H2, '}'|T]):- wrt([not, '{', H, '&', H2, '}'], '+'), assert(assprove([not, '{', H, '&', H2, '}'], '+')), nl, prove(T, '+').
+ass([not, '{', H, 'V', H2, '}'|T]):- wrt([not, '{', H, 'V', H2, '}'], '+'), assert(assprove([not, '{', H, 'V', H2, '}'], '+')), nl, prove(T, '+').
 
 
 printList([], _) :- nl.
