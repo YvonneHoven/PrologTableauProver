@@ -13,21 +13,13 @@ https://web.usabilityscale.com/form?ex=-LeC_PUfa3pPKHmqqW_f&pr=-LeCZFV5fV0Ckr9n-
 
 
 BUGS:
-x   verschil aan nl aant einde bij de &regelonderelkaar
     indenten van de andere oplossingen en evt / \
-x   prove([not,{notnotH V notnot H2}] variaties toevoegen
-x   prove([not,{notH V notnot H2}]
-x   prove([not,{notnotH V not H2}]
-x   en de assert not{aVB}   assert not{a&B} varianten
-x   bij alle prove H H3 ook nog dat H3\='{'
 ??  bij alle prove H H3 ook nog dat T\=[&] T\=[V]
     en fail24-5.png
     refactoring
     prf(H) alsnotnot dan weghalen
     testen &&
     kijken nl
-
-
    als-prf-(notnot-iets-notnot)-dan-nog-niet-2e-lijn-indent-van-de-notnot-weggehaald------en-A\=atm(not...)
    prf-functie-nakijken-op-atm(not,atm(not-----en-nl
    na-topove_assert-ook-retract-en-opnieuw
@@ -41,17 +33,8 @@ x   bij alle prove H H3 ook nog dat H3\='{'
    Vnotnotnota,-   -> nota,-???
 
 
-donderdag:
 x  check alle asserts
-x  voeg assertnotnotnotA... toe
-x  denk om A\=not
-x  kijk voor bugs
    kijk voor redundancys
-x  kijk voor lastigste V& &V combis
-------------
-vrijdag:
-x  V& &V
-x  bugs
 -------
 zaterdag+zondag:
    []list counterex
