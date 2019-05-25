@@ -105,7 +105,7 @@ ass([not, '{', H, AO, not,H2, '}'|T], S):- ass([not, '{', H, AO, atm(not,H2), '}
 ass([not, '{', H, '&', H2, '}'|T], '+'):- wrt([not, '{', H, '&', H2, '}'], '+'), wrt([not,H,'V',not,H2], '+'), assert(assprove(atm(not, H), 'V', atm(not, H2), '+')), nl, prove(T, '+').
 ass([not, '{', H, 'V', H2, '}'|T], '+'):- wrt([not, '{', H, 'V', H2, '}'], '+'), wrt([atm(not,H),'&',atm(not,H2)], '+'), assert(assprove(atm(not, H), '&', atm(not, H2), '+')), nl, prove(T, '+').
 ass([not, '{', H, '&', H2, '}'|T], '-'):- wrt([not, '{', H, '&', H2, '}'], '-'), wrt([atm(not,H),'V',atm(not,H2)], '-'), assert(assprove(atm(not, H), 'V', atm(not, H2), '-')), nl, prove(T, '-').
-ass([not, '{', H, 'V', H2, '}'|T], '-'):- wrt([not, '{', H, 'V', H2, '}'], '-'), wrt([atm(not,H),'&',atm(not,H2)], '-'), assert(assprove(atm(not, H), '&', atm(not, H2), '-')), nl, prove(T, '-'
+ass([not, '{', H, 'V', H2, '}'|T], '-'):- wrt([not, '{', H, 'V', H2, '}'], '-'), wrt([atm(not,H),'&',atm(not,H2)], '-'), assert(assprove(atm(not, H), '&', atm(not, H2), '-')), nl, prove(T, '-').
 
 
 
