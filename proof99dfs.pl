@@ -80,8 +80,8 @@ printList([H|T], '+') :- write(H), write(',+'), write(' | '), printList(T, '+').
 printList([H|T], '-') :- write(H), write(',-'), write(' | '), printList(T, '-').
 
 prepareAnswer:- findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
-    	write('positive literals: '), nl, write("|"), printList(PL, '+'), 
-    	write('negative literals: '), nl, write("|"), printList(NL, '-').
+    	write('positive literals: '), nl, write("|"), printList(PL, '+'), retractall(prf(_,'+')),
+    	write('negative literals: '), nl, write("|"), printList(NL, '-'), retractall(prf(_,'-')).
 
 wrt([],S):- write(","), writeln(S).
 wrt([atm(not,atm(not,atm(not,A)))|T],S):- write("notnotnot"), write(A), wrt(T,S).
