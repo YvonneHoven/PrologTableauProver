@@ -1,4 +1,4 @@
-%%%%%%% making functions dynamic to be able to use assert & discontigguous to be able to put all functions not necessarily side by side
+%%%%%%% making functions dynamic to be able to use assert & discontiguous to be able to put all functions not necessarily side by side
 :- dynamic prf(_,_).
 :- dynamic assprove(_,_).
 :- dynamic toprove/2.
@@ -81,8 +81,8 @@ printList([H|T], '+') :- write(H), write(',+'), write(' | '), printList(T, '+').
 printList([H|T], '-') :- write(H), write(',-'), write(' | '), printList(T, '-').
 
 prepareAnswer:- findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
-    	write('positive literals: '), nl, write("|"), printList(PL, '+'), 
-    	write('negative literals: '), nl, write("|"), printList(NL, '-').
+    	write('positive literals: '), nl, write("|"), printList(PL, '+'), retractall(prf(_,'+')),
+    	write('negative literals: '), nl, write("|"), printList(NL, '-'), retractall(prf(_,'-')).
 
 wrt([],S):- write(","), writeln(S).
 wrt([atm(not,atm(not,atm(not,A)))|T],S):- write("notnotnot"), write(A), wrt(T,S).
