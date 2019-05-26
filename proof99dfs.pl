@@ -78,8 +78,8 @@ printList([atm(not,H)|T], S):- write("not "), write(H), write(", "), write(S),  
 printList([H|T], S) :- H\=atm(not,_), write(H), write(", "), write(S), write(' | '), printList(T, S).
 
 prepareAnswer:- findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
-    	write('positive literals: '), nl, write("|"), printList(PL, '+'), retractall(prf(_,'+')),
-    	write('negative literals: '), nl, write("|"), printList(NL, '-'), retractall(prf(_,'-')).
+    	write('positive literals: '), nl, write("|"), printList(PL, '+'),
+    	write('negative literals: '), nl, write("|"), printList(NL, '-').
 
 wrt([],S):- write(","), writeln(S).
 wrt([atm(not,atm(not,atm(not,A)))|T],S):- write("notnotnot"), write(A), wrt(T,S).
@@ -93,7 +93,7 @@ prove(A, '|', C):- C=[B], ass(A), wrt(C, '-'), assert(prf(B, '-')), nl, findall(
 prove(A, '|', C):- C=[not,B], ass(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), nl, findall([Z], assprove(Z, '+'), AS), check(AS), nl, prepareAnswer.
 
 check([]).
-check([[H]|T]):- H\=[[]], writeln("premises solving:"), prsolve([[H]|T]), nl, retractall(assprove(_,_)).
+check([[H]|T]):- H\=[[]], writeln("premises solving:"), prsolve([[H]|T]), nl.
 prsolve([]).
 prsolve([[H]|T]):- prove(H, '+'), prsolve(T).
 
