@@ -76,8 +76,8 @@ ass([not, '{', H, 'V', H2, '}'|T]):- wrt([not, '{', H, 'V', H2, '}'], '+'), asse
 
 
 printList([], _) :- nl.
-printList([H|T], '+') :- write(H), write(',+'), write(' | '), printList(T, '+').
-printList([H|T], '-') :- write(H), write(',-'), write(' | '), printList(T, '-').
+printList([atm(not,H)|T], S):- write("not "), write(H), write(" ,"), write(S),  write(' | '), printList(T, S).
+printList([H|T], '+') :- H\=atm(not,_), write(H), write(", "), write(S), write(' | '), printList(T, S).
 
 prepareAnswer:- findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
     	write('positive literals: '), nl, write("|"), printList(PL, '+'), retractall(prf(_,'+')),
