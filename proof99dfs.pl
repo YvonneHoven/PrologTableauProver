@@ -224,15 +224,15 @@ prove([H, '&', '{', H2, '&', H3, '}'|T], '-'):- ( write("  /\\"), assert(prf(H, 
 prove([not,not,not, H, S1, not,not,not, H3|T], S2):- prove([atm(not,atm(not,atm(not,H))), S1, atm(not,atm(not,atm(not,H3)))|T], S2).
 prove([not,not,not, H, S1, not,not, H3|T], S2):- prove([atm(not,atm(not,atm(not,H))), S1, atm(not,atm(not,H3))|T], S2).
 prove([not,not,not, H, S1, not, H3|T], S2):- prove([atm(not,atm(not,atm(not,H))), S1, atm(not,H3)|T], S2).
-prove([not,not,not, H, S1, H3|T], S2):- prove([atm(not,atm(not,atm(not,H))), S1, H3|T], S2).
+prove([not,not,not, H, S1, H3|T], S2):- H3\='{', prove([atm(not,atm(not,atm(not,H))), S1, H3|T], S2).
 prove([not,not, H, S1, not,not,not, H3|T], S2):- prove([atm(not,atm(not,H)), S1, atm(not,atm(not,atm(not,H3)))|T], S2).
 prove([not,not, H, S1, not,not, H3|T], S2):- prove([atm(not,atm(not,H)), S1, atm(not,atm(not,H3))|T], S2).
 prove([not,not, H, S1, not, H3|T], S2):- prove([atm(not,atm(not,H)), S1, atm(not,H3)|T], S2).
-prove([not,not, H, S1, H3|T], S2):- prove([atm(not,atm(not,H)), S1, H3|T], S2).
+prove([not,not, H, S1, H3|T], S2):- H3\='{', prove([atm(not,atm(not,H)), S1, H3|T], S2).
 prove([not, H, S1 ,not,not,not, H3|T], S2):- prove([atm(not,H), S1, atm(not,atm(not,atm(not,H3)))|T], S2).
 prove([not, H, S1 ,not,not, H3|T], S2):- prove([atm(not,H), S1, atm(not,atm(not,H3))|T], S2).
 prove([not, H, S1,not, H3|T], S2):- prove([atm(not,H), S1, atm(not,H3)|T], S2).
-prove([not, H, S1 , H3|T], S2):- prove([atm(not,H), S1, H3|T], S2).
+prove([not, H, S1 , H3|T], S2):- H3\='{', prove([atm(not,H), S1, H3|T], S2).
 prove([H, S1, not,not,not, H3|T], S2):- prove([H, S1, atm(not,atm(not,atm(not,H3)))|T], S2).
 prove([H, S1, not,not, H3|T], S2):- prove([H, S1, atm(not,atm(not,H3))|T], S2).
 prove([H, S1, not, H3|T], S2):- prove([H, S1, atm(not,H3)|T], S2).
