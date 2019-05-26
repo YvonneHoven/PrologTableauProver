@@ -275,9 +275,9 @@ prove([H, S1, H2, S2, not, H3|T], S3):- H3\=not, prove([H, S1, H2, S2, atm(not,H
 %%prove(A&B&C+)
 prove([H,'&',H2,'&',H3|T], '+'):- H3\='{', wrt([H,'&',H2,'&',H3], '+'), proof(H, '&', H2, '&', H3, '+'), prove(T, '+').
 %%prove(AVBVC+)
-prove([H,'V',H2,'V',H3|T], '+'):- H3\='{', wrt([H,'V',H2,'V',H3], '+'), prove([H, 'V', H2, 'V', H3], '+'), prove(T, '+').
+prove([H,'V',H2,'V',H3|T], '+'):- H3\='{', wrt([H,'V',H2,'V',H3], '+'), proof(H, 'V', H2, 'V', H3, '+'), prove(T, '+').
 %%prove(A&B&C-)
-prove([H,'&',H2,'&',H3|T], '-'):- H3\='{', wrt([H,'&',H2,'&',H3], '-'), prove([H, '&', H2, '&', H3], '-'), prove(T, '-').
+prove([H,'&',H2,'&',H3|T], '-'):- H3\='{', wrt([H,'&',H2,'&',H3], '-'), proof(H, '&', H2, '&', H3, '-'), prove(T, '-').
 %%prove(AVBVC-)
 prove([H,'V',H2,'V',H3|T], '-'):- H3\='{', wrt([H,'V',H2,'V',H3], '-'), proof(H, 'V', H2, 'V', H3, '-'), prove(T, '-').
 
