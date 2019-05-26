@@ -280,31 +280,31 @@ prove([H,'&',H3|T], '-'):- H3\='{', H\=not, H3\=not, H\=atm(not,_), H3\=atm(not,
 prove([H,'V', H3|T], '-'):- H3\='{', H\=not, H3\=not, H\=atm(not,_), H3\=atm(not,_), wrt([H, 'V', H3], '-'), proof(H, 'V', H3, '-'), prove(T, '-').
 
 %%simplify prove{A&B&C+} prove{A&B&C-} prove{AVBVC+} prove{AVBVC-}
-prove([not,not, H, S1, not,not, H2 S2, not,not, H3|T], S3):- prove([atm(not,atm(not,H)), S1, atm(not,atm(not,H2)), S2, atm(not,atm(not,H3))|T], S3).
+prove([not,not, H, S1, not,not, H2, S2, not,not, H3|T], S3):- prove([atm(not,atm(not,H)), S1, atm(not,atm(not,H2)), S2, atm(not,atm(not,H3))|T], S3).
 prove([not,not, H, S1, not,not, H2, S2, not, H3|T], S3):- prove([atm(not,atm(not,H)), S1, atm(not,atm(not,H2)), S2, atm(not,H3)|T], S3).
 prove([not,not, H, S1, not,not, H2, S2, H3|T], S3):- prove([atm(not,atm(not,H)), S1, atm(not,atm(not,H2)), S2, H3|T], S3).
-prove([not,not, H, S1, not, H2 S2, not,not, H3|T], S3):- prove([atm(not,atm(not,H)), S1, atm(not,H2), S2, atm(not,atm(not,H3))|T], S3).
+prove([not,not, H, S1, not, H2, S2, not,not, H3|T], S3):- prove([atm(not,atm(not,H)), S1, atm(not,H2), S2, atm(not,atm(not,H3))|T], S3).
 prove([not,not, H, S1, not, H2, S2, not, H3|T], S3):- prove([atm(not,atm(not,H)), S1, atm(not,H2), S2, atm(not,H3)|T], S3).
 prove([not,not, H, S1, not, H2, S2, H3|T], S3):- prove([atm(not,atm(not,H)), S1, atm(not,H2), S2, H3|T], S3).
-prove([not,not, H, S1, H2 S2, not,not, H3|T], S3):- prove([atm(not,atm(not,H)), S1, H2, S2, atm(not,atm(not,H3))|T], S3).
+prove([not,not, H, S1, H2, S2, not,not, H3|T], S3):- prove([atm(not,atm(not,H)), S1, H2, S2, atm(not,atm(not,H3))|T], S3).
 prove([not,not, H, S1, H2, S2, not, H3|T], S3):- prove([atm(not,atm(not,H)), S1, H2, S2, atm(not,H3)|T], S3).
 prove([not,not, H, S1, H2, S2, H3|T], S3):- prove([atm(not,atm(not,H)), S1, H2, S2, H3|T], S3).
-prove([not, H, S1, not,not, H2 S2, not,not, H3|T], S3):- prove([atm(not,H), S1, atm(not,atm(not,H2)), S2, atm(not,atm(not,H3))|T], S3).
+prove([not, H, S1, not,not, H2, S2, not,not, H3|T], S3):- prove([atm(not,H), S1, atm(not,atm(not,H2)), S2, atm(not,atm(not,H3))|T], S3).
 prove([not, H, S1, not,not, H2, S2, not, H3|T], S3):- prove([atm(not,H), S1, atm(not,atm(not,H2)), S2, atm(not,H3)|T], S3).
 prove([not, H, S1, not,not, H2, S2, H3|T], S3):- prove([atm(not,H), S1, atm(not,atm(not,H2)), S2, H3|T], S3).
-prove([not, H, S1, not, H2 S2, not,not, H3|T], S3):- prove([atm(not,H), S1, atm(not,H2), S2, atm(not,atm(not,H3))|T], S3).
+prove([not, H, S1, not, H2, S2, not,not, H3|T], S3):- prove([atm(not,H), S1, atm(not,H2), S2, atm(not,atm(not,H3))|T], S3).
 prove([not, H, S1, not, H2, S2, not, H3|T], S3):- prove([atm(not,H), S1, atm(not,H2), S2, atm(not,H3)|T], S3).
 prove([not, H, S1, not, H2, S2, H3|T], S3):- prove([atm(not,H), S1, atm(not,H2), S2, H3|T], S3).
-prove([not, H, S1, H2 S2, not,not, H3|T], S3):- prove([atm(not,H), S1, H2, S2, atm(not,atm(not,H3))|T], S3).
+prove([not, H, S1, H2, S2, not,not, H3|T], S3):- prove([atm(not,H), S1, H2, S2, atm(not,atm(not,H3))|T], S3).
 prove([not, H, S1, H2, S2, not, H3|T], S3):- prove([atm(not,H), S1, H2, S2, atm(not,H3)|T], S3).
 prove([not, H, S1, H2, S2, H3|T], S3):- prove([atm(not,H), S1, H2, S2, H3|T], S3).
-prove([H, S1, not,not, H2 S2, not,not, H3|T], S3):- prove([H, S1, atm(not,atm(not,H2)), S2, atm(not,atm(not,H3))|T], S3).
+prove([H, S1, not,not, H2, S2, not,not, H3|T], S3):- prove([H, S1, atm(not,atm(not,H2)), S2, atm(not,atm(not,H3))|T], S3).
 prove([H, S1, not,not, H2, S2, not, H3|T], S3):- prove([H, S1, atm(not,atm(not,H2)), S2, atm(not,H3)|T], S3).
 prove([H, S1, not,not, H2, S2, H3|T], S3):- prove([H, S1, atm(not,atm(not,H2)), S2, H3|T], S3).
-prove([H, S1, not, H2 S2, not,not, H3|T], S3):- prove([H, S1, atm(not,H2), S2, atm(not,atm(not,H3))|T], S3).
+prove([H, S1, not, H2, S2, not,not, H3|T], S3):- prove([H, S1, atm(not,H2), S2, atm(not,atm(not,H3))|T], S3).
 prove([H, S1, not, H2, S2, not, H3|T], S3):- prove([H, S1, atm(not,H2), S2, atm(not,H3)|T], S3).
 prove([H, S1, not, H2, S2, H3|T], S3):- prove([H, S1, atm(not,H2), S2, H3|T], S3).
-prove([H, S1, H2 S2, not,not, H3|T], S3):- prove([H, S1, H2, S2, atm(not,atm(not,H3))|T], S3).
+prove([H, S1, H2, S2, not,not, H3|T], S3):- prove([H, S1, H2, S2, atm(not,atm(not,H3))|T], S3).
 prove([H, S1, H2, S2, not, H3|T], S3):- prove([H, S1, H2, S2, atm(not,H3)|T], S3).
 prove([H, S1, H2, S2, H3|T], S3):- prove([H, S1, H2, S2, H3|T], S3).
 
