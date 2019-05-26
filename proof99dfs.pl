@@ -1,9 +1,7 @@
 :- dynamic prf(_,_).
 :- dynamic assprove(_,_).
-:- dynamic toprove/2.
 :- discontiguous proof/6.
 :- discontiguous proof/4.
-:- discontiguous toprove/2.
 :- discontiguous prove/2.
 :- discontiguous finprove/2.
 
@@ -76,7 +74,7 @@ ass([not, '{', H, 'V', H2, '}'|T]):- wrt([not, '{', H, 'V', H2, '}'], '+'), asse
 
 
 printList([], _) :- nl.
-printList([atm(not,H)|T], S):- write("not "), write(H), write(" ,"), write(S),  write(' | '), printList(T, S).
+printList([atm(not,H)|T], S):- write("not "), write(H), write(", "), write(S),  write(' | '), printList(T, S).
 printList([H|T], '+') :- H\=atm(not,_), write(H), write(", "), write(S), write(' | '), printList(T, S).
 
 prepareAnswer:- findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
@@ -277,9 +275,9 @@ prove([H, S1, H2, S2, not, H3|T], S3):- H3\=not, prove([H, S1, H2, S2, atm(not,H
 %%prove(A&B&C+)
 prove([H,'&',H2,'&',H3|T], '+'):- H3\='{', wrt([H,'&',H2,'&',H3], '+'), proof(H, '&', H2, '&', H3, '+'), prove(T, '+').
 %%prove(AVBVC+)
-prove([H,'V',H2,'V',H3|T], '+'):- H3\='{', wrt([H,'V',H2,'V',H3], '+'), assert(toprove([H, 'V', H2, 'V', H3], '+')), prove(T, '+').
+prove([H,'V',H2,'V',H3|T], '+'):- H3\='{', wrt([H,'V',H2,'V',H3], '+'), prove([H, 'V', H2, 'V', H3], '+'), prove(T, '+').
 %%prove(A&B&C-)
-prove([H,'&',H2,'&',H3|T], '-'):- H3\='{', wrt([H,'&',H2,'&',H3], '-'), assert(toprove([H, '&', H2, '&', H3], '-')), prove(T, '-').
+prove([H,'&',H2,'&',H3|T], '-'):- H3\='{', wrt([H,'&',H2,'&',H3], '-'), prove([H, '&', H2, '&', H3], '-'), prove(T, '-').
 %%prove(AVBVC-)
 prove([H,'V',H2,'V',H3|T], '-'):- H3\='{', wrt([H,'V',H2,'V',H3], '-'), proof(H, 'V', H2, 'V', H3, '-'), prove(T, '-').
 
@@ -288,7 +286,7 @@ prove([H,'V',H2,'V',H3|T], '-'):- H3\='{', wrt([H,'V',H2,'V',H3], '-'), proof(H,
 prove(['{', H, '&', H2, '}', '&', H3|T], S):- wrt(['{', H, '&', H2, '}', '&', H3], S), prove([H, '&', H2, '&', H3|T], S).
 prove(['{', H, 'V', H2, '}', 'V', H3|T], S):- wrt(['{', H, 'V', H2, '}', 'V', H3], S), prove([H, 'V', H2, 'V', H3|T], S).
 prove(['{', H, '&', H2, '}', 'V', H3|T], '+'):- wrt(['{', H, '&', H2, '}', 'V', H3], '+'), prove([H3, 'V', '{', H, '&', H2, '}'|T], '+').  
-prove(['{', H, 'V', H2, '}', '&', H3|T], '+'):- wrt(['{', H, 'V', H2, '}', '&', H3], '+'), toprove([H3, '&', '{', H, 'V', H2, '}'|T], '+').
+prove(['{', H, 'V', H2, '}', '&', H3|T], '+'):- wrt(['{', H, 'V', H2, '}', '&', H3], '+'), prove([H3, '&', '{', H, 'V', H2, '}'|T], '+').
 prove(['{', H, '&', H2, '}', 'V', H3|T], '-'):- wrt(['{', H, '&', H2, '}', 'V', H3], '-'), prove([H3, 'V', '{', H, '&', H2, '}'|T], '-').
 prove(['{', H, 'V', H2, '}', '&', H3|T], '-'):- wrt(['{', H, 'V', H2, '}', '&', H3], '-'), prove([H3, '&', '{', H, 'V', H2, '}'|T], '-').
 
