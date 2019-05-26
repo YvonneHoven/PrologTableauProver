@@ -15,7 +15,7 @@ ass([not,not, H]):- wrt([not,not, H], '+'), assert(assprove([not,not,H],'+')).
 ass([not, H]):- wrt([atm(not,H)], '+'), assert(prf(atm(not,H),'+')).
 
 %%simplify assert {A&B} {AVB}
-ass(['{', not,not,not,A, B, not,not,not,C, '}'|T]):- wrt(['{', atm(not,atm(not,atm(not,A))), B, atm(not,atm(not,atm(not,C))), '}']), ass([atm(not,atm(not,atm(not,A)), B, atm(not,atm(not,atm(not,C)|T]).
+ass(['{', not,not,not,A, B, not,not,not,C, '}'|T]):- wrt(['{', atm(not,atm(not,atm(not,A))), B, atm(not,atm(not,atm(not,C))), '}']), ass([atm(not,atm(not,atm(not,A))), B, atm(not,atm(not,atm(not,C)))|T]).
 ass(['{', not,not,not,A, B, not,not,C, '}'|T]):- wrt(['{', atm(not,atm(not,atm(not,A))), B, atm(not,atm(not,C)), '}']), ass([atm(not,atm(not,atm(not,A))), B, atm(not,atm(not,C))|T]).
 ass(['{', not,not,not,A, B, not,C, '}'|T]):- wrt(['{', atm(not,atm(not,atm(not,A))), B, atm(not,C), '}']), ass([atm(not,atm(not,atm(not,A))), B, atm(not,C)|T]).
 ass(['{', not,not,not,A, B, C, '}'|T]):- wrt(['{', atm(not,atm(not,atm(not,A))), B, C, '}']), ass([atm(not,atm(not,atm(not,A))), B, C|T]).
@@ -32,15 +32,15 @@ ass(['{', A, B, not,not,C, '}'|T]):- wrt(['{', A, B, atm(not,atm(not,C)), '}']),
 ass(['{', A, B, not,C, '}'|T]):- wrt(['{', A, B, atm(not,C), '}']), ass([A, B, atm(not,C)|T]).
 ass(['{', A, B, C, '}'|T]):- wrt(['{', A, B, C, '}']), ass([A, B, C|T]).
 %%simplify assert A&B AVB
-ass([not,not,not,A, B, not,not,not,C|T]):- ass([atm(not,atm(not,atm(not,A)), B, atm(not,atm(not,atm(not,C)|T]).
+ass([not,not,not,A, B, not,not,not,C|T]):- ass([atm(not,atm(not,atm(not,A))), B, atm(not,atm(not,atm(not,C)))|T]).
 ass([not,not,not,A, B, not,not,C|T]):- ass([atm(not,atm(not,atm(not,A))), B, atm(not,atm(not,C))|T]).
 ass([not,not,not,A, B, not,C|T]):- ass([atm(not,atm(not,atm(not,A))), B, atm(not,C)|T]).
 ass([not,not,not,A, B, C|T]):- ass([atm(not,atm(not,atm(not,A))), B, C|T]).
 ass([not,not,A, B, not,not,not,C|T]):- ass([atm(not,atm(not,A)), B, atm(not,atm(not,atm(not,C)))|T]).
 ass([not,not,A, B, not,not,C|T]):- ass([atm(not,atm(not,A)), B, atm(not,atm(not,C))|T]).
-ass([not,not,A, B, not,C,|T]):- ass([atm(not,atm(not,A)), B, atm(not,C)|T]).
-ass([not,not,A, B, C,|T]):- ass([atm(not,atm(not,A)), B, C|T]).
-ass([not,A, B, not,not,not,C,|T]):- ass([atm(not,A), B, atm(not,atm(not,atm(not,C)))|T]).
+ass([not,not,A, B, not,C|T]):- ass([atm(not,atm(not,A)), B, atm(not,C)|T]).
+ass([not,not,A, B, C|T]):- ass([atm(not,atm(not,A)), B, C|T]).
+ass([not,A, B, not,not,not,C|T]):- ass([atm(not,A), B, atm(not,atm(not,atm(not,C)))|T]).
 ass([not,A, B, not,not,C|T]):- ass([atm(not,A), B, atm(not,atm(not,C))|T]).
 ass([not,A, B, not,C|T]):- ass([atm(not,A), B, atm(not,C)|T]).
 ass([not,A, B, C|T]):- ass([atm(not,A), B, C|T]).
