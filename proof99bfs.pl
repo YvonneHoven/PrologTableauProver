@@ -48,7 +48,7 @@ ass([A, B, not,not,not,C|T]):- ass([A, B, atm(not,atm(not,atm(not,C)))|T]).
 ass([A, B, not,not,C|T]):- ass([A, B, atm(not,atm(not,C))|T]).
 ass([A, B, not,C|T]):- ass([A, B, atm(not,C)|T]).
 %%assert A&B AVB
-ass([A, '&', C|T]):- A\=not, C\=not,  wrt([A,'&',C], '+'), ass(T), assert(assprove([A, '&', C], '+')).
+ass([A, '&', C|T]):- A\=not, C\=not, wrt([A,'&',C], '+'), ass(T), assert(assprove([A, '&', C], '+')).
 ass([A, 'V', C|T]):- A\=not, C\=not, wrt([A,'V',C], '+'), ass(T), assert(assprove([A, 'V', C], '+')).
 
 %%simplify assert notnot{A&B} notnot{AVB}
@@ -306,7 +306,6 @@ prove([H, S1, not, H2, S2, not, H3|T], S3):- prove([H, S1, atm(not,H2), S2, atm(
 prove([H, S1, not, H2, S2, H3|T], S3):- prove([H, S1, atm(not,H2), S2, H3|T], S3).
 prove([H, S1, H2, S2, not,not, H3|T], S3):- prove([H, S1, H2, S2, atm(not,atm(not,H3))|T], S3).
 prove([H, S1, H2, S2, not, H3|T], S3):- prove([H, S1, H2, S2, atm(not,H3)|T], S3).
-prove([H, S1, H2, S2, H3|T], S3):- prove([H, S1, H2, S2, H3|T], S3).
 
 %%prove(A&B&C+)
 prove([H,'&',H2,'&',H3|T], '+'):- H3\='{', H\=not, H3\=not, H\=atm(not,_), H3\=atm(not,_), wrt([H,'&',H2,'&',H3], '+'), proof(H, '&', H2, '&', H3, '+'), prove(T, '+').
