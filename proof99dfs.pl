@@ -80,7 +80,7 @@ printList([], _) :- nl.
 printList([atm(not,H)|T], S):- write("not "), write(H), write(", "), write(S),  write(' | '), printList(T, S).
 printList([H|T], S) :- H\=atm(not,_), write(H), write(", "), write(S), write(' | '), printList(T, S).
 
-prepareAnswer:- findall([Q3], noPrint(Q3, '+'), NP3), findall([Q4], noPrint(Q4, '-'), NP4), prepareAnswer1(NP1,NP2).
+prepareAnswer:- findall([Q3], noPrint(Q3, '+'), NP3), findall([Q4], noPrint(Q4, '-'), NP4), prepareAnswer1(NP3,NP4).
 prepareAnswer1([],[]):- nl, findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
     	write('positive literals: '), nl, write("|"), printList(PL, '+'),
     	write('negative literals: '), nl, write("|"), printList(NL, '-').
@@ -107,7 +107,7 @@ prove(A, '|', C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), findall([Z], assprov
 prove(A, '|', C):- C=[B], ass(A), wrt(C, '-'), assert(prf(B, '-')), findall([Z], assprove(Z, '+'), AS), check(AS), prepareAnswer.
 prove(A, '|', C):- C=[not,B], ass(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), findall([Z], assprove(Z, '+'), AS), check(AS), prepareAnswer.
 
-check([]):- findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), check(NP1,NP2,[]). 
+check(AS):- findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), check(NP1,NP2,AS). 
 check([],[],[]):- nl.
 check(NP1,NP2,_):- NP1\=[], NP2\=[], fail.
 check(NP1,[],_):- NP1\=[], fail.
