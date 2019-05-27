@@ -118,6 +118,7 @@ prove([not, H|T], S):- H\='{', H\=not, T\=['&'|_], T\=['V'|_], wrt([not,H], S), 
 prfwrt(atm(not,atm(not,atm(not,A))), S):- A\=atm(not,_), write("notnotnot"), write(A), write(","), write(S). 
 prfwrt(atm(not,atm(not,A)), S):- A\=atm(not,_), write("notnot"), write(A), write(","), write(S). 
 prfwrt(atm(not,A), S):- A\=atm(not,_), write("not"), write(A), write(","), write(S).  
+prfwrt(A,S):- write(A), write(","), write(S).
 prfwrt([],S):- write(","), writeln(S).
 
 finprove([[H]|[]], S):- finprove(H, S).
