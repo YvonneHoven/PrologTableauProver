@@ -80,10 +80,12 @@ printList([], _) :- nl.
 printList([atm(not,H)|T], S):- write("not "), write(H), write(", "), write(S),  write(' | '), printList(T, S).
 printList([H|T], S) :- H\=atm(not,_), write(H), write(", "), write(S), write(' | '), printList(T, S).
 
-prepareAnswer1(NP1,NP2):- NP1=[], NP2=[], nl, findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
+prepareAnswer1([],[]):- nl, findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
     	write('positive literals: '), nl, write("|"), printList(PL, '+'),
     	write('negative literals: '), nl, write("|"), printList(NL, '-').
 prepareAnswer1([H1|T1],[H2|T2]):- prepareAnswer2([H1|T1], []), prepareAnswer2([], [H2|T2]).
+prepareAnswer1([H1|T1],[]):- prepareAnswer2([H1|T1], []).
+prepareAnswer1([],[H2|T2]):- prepareAnswer2([], [H2|T2]).
 prepareAnswer2([],[]).
 prepareAnswer2([[H]|T],[]):- retract(noPrint(H, '+')), prepareAnswer2(T,[]).
 prepareAnswer2([],[[H]|T]):- retract(noPrint(H, '-')), prepareAnswer2([],T).
@@ -94,14 +96,27 @@ wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot"), write(A), wrt(T
 wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not"), write(A), wrt(T,S).
 wrt([H|T],S):- H\=atm(not,_), write(H), wrt(T,S).
 
-prove(A, '|', C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+'), AS), check(AS), writeln("inferences solving:"), prove(C, '-'), findall([Q1], noPrint(Q1, '+'), NP1), findall([Q2], noPrint(Q2, '-'), NP2), prepareAnswer1(NP1,NP2).
-prove(A, '|', C):- C=[B], ass(A), wrt(C, '-'), assert(prf(B, '-')), nl, findall([Z], assprove(Z, '+'), AS), check(AS), findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), prepareAnswer1(NP1,NP2).
-prove(A, '|', C):- C=[not,B], ass(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), nl, findall([Z], assprove(Z, '+'), AS), check(AS), findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), prepareAnswer1(NP1,NP2).
+writeinf([],[]):- writeln("inferences solving:").
+writeinf([_|_],[]):- fail.
+writeinf([],[_|_]):- fail. 
+writeinf([_|_],[_|_]):- fail. 
 
-check([]).
-check([[H]|T]):- H\=[[]], writeln("premises solving:"), prsolve([[H]|T]), nl.
+prove(A, '|', C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), findall([Z], assprove(Z, '+'), AS), findall([Q1], noPrint(Q1, '+'), NP1), findall([Q2], noPrint(Q2, '-'), NP2), check(NP1,NP2,AS), writeinf(NP1,NP2), prove(C, '-', NP1,NP2), findall([Q3], noPrint(Q3, '+'), NP3), findall([Q4], noPrint(Q4, '-'), NP4) , prepareAnswer1(NP3,NP4).
+prove(A, '|', C):- C=[B], ass(A), wrt(C, '-'), assert(prf(B, '-')), findall([Z], assprove(Z, '+'), AS), findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), check(NP1,NP2,AS), findall([Q3], noPrint(Q3, '+'), NP3), findall([Q4], noPrint(Q4, '-'), NP4), prepareAnswer1(NP3,NP4).
+prove(A, '|', C):- C=[not,B], ass(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), findall([Z], assprove(Z, '+'), AS), findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), check(NP1,NP2,AS), findall([Q3], noPrint(Q3, '+'), NP3), findall([Q4], noPrint(Q4, '-'), NP4), prepareAnswer1(NP3,NP4).
+
+check([],[],[]):- nl.
+check(NP1,NP2,_):- NP1\=[], NP2\=[], fail.
+check(NP1,[],_):- NP1\=[], fail.
+check([],NP2,_):- NP2\=[], fail.
+check([],[],[[H]|T]):- nl, H\=[[]], writeln("premises solving:"), prsolve([[H]|T]), nl.
 prsolve([]).
 prsolve([[H]|T]):- prove(H, '+'), prsolve(T).
+
+prove(C,'-',[],[]):- prove(C, '-').
+prove(_,'-',[_|_],[]):- fail.
+prove(_,'-',[],[_|_]):- fail.
+prove(_,'-',[_|_],[_|_]):- fail.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%the real logic behind the code
@@ -328,4 +343,3 @@ prove([not, '{', H, '&', H2, '}'|T], '-'):- wrt([not, '{', H, '&', H2, '}'], '-'
 
 prove([not,not, '{', H, 'V', H2, '}'|T], '-'):- wrt([not,not, '{', H, 'V', H2, '}'], '-'), wrt([H,'V',H2], '-'), proof(H, 'V', H2, '-'), prove(T, '-').
 prove([not, '{', H, 'V', H2, '}'|T], '-'):- wrt([not, '{', H, 'V', H2, '}'], '-'), wrt([atm(not,H),'&',atm(not,H2)], '-'), write("  /\\"), proof(atm(not, H), '&', atm(not, H2), '-'), prove(T, '-').
-
