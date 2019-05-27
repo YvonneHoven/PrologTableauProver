@@ -18,9 +18,8 @@ prove([not,not,not,p,'V',not,not,q], '|', []).
 prove([], '|', [not,not,p,'V',not,not,not,q]).
 prove([], '|', [not,not,p,'&',not,not,not,q]).
 
-kindoff counterexamples nu
-goed met retract assert voor dfs
+
 moet nog even alle mogelijke inputs uittesten of alles klopt
-en daarvoor nog de assert(prf())'s toevoegen voor de nu-countermodel
-die opzichzelf nog uitgebreid moet worden voor fde k3 lp  (( bagoff sorteren naast elkaar?? iets((not)A,+) ))
-en ja die indenting van alle OR proofs voor bfs
+countermodel nog uitgebreid worden voor fde k3 lp  
+en indenting van alle OR proofs voor bfs??
+bij dfs geen toprove??
