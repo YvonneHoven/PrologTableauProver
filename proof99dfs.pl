@@ -47,8 +47,8 @@ ass([A, B, not,not,C|T]):- ass([A, B, atm(not,atm(not,C))|T]).
 ass([A, B, not,C|T]):- ass([A, B, atm(not,C)|T]).
 
 %%assert A&B AVB
-ass([A, '&', C|T]):- A\=not, C\=not,  wrt([A,'&',C], '+'), ass(T), assert(assprove([A, '&', C], '+')).
-ass([A, 'V', C|T]):- A\=not, C\=not, wrt([A,'V',C], '+'), ass(T), assert(assprove([A, 'V', C], '+')).
+ass([A, '&', C|T]):- A\=not, C\=not, C\='{', wrt([A,'&',C], '+'), ass(T), assert(assprove([A, '&', C], '+')).
+ass([A, 'V', C|T]):- A\=not, C\=not, C\='{', wrt([A,'V',C], '+'), ass(T), assert(assprove([A, 'V', C], '+')).
 
 %%simplify assert notnot{A&B} notnot{AVB}
 ass([not,not, '{', not,not,H, AO, not,not,H2, '}'|T]):- wrt([not,not, '{', atm(not,atm(not,H)), AO, atm(not,atm(not,H2)), '}'], '+'), ass([atm(not,atm(not,H)), AO, atm(not,atm(not,H2))|T]).
