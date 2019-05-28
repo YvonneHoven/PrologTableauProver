@@ -91,7 +91,7 @@ prepareAnswer1([],[]):- nl, findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'),
 prepareAnswer1([H1|T1],[H2|T2]):- prepareAnswer2([H1|T1], []), prepareAnswer2([], [H2|T2]).
 prepareAnswer1([H1|T1],[]):- prepareAnswer2([H1|T1], []).
 prepareAnswer1([],[H2|T2]):- prepareAnswer2([], [H2|T2]).
-prepareAnswer2([],[]).
+prepareAnswer2([],[]):- fail.
 prepareAnswer2([[H]|T],[]):- retract(noPrint(H, '+')), prepareAnswer2(T,[]).
 prepareAnswer2([],[[H]|T]):- retract(noPrint(H, '-')), prepareAnswer2([],T).
 
