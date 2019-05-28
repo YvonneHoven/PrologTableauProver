@@ -12,14 +12,19 @@ https://web.usabilityscale.com/form?ex=-LeC_PUfa3pPKHmqqW_f&pr=-LeCZFV5fV0Ckr9n-
 
 
 
-checken: 
-na-topove_assert-ook-retract-en-opnieuw..?
-prove([], '|', [not,not,p,'V',not,not,not,q]).  solved/?
-prove([], '|', [not,not,p,'&',not,not,not,q]).
+bfs;
+hoe bfs per branch counterex
+indenting?
+dfs;
+
+
+mailtje prolog proff
+linkje vrebrugge 3.6
+- creates technical difficulties in implementation due to very complicated memory management being needed in the general case.
+- Prolog program which searches a (simple) tree using a breadth-first traversal is shown
+
 
 
 moet nog even alle mogelijke inputs uittesten of alles klopt
 countermodel nog uitgebreid worden voor fde k3 lp  
 
-en indenting van alle OR proofs voor bfs??
-bij dfs geen toprove??
