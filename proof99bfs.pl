@@ -2,11 +2,14 @@
 :- dynamic prf(_,_).
 :- dynamic assprove(_,_).
 :- dynamic toprove/2.
+:- dynamic list(_).
 :- discontiguous proof/6.
 :- discontiguous proof/4.
 :- discontiguous toprove/2.
 :- discontiguous prove/2.
 :- discontiguous finprove/2.
+:- discontiguous prove/4.
+:- discontiguous membr/3.
 
 %% all assertions of the premises
 ass([]).
@@ -86,9 +89,43 @@ printList([], _) :- nl.
 printList([atm(not,H)|T], S):- write("not "), write(H), write(", "), write(S),  write(' | '), printList(T, S).
 printList([H|T], S) :- H\=atm(not,_), write(H), write(", "), write(S), write(' | '), printList(T, S).
 
-prepareAnswer:- findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
+prepareAnswer(L):- findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
     	write('positive literals: '), nl, write("|"), printList(PL, '+'), retractall(prf(_,'+')),
-    	write('negative literals: '), nl, write("|"), printList(NL, '-'), retractall(prf(_,'-')).
+    	write('negative literals: '), nl, write("|"), printList(NL, '-'), retractall(prf(_,'-')), showCounters(L, PL, NL).
+
+showCounters(Logic, PosL, NegL):- counter(Logic,PosL,NegL), findall(Z, list(Z), ZZ), printCounter(Logic,ZZ), retractall(list(_)). 
+
+counter(fde,PosL,NegL):- membr(fde,PosL,NegL).
+counter(k3,PosL,_):- membr(k3,PosL,PosL).
+counter(lp,_,NegL):- membr(lp,NegL,NegL).
+membr(_,[],[]).
+membr(_,[],_).
+membr(_,_,[]).
+membr(fde,[X1|T1],T2):- mbr(X1,T2), membr(fde,T1,T2).
+mbr([],[]).
+mbr([],_).
+mbr(_,[]).
+mbr(X,[X|_]):- assert(list([X,+,-])).
+mbr(X,[B|T]):- B\=X, mbr(X,T).
+
+membr(k3,[X1|T1],T2):- mbr(k3,X1,T2), membr(k3,T1,T2).
+membr(lp,[X1|T1],T2):- mbr(lp,X1,T2), membr(lp,T1,T2).
+mbr(_,[],[]).
+mbr(_,[],_).
+mbr(_,_,[]).
+mbr(k3,atm(not,X),[X|_]):- assert(list([atm(not,X),+])).
+mbr(k3,X,[atm(not,X)|_]):- assert(list([atm(not,X),+])).
+mbr(k3,X,[B|T]):- B\=X, B\=atm(not,X), mbr(k3,X,T).
+mbr(lp,atm(not,X),[X|_]):- assert(list([atm(not,X),-])).
+mbr(lp,X,[atm(not,X)|_]):- assert(list([atm(not,X)],-)).
+mbr(lp,X,[B|T]):- B\=X, B\=atm(not,X), mbr(X,T).
+
+printCounter(_,[]):- write("no counter-examples found").
+printCounter(Logic,List):- List\=[], write("counter-example(s) "), write(Logic), writeln(": "), printCounter2(List).
+printCounter2([]).
+printCounter2([[X,+,-]|T]):- writeln("branch has "), write(X), write(",+ and "), write(",-"), printCounter2(T).
+printCounter2([[atm(not,X),+]|T]):- write(X), write(" has not"), write(X), write(",+ and "), write(X), write(",+"), printCounter2(T).
+printCounter2([[atm(not,X),-]|T]):- write(X), write(" has not"), write(X), write(",- and "), write(X), write(",-"), printCounter2(T).
 
 wrt([],S):- write(","), writeln(S).
 wrt([atm(not,atm(not,atm(not,A)))|T],S):- write("notnotnot"), write(A), wrt(T,S).
@@ -96,9 +133,10 @@ wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot"), write(A), wrt(T
 wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not"), write(A), wrt(T,S).
 wrt([H|T],S):- H\=atm(not,_), write(H), wrt(T,S).
 
-prove(A, '|', C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+'), AS), check(AS), writeln("inferences solving:"), prove(C, '-'), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer.
-prove(A, '|', C):- C=[B], ass(A), wrt(C, '-'), assert(prf(B, '-')), nl, findall([Z], assprove(Z, '+'), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer.
-prove(A, '|', C):- C=[not,B], ass(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), nl, findall([Z], assprove(Z, '+'), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer.
+%%prove([premises], '|fde', [inferences]), prove([premises], '|k3', [inferences]), prove([premises], '|lp', [inferences]) 
+prove(A, '|',L, C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z, '+'), AS), check(AS), writeln("inferences solving:"), prove(C, '-'), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
+prove(A, '|',L, C):- C=[B], ass(A), wrt(C, '-'), assert(prf(B, '-')), nl, findall([Z], assprove(Z, '+'), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
+prove(A, '|',L, C):- C=[not,B], ass(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), nl, findall([Z], assprove(Z, '+'), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
 
 check(TP, FP):- TP\=[], FP\=[], write("//"), finprove(TP, '+'), finprove(FP, '-'), retractall(toprove(_,_)).
 check(TP, []):- TP\=[], write("//"), finprove(TP, '+'), retractall(toprove(_,_)).
