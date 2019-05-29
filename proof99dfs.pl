@@ -122,10 +122,10 @@ mbr(_,[],_).
 mbr(_,_,[]).
 mbr(k3,atm(not,X),[X|_]):- assert(list([atm(not,X),+])).
 mbr(k3,X,[atm(not,X)|_]):- assert(list([atm(not,X),+])).
-mbr(k3,X,[B|T]):- B\=atm(not,X), mbr(k3,X,T).
+mbr(k3,X,[B|T]):- B\=X, B\=atm(not,X), X\=atm(not,B), mbr(k3,X,T).
 mbr(lp,atm(not,X),[X|_]):- assert(list([atm(not,X),-])).
 mbr(lp,X,[atm(not,X)|_]):- assert(list([atm(not,X)],-)).
-mbr(lp,X,[B|T]):- B\=X, B\=atm(not,X), mbr(X,T).
+mbr(lp,X,[B|T]):- B\=X, B\=atm(not,X), X\=atm(not,B), mbr(X,T).
 
 printCounter(_,[]):- write("no counter-examples found").
 printCounter(Logic,List):- List\=[], write("counter-example(s) "), write(Logic), writeln(": "), printCounter2(List).
