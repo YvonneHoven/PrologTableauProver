@@ -11,7 +11,7 @@ DFS
 https://web.usabilityscale.com/form?ex=-LeC_PUfa3pPKHmqqW_f&pr=-LeCZFV5fV0Ckr9n-88B
 
 
-
+moet nog even alle mogelijke inputs uittesten of alles klopt
 bfs;
 hoe bfs per branch counterex
 indenting?
@@ -25,6 +25,5 @@ linkje vrebrugge 3.6
 
 
 
-moet nog even alle mogelijke inputs uittesten of alles klopt
-countermodel nog uitgebreid worden voor fde k3 lp  
+
 
