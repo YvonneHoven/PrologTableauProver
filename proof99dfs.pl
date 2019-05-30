@@ -316,13 +316,13 @@ prove([H, S1, not,not, H3|T], S2):- S1\='{', H3\=not, T\=['&'|_], T\=['V'|_], pr
 prove([H, S1, not, H3|T], S2):- S1\='{', S1\=not, H3\=not, T\=['&'|_], T\=['V'|_], prove([H, S1, atm(not,H3)|T], S2).
 
 %%prove(A&B+)
-prove([H,'&',H3|T], '+'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_],  wrt([H, '&', H3], '+'), proof(H, '&', H3, '+'), prove(T, '+').
+prove([H,'&',H3|T], '+'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_], wrt([H, '&', H3], '+'), proof(H, '&', H3, '+'), prove(T, '+').
 %%prove(AVB+)
 prove([H,'V',H3|T], '+'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_], wrt([H,'V',H3|T], '+'), write("  /\\"), proof(H, 'V', H3, '+'), prove(T, '+').
 %%prove(A&B-)
 prove([H,'&',H3|T], '-'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_], wrt([H,'&',H3|T], '-'), write("  /\\"), proof(H, '&', H3, '-'), prove(T, '-').
 %%prove(AVB-)
-prove([H,'V',H3|T], '-'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_],  wrt([H, 'V', H3], '-'), proof(H, 'V', H3, '-'), prove(T, '-').
+prove([H,'V',H3|T], '-'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_], wrt([H, 'V', H3], '-'), proof(H, 'V', H3, '-'), prove(T, '-').
 
 %%simplify prove{A&B&C+} prove{A&B&C-} prove{AVBVC+} prove{AVBVC-}
 prove([not,not, H, S1, not,not, H2, S2, not,not, H3|T], S3):- H\='{', H3\=not, prove([atm(not,atm(not,H)), S1, atm(not,atm(not,H2)), S2, atm(not,atm(not,H3))|T], S3).
