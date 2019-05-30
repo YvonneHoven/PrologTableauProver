@@ -51,7 +51,7 @@ ass([A, B, not,C|T]):- ass([A, B, atm(not,C)|T]).
 
 %%assert A&B AVB
 ass([A, '&', C|T]):- A\=not, C\=not, C\='{', wrt([A,'&',C], '+'), ass(T), assert(assprove([A, '&', C])).
-ass([A, 'V', C|T]):- A\=not, C\=not, C\='{', wrt([A,'V',C], '+'), ass(T), assert(assprove([A, 'V', C])).
+%%%%%%%%%%ass([A, 'V', C|T]):- A\=not, C\=not, C\='{', wrt([A,'V',C], '+'), ass(T), assert(assprove([A, 'V', C])).
 
 %%simplify assert notnot{A&B} notnot{AVB}
 ass([not,not, '{', not,not,H, AO, not,not,H2, '}'|T]):- wrt([not,not, '{', atm(not,atm(not,H)), AO, atm(not,atm(not,H2)), '}'], '+'), ass([atm(not,atm(not,H)), AO, atm(not,atm(not,H2))|T]).
@@ -74,10 +74,10 @@ ass([not, '{', H, AO, not,not,H2, '}'|T]):- ass([not, '{', H, AO, atm(not,atm(no
 ass([not, '{', H, AO, not,H2, '}'|T]):- ass([not, '{', H, AO, atm(not,H2), '}'|T]).
 
 %%assert not{A&B} not{AVB}
-ass([not, '{', H, '&', H2, '}'|T]):- wrt([not, '{', H, '&', H2, '}'], '+'), assert(assprove([not, '{', H, '&', H2, '}'])), ass(T).
+%%%%%%%%%%ass([not, '{', H, '&', H2, '}'|T]):- wrt([not, '{', H, '&', H2, '}'], '+'), assert(assprove([not, '{', H, '&', H2, '}'])), ass(T).
 ass([not, '{', H, 'V', H2, '}'|T]):- wrt([not, '{', H, 'V', H2, '}'], '+'), assert(assprove([not, '{', H, 'V', H2, '}'])), ass(T).
 
-ass([H, 'V', '{', H2, 'V', H3, '}'|T]):- wrt([H, 'V', '{', H2, 'V', H3, '}'], '+'), assert(assprove([H, 'V', '{', H2, 'V', H3, '}'])), ass(T).
+%%%%%%%%%%ass([H, 'V', '{', H2, 'V', H3, '}'|T]):- wrt([H, 'V', '{', H2, 'V', H3, '}'], '+'), assert(assprove([H, 'V', '{', H2, 'V', H3, '}'])), ass(T).
 ass([H, '&', '{', H2, '&', H3, '}'|T]):- wrt([H, '&', '{', H2, '&', H3, '}'], '+'), assert(assprove([H, '&', '{', H2, '&', H3, '}'])), ass(T).
 
 
