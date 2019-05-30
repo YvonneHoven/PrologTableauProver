@@ -100,11 +100,11 @@ prepareAnswer(L):- findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL),
     	write('positive literals: '), nl, write("|"), printList(PL, '+'), retractall(prf(_,'+')),
     	write('negative literals: '), nl, write("|"), printList(NL, '-'), retractall(prf(_,'-')), showCounters(L, PL, NL).
 
-showCounters(Logic, PosL, NegL):- counter(Logic,PosL,NegL), findall(Z, list(Z), ZZ), printCounter(Logic,ZZ,PosL,NegL), retractall(list(_)). 
+showCounters(fde, PosL, NegL):- counter(fde,PosL,NegL), findall(Z, list(Z), ZZ), printCounter(fde,ZZ,PosL,NegL), retractall(list(_)). 
+showCounters(k3, PosL, NegL):- counter(k3,PosL,NosL), findall(Z, list(Z), ZZ), printCounter(fde,ZZ,PosL,NegL), printCounter(k3,ZZ,PosL,NegL), retractall(list(_)).
+showCounters(lp, PosL, NegL):- counter(lp,negL,NegL), findall(Z, list(Z), ZZ), printCounter(fde,ZZ,PosL,NegL), printCounter(lp,ZZ,PosL,NegL), retractall(list(_)).
 
-counter(fde,PosL,NegL):- membr(fde,PosL,NegL).
-counter(k3,PosL,_):- membr(k3,PosL,PosL).
-counter(lp,_,NegL):- membr(lp,NegL,NegL).
+counter(Logic,L1,L2):- membr(Logic,L1,L2).
 membr(_,[],[]).
 membr(_,[],_).
 membr(_,_,[]).
