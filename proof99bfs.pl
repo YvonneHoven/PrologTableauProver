@@ -170,7 +170,8 @@ prfwrt(atm(not,A), S):- A\=atm(not,_), write("not"), write(A), write(","), write
 prfwrt(A,S):- A\=atm(not,_), write(A), write(","), write(S).
 prfwrt([],S):- write(","), writeln(S).
 
-finprove([[H]|[]], S):- finprove(H, S).
+finprove([],_).
+finprove([[H]|T], S):- finprove(H, S), finprove(T,S).
 prove([H|[]], S):- H\=[_], H\=not, H\=atm(not,_), wrt([H], S), assert(prf(H, S)).
 prove([], _).
 
@@ -333,11 +334,11 @@ prove([H, S1, not, H3|T], S2):- S1\='{', S1\=not, H3\=not, T\=['&'|_], T\=['V'|_
 %%prove(A&B+)
 prove([H,'&',H3|T], '+'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_], wrt([H, '&', H3], '+'), proof(H, '&', H3, '+'), prove(T, '+').
 %%prove(AVB+)
-prove([H,'V',H3|T], '+'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_],  wrt([H,'V',H3|T], '+'), assert(toprove([H, 'V', H3], '+')), prove(T, '+').
+prove([H,'V',H3|T], '+'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_], write("/\\"), wrt([H,'V',H3|T], '+'), assert(toprove([H, 'V', H3], '+')), prove(T, '+').
 %%prove(A&B-)
-prove([H,'&',H3|T], '-'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_],  wrt([H,'&',H3|T], '-'), assert(toprove([H, '&', H3], '-')), prove(T, '-').
+prove([H,'&',H3|T], '-'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_], write("/\\"), wrt([H,'&',H3|T], '-'), assert(toprove([H, '&', H3], '-')), prove(T, '-').
 %%prove(AVB-)
-prove([H,'V',H3|T], '-'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_],  wrt([H, 'V', H3], '-'), proof(H, 'V', H3, '-'), prove(T, '-').
+prove([H,'V',H3|T], '-'):- H3\='{', H3\=not, T\=['&'|_], T\=['V'|_], wrt([H, 'V', H3], '-'), proof(H, 'V', H3, '-'), prove(T, '-').
 
 %%simplify prove{A&B&C+} prove{A&B&C-} prove{AVBVC+} prove{AVBVC-}
 prove([not,not, H, S1, not,not, H2, S2, not,not, H3|T], S3):- H\='{', H3\=not, prove([atm(not,atm(not,H)), S1, atm(not,atm(not,H2)), S2, atm(not,atm(not,H3))|T], S3).
@@ -370,9 +371,9 @@ prove([H, S1, H2, S2, not, H3|T], S3):- S1\='{', H3\=not, prove([H, S1, H2, S2, 
 %%prove(A&B&C+)
 prove([H,'&',H2,'&',H3|T], '+'):- H3\='{', H3\=not, wrt([H,'&',H2,'&',H3], '+'), proof(H, '&', H2, '&', H3, '+'), prove(T, '+').
 %%prove(AVBVC+)
-prove([H,'V',H2,'V',H3|T], '+'):- H3\='{', H3\=not, wrt([H,'V',H2,'V',H3], '+'), assert(toprove([H, 'V', H2, 'V', H3], '+')), prove(T, '+').
+prove([H,'V',H2,'V',H3|T], '+'):- H3\='{', H3\=not, write("/\\"), wrt([H,'V',H2,'V',H3], '+'), assert(toprove([H, 'V', H2, 'V', H3], '+')), prove(T, '+').
 %%prove(A&B&C-)
-prove([H,'&',H2,'&',H3|T], '-'):- H3\='{', H3\=not, wrt([H,'&',H2,'&',H3], '-'), assert(toprove([H, '&', H2, '&', H3], '-')), prove(T, '-').
+prove([H,'&',H2,'&',H3|T], '-'):- H3\='{', H3\=not, write("/\\"), wrt([H,'&',H2,'&',H3], '-'), assert(toprove([H, '&', H2, '&', H3], '-')), prove(T, '-').
 %%prove(AVBVC-)
 prove([H,'V',H2,'V',H3|T], '-'):- H3\='{', H3\=not, wrt([H,'V',H2,'V',H3], '-'), proof(H, 'V', H2, 'V', H3, '-'), prove(T, '-').
 
