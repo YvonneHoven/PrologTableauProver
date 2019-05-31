@@ -8,6 +8,7 @@
 :- discontiguous toprove/2.
 :- discontiguous prove/2.
 :- discontiguous finprove/2.
+:- discontiguous finprove/6.
 :- discontiguous prove/4.
 :- discontiguous membr/3.
 
@@ -37,21 +38,21 @@ ass(['{', A, '&', not,not,C, '}'|T]):- C\=not, wrt(['{', A, '&', atm(not,atm(not
 ass(['{', A, '&', not,C, '}'|T]):- C\=not, wrt(['{', A, '&', atm(not,C), '}'], '+'), ass([A, '&', atm(not,C)|T]).
 ass(['{', A, '&', C, '}'|T]):- C\=not, wrt(['{', A, '&', C, '}'], '+'), ass([A, '&', C|T]).
 %%simplify assert A&B
-ass([not,not,not,A, '&', not,not,not,C|T]):- C\=not, ass([atm(not,atm(not,atm(not,A))), '&', atm(not,atm(not,atm(not,C)))|T]).
-ass([not,not,not,A, '&', not,not,C|T]):- C\=not, ass([atm(not,atm(not,atm(not,A))), '&', atm(not,atm(not,C))|T]).
-ass([not,not,not,A, '&', not,C|T]):- C\=not, ass([atm(not,atm(not,atm(not,A))), '&', atm(not,C)|T]).
-ass([not,not,not,A, '&', C|T]):- C\=not, ass([atm(not,atm(not,atm(not,A))), '&', C|T]).
-ass([not,not,A, '&', not,not,not,C|T]):- C\=not, ass([atm(not,atm(not,A)), '&', atm(not,atm(not,atm(not,C)))|T]).
-ass([not,not,A, '&', not,not,C|T]):- C\=not, ass([atm(not,atm(not,A)), '&', atm(not,atm(not,C))|T]).
-ass([not,not,A, '&', not,C|T]):- C\=not, ass([atm(not,atm(not,A)), '&', atm(not,C)|T]).
-ass([not,not,A, '&', C|T]):- C\=not, ass([atm(not,atm(not,A)), '&', C|T]).
-ass([not,A, '&', not,not,not,C|T]):- C\=not, ass([atm(not,A), '&', atm(not,atm(not,atm(not,C)))|T]).
-ass([not,A, '&', not,not,C|T]):- C\=not, ass([atm(not,A), '&', atm(not,atm(not,C))|T]).
-ass([not,A, '&', not,C|T]):- C\=not, ass([atm(not,A), '&', atm(not,C)|T]).
-ass([not,A, '&', C|T]):- C\=not, ass([atm(not,A), '&', C|T]).
-ass([A, '&', not,not,not,C|T]):- C\=not, ass([A, '&', atm(not,atm(not,atm(not,C)))|T]).
-ass([A, '&', not,not,C|T]):- C\=not, ass([A, '&', atm(not,atm(not,C))|T]).
-ass([A, '&', not,C|T]):- C\=not, ass([A, '&', atm(not,C)|T]).
+ass([not,not,not,A, '&', not,not,not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,atm(not,atm(not,A))), '&', atm(not,atm(not,atm(not,C)))|T]).
+ass([not,not,not,A, '&', not,not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,atm(not,atm(not,A))), '&', atm(not,atm(not,C))|T]).
+ass([not,not,not,A, '&', not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,atm(not,atm(not,A))), '&', atm(not,C)|T]).
+ass([not,not,not,A, '&', C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,atm(not,atm(not,A))), '&', C|T]).
+ass([not,not,A, '&', not,not,not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,atm(not,A)), '&', atm(not,atm(not,atm(not,C)))|T]).
+ass([not,not,A, '&', not,not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,atm(not,A)), '&', atm(not,atm(not,C))|T]).
+ass([not,not,A, '&', not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,atm(not,A)), '&', atm(not,C)|T]).
+ass([not,not,A, '&', C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,atm(not,A)), '&', C|T]).
+ass([not,A, '&', not,not,not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,A), '&', atm(not,atm(not,atm(not,C)))|T]).
+ass([not,A, '&', not,not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,A), '&', atm(not,atm(not,C))|T]).
+ass([not,A, '&', not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,A), '&', atm(not,C)|T]).
+ass([not,A, '&', C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([atm(not,A), '&', C|T]).
+ass([A, '&', not,not,not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([A, '&', atm(not,atm(not,atm(not,C)))|T]).
+ass([A, '&', not,not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([A, '&', atm(not,atm(not,C))|T]).
+ass([A, '&', not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([A, '&', atm(not,C)|T]).
 
 %%assert A&B
 ass([A, '&', C|T]):- A\=not, C\=not, C\='{', wrt([A,'&',C], '+'), ass(T), assert(assprove([A, '&', C])).
@@ -124,10 +125,10 @@ mbr(_,[],_).
 mbr(_,_,[]).
 mbr(k3,atm(not,X),[X|_]):- assert(list([atm(not,X),+])).
 mbr(k3,X,[atm(not,X)|_]):- assert(list([atm(not,X),+])).
-mbr(k3,X,[_|T]):- mbr(k3,X,T).
+mbr(k3,X,[B|T]):- B\=atm(not,X), X\=atm(not,B), mbr(k3,X,T).
 mbr(lp,atm(not,X),[X|_]):- assert(list([atm(not,X),-])).
 mbr(lp,X,[atm(not,X)|_]):- assert(list([atm(not,X)],-)).
-mbr(lp,X,[_|T]):- mbr(X,T).
+mbr(lp,X,[B|T]):- B\=atm(not,X), X\=atm(not,B), mbr(lp,X,T).
 
 wr(atm(not,A)):- write("not"), write(A).
 wr(A):- A\=atm(not,_), write(A).
@@ -157,9 +158,9 @@ prove(A, '|',L, C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], a
 prove(A, '|',L, C):- C=[B], ass(A), wrt(C, '-'), assert(prf(B, '-')), nl, findall([Z], assprove(Z), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
 prove(A, '|',L, C):- C=[not,B], ass(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), nl, findall([Z], assprove(Z), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
 
-check(TP, FP):- TP\=[], FP\=[], write("//"), finprove(TP, '+'), finprove(FP, '-'), retractall(toprove(_,_)).
-check(TP, []):- TP\=[], write("//"), finprove(TP, '+'), retractall(toprove(_,_)).
-check([], FP):- FP\=[], write("//"), finprove(FP, '-'), retractall(toprove(_,_)).
+check(TP, FP):- TP\=[], FP\=[], nl, write("//"), finprove(TP, '+'), finprove(FP, '-'), retractall(toprove(_,_)).
+check(TP, []):- TP\=[], nl, write("//"), finprove(TP, '+'), retractall(toprove(_,_)).
+check([], FP):- FP\=[], nl, write("//"), finprove(FP, '-'), retractall(toprove(_,_)).
 check([], []).
 
 check([]).
@@ -222,13 +223,13 @@ proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), '+'):- A\=atm(not,atm(not,_
 proof(atm(not,atm(not,A)), 'V', B, '+'):- B\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), 'V', B], '+'), assert(toprove([atm(not,atm(not,A)), 'V', B], '+')).
 proof(A, 'V', atm(not,atm(not,B)), '+'):- A\=atm(not,atm(not,_)), wrt([A, 'V', atm(not,atm(not,B))], '+'), assert(toprove([A, 'V', atm(not,atm(not,B))], '+')).
 proof(A, 'V', B, '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A, 'V', B], '+'), assert(toprove([A, 'V', B], '+')).
-finprove([atm(not,atm(not,A)), 'V', atm(not,atm(not,B))], '+'):- prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), nl, prfwrt(A, '+'), write("   OR   "), wrt([B], '+'), assert(prf(A,'+')), assert(prf(B,'+')).
-finprove([atm(not,atm(not,A)), 'V', B], '+'):- B\=atm(not,atm(not,_)), prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(B, '+'), nl, prfwrt(A, '+'), write("   OR   "), wrt([B], '+'), assert(prf(A,'+')), assert(prf(B,'+')).
-finprove([A, 'V', atm(not,atm(not,B))], '+'):- A\=atm(not,atm(not,_)), prfwrt(A, '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), nl, prfwrt(A, '+'), write("   OR   "), wrt([B], '+'), assert(prf(A,'+')), assert(prf(B,'+')).
-finprove([A, 'V', B], '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), prfwrt(A, '+'), write("   OR   "), wrt([B], '+'), assert(prf(A,'+')), assert(prf(B,'+')).
+finprove([atm(not,atm(not,A)), 'V', atm(not,atm(not,B))], '+'):- wrt([atm(not,atm(not,A)), 'V', atm(not,atm(not,B))], '+'), prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), nl, prfwrt(A, '+'), write("   OR   "), wrt([B], '+'), assert(prf(A,'+')), assert(prf(B,'+')).
+finprove([atm(not,atm(not,A)), 'V', B], '+'):- B\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), 'V', B], '+'), prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(B, '+'), nl, prfwrt(A, '+'), write("   OR   "), wrt([B], '+'), assert(prf(A,'+')), assert(prf(B,'+')).
+finprove([A, 'V', atm(not,atm(not,B))], '+'):- A\=atm(not,atm(not,_)), wrt([A, 'V', atm(not,atm(not,B))], '+'), prfwrt(A, '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), nl, prfwrt(A, '+'), write("   OR   "), wrt([B], '+'), assert(prf(A,'+')), assert(prf(B,'+')).
+finprove([A, 'V', B], '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A, 'V', B], '+'), prfwrt(A, '+'), write("   OR   "), wrt([B], '+'), assert(prf(A,'+')), assert(prf(B,'+')).
 
 %%proof(AVBVC+)
-proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C)), '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+'), assert(toprove([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+')).
+proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C)), '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+'), assert(tofinprove([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+')).
 proof(atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', C, '+'):- C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', C], '+'), assert(toprove([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', C], '+')).
 proof(atm(not,atm(not,A)), 'V', B, 'V', atm(not,atm(not,C)), '+'):- B\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), 'V', B, 'V', atm(not,atm(not,C))], '+'), assert(toprove([atm(not,atm(not,A)), 'V', B, 'V', atm(not,atm(not,C))], '+')).
 proof(A, 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C)), '+'):- A\=atm(not,atm(not,_)), wrt([A, 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+'), assert(toprove([A, 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+')).
@@ -236,27 +237,27 @@ proof(atm(not,atm(not,A)), 'V', B, 'V', C, '+'):- B\=atm(not,atm(not,_)), C\=atm
 proof(A, 'V', atm(not,atm(not,B)), 'V', C, '+'):- A\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([A, 'V', atm(not,atm(not,B)), 'V', C], '+'), assert(toprove([A, 'V', atm(not,atm(not,B)), 'V', C], '+')).
 proof(A, 'V', B, 'V', atm(not,atm(not,C)), '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A, 'V', B, 'V', atm(not,atm(not,C))], '+'), assert(toprove([A, 'V', B, 'V', atm(not,atm(not,C))], '+')).
 proof(A, 'V', B, 'V', C, '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([A, 'V', B, 'V', C], '+'), assert(toprove([A, 'V', B, 'V', C], '+')).
-finprove([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
-finprove([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', C], '+'):- C\=atm(not,atm(not,_)), prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), write("   OR   "), prfwrt(C, '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
-finprove([atm(not,atm(not,A)), 'V', B, 'V', atm(not,atm(not,C))], '+'):- B\=atm(not,atm(not,_)), prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
-finprove([A, 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+'):- A\=atm(not,atm(not,_)), prfwrt(A, '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
-finprove([atm(not,atm(not,A)), 'V', B, 'V', C], '+'):- B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), prfwrt(C, '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
-finprove([A, 'V', atm(not,atm(not,B)), 'V', C], '+'):- A\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), prfwrt(A, '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), write("   OR   "), prfwrt(C, '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
-finprove([A, 'V', B, 'V', atm(not,atm(not,C))], '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
-finprove([A, 'V', B, 'V', C], '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
+finprove([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+'), prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
+finprove([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', C], '+'):- C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), 'V', atm(not,atm(not,B)), 'V', C], '+'), prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), write("   OR   "), prfwrt(C, '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
+finprove([atm(not,atm(not,A)), 'V', B, 'V', atm(not,atm(not,C))], '+'):- B\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), 'V', B, 'V', atm(not,atm(not,C))], '+'), prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
+finprove([A, 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+'):- A\=atm(not,atm(not,_)), wrt([A, 'V', atm(not,atm(not,B)), 'V', atm(not,atm(not,C))], '+'), prfwrt(A, '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
+finprove([atm(not,atm(not,A)), 'V', B, 'V', C], '+'):- B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), 'V', B, 'V', C], '+'), prfwrt(atm(not,atm(not,A)), '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), prfwrt(C, '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
+finprove([A, 'V', atm(not,atm(not,B)), 'V', C], '+'):- A\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([A, 'V', atm(not,atm(not,B)), 'V', C], '+'), prfwrt(A, '+'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '+'), write("   OR   "), prfwrt(C, '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
+finprove([A, 'V', B, 'V', atm(not,atm(not,C))], '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A, 'V', B, 'V', atm(not,atm(not,C))], '+'), prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '+'), nl, prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
+finprove([A, 'V', B, 'V', C], '+'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([A, 'V', B, 'V', C], '+'), prfwrt(A, '+'), write("   OR   "), prfwrt(B, '+'), write("   OR   "), wrt([C], '+'), assert(prf(A,'+')), assert(prf(B,'+')), assert(prf(C,'+')).
 
 %%proof(A&B-)
 proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', atm(not,atm(not,B))], '-'), assert(toprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B))], '-')).
 proof(atm(not,atm(not,A)), '&', B, '-'):- B\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', B], '-'), assert(toprove([atm(not,atm(not,A)), '&', B], '-')).
 proof(A, '&', atm(not,atm(not,B)), '-'):- A\=atm(not,atm(not,_)), wrt([A, '&', atm(not,atm(not,B))], '-'), assert(toprove([A, '&', atm(not,atm(not,B))], '-')).
 proof(A, '&', B, '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A, '&', B], '-'), assert(toprove([A, '&', B], '-')).
-finprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B))], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), nl, prfwrt(A, '-'), write("   OR   "), wrt([B], '-'), assert(prf(A,'-')), assert(prf(B,'-')).
-finprove([atm(not,atm(not,A)), '&', B], '-'):- B\=atm(not,atm(not,_)), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(B, '-'), nl, prfwrt(A, '-'), write("   OR   "), wrt([B], '-'), assert(prf(A,'-')), assert(prf(B,'-')).
-finprove([A, '&', atm(not,atm(not,B))], '-'):- A\=atm(not,atm(not,_)), prfwrt(A, '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), nl, prfwrt(A, '-'), write("   OR   "), wrt([B], '-'), assert(prf(A,'-')), assert(prf(B,'-')).
-finprove([A, '&', B], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), prfwrt(A, '-'), write("   OR   "), wrt([B], '-'), assert(prf(A,'-')), assert(prf(B,'-')).
+finprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B))], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', atm(not,atm(not,B))], '-'), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), nl, prfwrt(A, '-'), write("   OR   "), wrt([B], '-'), assert(prf(A,'-')), assert(prf(B,'-')).
+finprove([atm(not,atm(not,A)), '&', B], '-'):- B\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', B], '-'), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(B, '-'), nl, prfwrt(A, '-'), write("   OR   "), wrt([B], '-'), assert(prf(A,'-')), assert(prf(B,'-')).
+finprove([A, '&', atm(not,atm(not,B))], '-'):- A\=atm(not,atm(not,_)), wrt([A, '&', atm(not,atm(not,B))], '-'), prfwrt(A, '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), nl, prfwrt(A, '-'), write("   OR   "), wrt([B], '-'), assert(prf(A,'-')), assert(prf(B,'-')).
+finprove([A, '&', B], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A, '&', B], '-'), prfwrt(A, '-'), write("   OR   "), wrt([B], '-'), assert(prf(A,'-')), assert(prf(B,'-')).
 
 %%proof(A&B&C-)
-proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-'), assert(toprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-')).
+proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-'), assert(tofinprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-')).
 proof(atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C, '-'):- C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C], '-'), assert(toprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C], '-')).
 proof(atm(not,atm(not,A)), '&', B, '&', atm(not,atm(not,C)), '-'):- B\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', B, '&', atm(not,atm(not,C))], '-'), assert(toprove([atm(not,atm(not,A)), '&', B, '&', atm(not,atm(not,C))], '-')).
 proof(A, '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C)), '-'):- A\=atm(not,atm(not,_)), wrt([A, '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-'), assert(toprove([A, '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-')).
@@ -264,65 +265,72 @@ proof(atm(not,atm(not,A)), '&', B, '&', C, '-'):- B\=atm(not,atm(not,_)), C\=atm
 proof(A, '&', atm(not,atm(not,B)), '&', C, '-'):- A\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([A, '&', atm(not,atm(not,B)), '&', C], '-'), assert(toprove([A, '&', atm(not,atm(not,B)), '&', C], '-')).
 proof(A, '&', B, '&', atm(not,atm(not,C)), '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A, '&', B, '&', atm(not,atm(not,C))], '-'), assert(toprove([A, '&', B, '&', atm(not,atm(not,C))], '-')).
 proof(A, '&', B, '&', C, '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,atm(not,_))), C\=atm(not,atm(not,atm(not,_))), wrt([A, '&', B, '&', C], '-'), assert(toprove([A, '&', B, '&', C], '-')).
-finprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
-finprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C], '-'):- C\=atm(not,atm(not,_)), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), write("   OR   "), prfwrt(C, '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
-finprove([atm(not,atm(not,A)), '&', B, '&', atm(not,atm(not,C))], '-'):- B\=atm(not,atm(not,_)), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
-finprove([A, '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-'):- A\=atm(not,atm(not,_)), prfwrt(A, '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
-finprove([atm(not,atm(not,A)), '&', B, '&', C], '-'):- B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), prfwrt(C, '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
-finprove([A, '&', atm(not,atm(not,B)), '&', C], '-'):- A\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), prfwrt(A, '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), write("   OR   "), prfwrt(C, '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
-finprove([A, '&', B, '&', atm(not,atm(not,C))], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
-finprove([A, '&', B, '&', C], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)),prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
+finprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-'), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
+finprove([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C], '-'):- C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', atm(not,atm(not,B)), '&', C], '-'), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), write("   OR   "), prfwrt(C, '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
+finprove([atm(not,atm(not,A)), '&', B, '&', atm(not,atm(not,C))], '-'):- B\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', B, '&', atm(not,atm(not,C))], '-'), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
+finprove([A, '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-'):- A\=atm(not,atm(not,_)), wrt([A, '&', atm(not,atm(not,B)), '&', atm(not,atm(not,C))], '-'), prfwrt(A, '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
+finprove([atm(not,atm(not,A)), '&', B, '&', C], '-'):- B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([atm(not,atm(not,A)), '&', B, '&', C], '-'), prfwrt(atm(not,atm(not,A)), '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), prfwrt(C, '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
+finprove([A, '&', atm(not,atm(not,B)), '&', C], '-'):- A\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([A, '&', atm(not,atm(not,B)), '&', C], '-'), prfwrt(A, '-'), write("   OR   "), prfwrt(atm(not,atm(not,B)), '-'), write("   OR   "), prfwrt(C, '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
+finprove([A, '&', B, '&', atm(not,atm(not,C))], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), wrt([A, '&', B, '&', atm(not,atm(not,C))], '-'), prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), prfwrt(atm(not,atm(not,C)), '-'), nl, prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
+finprove([A, '&', B, '&', C], '-'):- A\=atm(not,atm(not,_)), B\=atm(not,atm(not,_)), C\=atm(not,atm(not,_)), wrt([A, '&', B, '&', C], '-'), prfwrt(A, '-'), write("   OR   "), prfwrt(B, '-'), write("   OR   "), wrt([C], '-'), assert(prf(A,'-')), assert(prf(B,'-')), assert(prf(C,'-')).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%simplify prove{A&B}+/- prove{AVB}+/-
-prove(['{', not,not,not, A, B, not,not,not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,atm(not,A))), B, atm(not,atm(not,atm(not,C))), S), prove(T, S).
-prove(['{', not,not,not, A, B, not,not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,atm(not,A))), B, atm(not,atm(not,C)), S), prove(T, S).
-prove(['{', not,not,not, A, B, not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,atm(not,A))), B, atm(not,C), S), prove(T, S).
-prove(['{', not,not,not, A, B, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_),  proof(atm(not,atm(not,atm(not,A))), B, C, S), prove(T, S).
-prove(['{', not,not, A, B, not,not,not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,A)), B, atm(not,atm(not,atm(not,C))), S), prove(T, S).
-prove(['{', not,not, A, B, not,not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,A)), B, atm(not,atm(not,C)), S), prove(T, S).
-prove(['{', not,not, A, B, not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,A)), B, atm(not,C), S), prove(T, S).
-prove(['{', not,not, A, B, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_),  proof(atm(not,atm(not,A)), B, C, S), prove(T, S).
-prove(['{', not, A, B, not,not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,A), B, atm(not,atm(not,C)), S), prove(T, S).
-prove(['{', not, A, B, not,not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,A), B, atm(not,atm(not,C)), S), prove(T, S).
-prove(['{', not, A, B, not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,A), B, atm(not,C), S), prove(T, S).
-prove(['{', not, A, B, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_),  proof(atm(not,A), B, C, S), prove(T, S).
-prove(['{', A, B, not,not,not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(A, B, atm(not,atm(not,atm(not,C))), S), prove(T, S).
-prove(['{', A, B, not,not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(A, B, atm(not,atm(not,C)), S), prove(T, S).
-prove(['{', A, B, not, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(A, B, atm(not,C), S), prove(T, S).
-prove(['{', A, B, C, '}'|T], S):- A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), B\=not, B\=atm(not,_), proof(A, B, C, S), prove(T, S).
+prove(['{', not,not,not, A, B, not,not,not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,atm(not,A))), B, atm(not,atm(not,atm(not,C))), S), prove(T, S).
+prove(['{', not,not,not, A, B, not,not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,atm(not,A))), B, atm(not,atm(not,C)), S), prove(T, S).
+prove(['{', not,not,not, A, B, not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,atm(not,A))), B, atm(not,C), S), prove(T, S).
+prove(['{', not,not,not, A, B, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_),  proof(atm(not,atm(not,atm(not,A))), B, C, S), prove(T, S).
+prove(['{', not,not, A, B, not,not,not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,A)), B, atm(not,atm(not,atm(not,C))), S), prove(T, S).
+prove(['{', not,not, A, B, not,not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,A)), B, atm(not,atm(not,C)), S), prove(T, S).
+prove(['{', not,not, A, B, not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,atm(not,A)), B, atm(not,C), S), prove(T, S).
+prove(['{', not,not, A, B, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_),  proof(atm(not,atm(not,A)), B, C, S), prove(T, S).
+prove(['{', not, A, B, not,not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,A), B, atm(not,atm(not,C)), S), prove(T, S).
+prove(['{', not, A, B, not,not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,A), B, atm(not,atm(not,C)), S), prove(T, S).
+prove(['{', not, A, B, not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(atm(not,A), B, atm(not,C), S), prove(T, S).
+prove(['{', not, A, B, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_),  proof(atm(not,A), B, C, S), prove(T, S).
+prove(['{', A, B, not,not,not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(A, B, atm(not,atm(not,atm(not,C))), S), prove(T, S).
+prove(['{', A, B, not,not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(A, B, atm(not,atm(not,C)), S), prove(T, S).
+prove(['{', A, B, not, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), proof(A, B, atm(not,C), S), prove(T, S).
+prove(['{', A, B, C, '}'|T], S):- T\=['V'|_], T\=['&'|_], A\=not, C\=not, A\=atm(not,_), C\=atm(not,_), B\=not, B\=atm(not,_), proof(A, B, C, S), prove(T, S).
 %%simplify prove(A&{B&C})+/- prove(A&{BVC})+/- prove(AV{B&C})+/- prove(AV{BVC})+/-
-prove([not,not,H, S1, '{', not,H2, S2, not,H3, '}'|T], S3):- prove([atm(not,atm(not,H)), S1, '{', atm(not,H2), S2, atm(not,H3), '}'], S3), wrt([H], S3), prove(T,S3).
-prove([not,not,H, S1, '{', not,H2, S2, H3, '}'|T], S3):- prove([atm(not,atm(not,H)), S1, '{', atm(not,H2), S2, H3, '}'], S3), wrt([H], S3), prove(T,S3).
-prove([not,not,H, S1, '{', H2, S2, not,H3, '}'|T], S3):- prove([atm(not,atm(not,H)), S1, '{', H2, S2, atm(not,H3), '}'], S3), wrt([H], S3), prove(T,S3).
-prove([not,not,H, S1, '{', H2, S2, H3, '}'|T], S3):- prove([atm(not,atm(not,H)), S1, '{', H2, S2, H3, '}'], S3), wrt([H], S3), prove(T,S3).
-prove([not,H, S1, '{', not,H2, S2, not,H3, '}'|T], S3):- prove([atm(not,H), S1, '{', atm(not,H2), S2, atm(not,H3), '}'|T], S3).
-prove([not,H, S1, '{', not,H2, S2, H3, '}'|T], S3):- prove([atm(not,H), S1, '{', atm(not,H2), S2, H3, '}'|T], S3).
-prove([not,H, S1, '{', H2, S2, not,H3, '}'|T], S3):- prove([atm(not,H), S1, '{', H2, S2, atm(not,H3), '}'|T], S3).
-prove([not,H, S1, '{', H2, S2, H3, '}'|T], S3):- prove([atm(not,H), S1, '{', H2, S2, H3, '}'|T], S3).
-prove([H, S1, '{', not,H2, S2, not,H3, '}'|T], S3):- prove([H, S1, '{', atm(not,H2), S2, atm(not,H3), '}'|T], S3).
-prove([H, S1, '{', not,H2, S2, H3, '}'|T], S3):- prove([H, S1, '{', atm(not,H2), S2, H3, '}'|T], S3).
-prove([H, S1, '{', H2, S2, not,H3, '}'|T], S3):- prove([H, S1, '{', H2, S2, atm(not,H3), '}'|T], S3).
+prove([not,not,H, S1, '{', not,H2, S2, not,H3, '}'|T], S3):- prove([atm(not,atm(not,H)), S1, '{', atm(not,H2), S2, atm(not,H3), '}'], S3), prove(T,S3).
+prove([not,not,H, S1, '{', not,H2, S2, H3, '}'|T], S3):- prove([atm(not,atm(not,H)), S1, '{', atm(not,H2), S2, H3, '}'], S3), prove(T,S3).
+prove([not,not,H, S1, '{', H2, S2, not,H3, '}'|T], S3):- prove([atm(not,atm(not,H)), S1, '{', H2, S2, atm(not,H3), '}'], S3), prove(T,S3).
+prove([not,not,H, S1, '{', H2, S2, H3, '}'|T], S3):- prove([atm(not,atm(not,H)), S1, '{', H2, S2, H3, '}'], S3), prove(T,S3).
+prove([not,H, S1, '{', not,H2, S2, not,H3, '}'|T], S3):- H\=not, S1\=not, prove([atm(not,H), S1, '{', atm(not,H2), S2, atm(not,H3), '}'|T], S3).
+prove([not,H, S1, '{', not,H2, S2, H3, '}'|T], S3):- H\=not, S1\=not, prove([atm(not,H), S1, '{', atm(not,H2), S2, H3, '}'|T], S3).
+prove([not,H, S1, '{', H2, S2, not,H3, '}'|T], S3):- H\=not, S1\=not, prove([atm(not,H), S1, '{', H2, S2, atm(not,H3), '}'|T], S3).
+prove([not,H, S1, '{', H2, S2, H3, '}'|T], S3):- H\=not, S1\=not, prove([atm(not,H), S1, '{', H2, S2, H3, '}'|T], S3).
+prove([H, S1, '{', not,H2, S2, not,H3, '}'|T], S3):- H\=not, S1\=not, prove([H, S1, '{', atm(not,H2), S2, atm(not,H3), '}'|T], S3).
+prove([H, S1, '{', not,H2, S2, H3, '}'|T], S3):- H\=not, S1\=not, prove([H, S1, '{', atm(not,H2), S2, H3, '}'|T], S3).
+prove([H, S1, '{', H2, S2, not,H3, '}'|T], S3):- H\=not, S1\=not, prove([H, S1, '{', H2, S2, atm(not,H3), '}'|T], S3).
 
-prove([H, '&', '{', H2, '&', H3, '}'|T], '+'):- wrt([H, '&', '{', H2, '&', H3, '}'], '+'), wrt([H],'+'), assert(prf(H, '+')), wrt(['{', H2, '&', H3, '}'], '+'), wrt([H2], '+'), wrt([H3], '+'),prove(T, '+').
+prove([atm(not,atm(not,H)), '&', '{', H2, '&', H3, '}'|T], '+'):- wrt([atm(not,atm(not,H)), '&', '{', H2, '&', H3, '}'], '+'), wrt([atm(not,atm(not,H))],'+'), wrt([H],'+'), assert(prf(H, '+')), wrt(['{', H2, '&', H3, '}'], '+'), wrt([H2], '+'), assert(prf(H2, '+')), wrt([H3], '+'), assert(prf(H3, '+')), prove(T, '+').
+prove([H, '&', '{', H2, '&', H3, '}'|T], '+'):- H\=atm(not,atm(not,_)), wrt([H, '&', '{', H2, '&', H3, '}'], '+'), wrt([H],'+'), assert(prf(H, '+')), wrt(['{', H2, '&', H3, '}'], '+'), wrt([H2], '+'), assert(prf(H2, '+')), wrt([H3], '+'), assert(prf(H3, '+')), prove(T, '+').
 
-prove([H, '&', '{', H2, 'V', H3, '}'|T], '+'):- wrt([H, '&', '{', H2, 'V', H3, '}'], '+'), wrt([H], '+'), assert(prf(H, '+')), wrt([H2,'V',H3], '+'), assert(toprove([H2, 'V', H3], '+')), prove(T, '+').
+prove([atm(not,atm(not,H)), '&', '{', H2, 'V', H3, '}'|T], '+'):- wrt([atm(not,atm(not,H)), '&', '{', H2, 'V', H3, '}'], '+'), wrt([atm(not,atm(not,H))], '+'), wrt([H],'+'), assert(prf(H, '+')), wrt(['{',H2,'V',H3,'}'], '+'), assert(toprove([H2, 'V', H3], '+')), prove(T, '+').
+prove([H, '&', '{', H2, 'V', H3, '}'|T], '+'):- H\=atm(not,atm(not,_)), wrt([H, '&', '{', H2, 'V', H3, '}'], '+'), wrt([H], '+'), assert(prf(H, '+')), wrt(['{',H2,'V',H3,'}'], '+'), assert(toprove([H2, 'V', H3], '+')), prove(T, '+').
 
-prove([H, 'V', '{', H2, '&', H3, '}'|T], '-'):- wrt([H, 'V', '{', H2, '&', H3, '}'], '-'), wrt([H], '-'), assert(prf(H, '-')), wrt([H2,'&',H3], '-'), assert(toprove([H2, '&', H3], '-')), prove(T, '+').
+prove([atm(not,atm(not,H)), 'V', '{', H2, '&', H3, '}'|T], '-'):- wrt([atm(not,atm(not,H)), 'V', '{', H2, '&', H3, '}'], '-'), wrt([atm(not,atm(not,H))], '-'), wrt([H],'-'), assert(prf(H, '-')), wrt(['{',H2,'&',H3,'}'], '-'), assert(toprove([H2, '&', H3], '-')), prove(T, '+').
+prove([H, 'V', '{', H2, '&', H3, '}'|T], '-'):- H\=atm(not,atm(not,_)), wrt([H, 'V', '{', H2, '&', H3, '}'], '-'), wrt([H], '-'), assert(prf(H, '-')), wrt(['{',H2,'&',H3,'}'], '-'), assert(toprove([H2, '&', H3], '-')), prove(T, '+').
 
-prove([H, 'V', '{', H2, 'V', H3, '}'|T], '-'):- wrt([H, 'V', '{', H2, 'V', H3, '}'], '-'), wrt([H], '-'), assert(prf(H, '-')), wrt(['{', H2, 'V', H3, '}'], '-'), wrt([H2], '-'), wrt([H3], '-'), prove(T, '-').
+prove([atm(not,atm(not,H)), 'V', '{', H2, 'V', H3, '}'|T], '-'):- wrt([atm(not,atm(not,H)), 'V', '{', H2, 'V', H3, '}'], '-'), wrt([atm(not,atm(not,H))], '-'), wrt([H],'-'), assert(prf(H, '-')), wrt(['{', H2, 'V', H3, '}'], '-'), wrt([H2], '-'), assert(prf(H2, '+')), wrt([H3], '-'), assert(prf(3, '+')), prove(T, '-').
+prove([H, 'V', '{', H2, 'V', H3, '}'|T], '-'):- H\=atm(not,atm(not,_)), wrt([H, 'V', '{', H2, 'V', H3, '}'], '-'), wrt([H], '-'), assert(prf(H, '-')), wrt(['{', H2, 'V', H3, '}'], '-'), wrt([H2], '-'), assert(prf(H2, '+')), wrt([H3], '-'), assert(prf(H3, '+')), prove(T, '-').
 
 
 %%%%%%%%%%%%%%%%%verschilmetDFS%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-prove([H, 'V', '{', H2, 'V', H3, '}'|T], '+'):- wrt([H, 'V', '{', H2, 'V', H3, '}'], '+'), assert(toprove([H, 'V', '{', H2, 'V', H3, '}'], '+')), prove(T, '+').
-finprove([H, 'V', '{', H2, 'V', H3, '}'], '+'):- wrt([H, 'V', '{', H2, 'V', H3, '}'], '+'), wrt([H], '+'), wrt(['{',H2,'V',H3,'}'], '+'), proof(H, 'V', H2, 'V', H3, '+').
+prove([atm(not,atm(not,H)), 'V', '{', H2, 'V', H3, '}'|T], '+'):- wrt([atm(not,atm(not,H)), 'V', '{', H2, 'V', H3, '}'], '+'), assert(toprove([atm(not,atm(not,H)), 'V', '{', H2, 'V', H3, '}'], '+')), prove(T, '+').
+finprove([atm(not,atm(not,H)), 'V', '{', H2, 'V', H3, '}'], '+'):- wrt([atm(not,atm(not,H)), 'V', '{', H2, 'V', H3, '}'], '+'), finprove([atm(not,atm(not,H)), 'V', H2, 'V', H3], '+').
+prove([H, 'V', '{', H2, 'V', H3, '}'|T], '+'):- H\=atm(not,atm(not,_)), wrt([H, 'V', '{', H2, 'V', H3, '}'], '+'), assert(toprove([H, 'V', '{', H2, 'V', H3, '}'], '+')), prove(T, '+').
+finprove([H, 'V', '{', H2, 'V', H3, '}'], '+'):- H\=atm(not,atm(not,_)), wrt([H, 'V', '{', H2, 'V', H3, '}'], '+'), finprove([H, 'V', H2, 'V', H3], '+').
 
 %prove([H, '&', '{', H2, 'V', H3, '}'|T], '-'):- wrt([H, '&', '{', H2, 'V', H3, '}'], '-'), wrt([H], '-'), wrt([H2, 'V', H3], '-'), assert(toprove([H2, 'V', H3], '-')), prove(T, '-').
-
 %prove([H, 'V', '{', H2, '&', H3, '}'|T], '+'):- wrt([H, 'V', '{', H2, '&', H3, '}'], '+'), wrt([H], '+'), wrt([H2, '&', H3], '+'), assert(toprove([H2, '&', H3], '+')), prove(T, '+').
 
-prove([H, '&', '{', H2, '&', H3, '}'|T], '-'):- wrt([H, '&', '{', H2, '&', H3, '}'], '-'), assert(toprove([H, '&', H2, '&', H3], '-')), prove(T, '-').
-finprove([H, '&', '{', H2, '&', H3, '}'], '-'):- wrt([H, '&', '{', H2, '&', H3, '}'], '-'), wrt([H], '-'), wrt(['{',H2,'&',H3,'}'], '-'), proof(H, '&', H2, '&', H3, '-').
+prove([atm(not,atm(not,H)), '&', '{', H2, '&', H3, '}'|T], '-'):- wrt([atm(not,atm(not,H)), '&', '{', H2, '&', H3, '}'], '-'), assert(toprove([atm(not,atm(not,H)), '&', '{',H2, '&', H3,'}'], '-')), prove(T, '-').
+finprove([atm(not,atm(not,H)), '&', '{', H2, '&', H3, '}'], '-'):- wrt([atm(not,atm(not,H)), '&', '{', H2, '&', H3, '}'], '-'), finprove([atm(not,atm(not,H)), '&', H2, '&', H3], '-').
+prove([H, '&', '{', H2, '&', H3, '}'|T], '-'):- H\=atm(not,atm(not,_)), wrt([H, '&', '{', H2, '&', H3, '}'], '-'), assert(toprove([H, '&', '{',H2, '&', H3,'}'], '-')), prove(T, '-').
+finprove([H, '&', '{', H2, '&', H3, '}'], '-'):- H\=atm(not,atm(not,_)), wrt([H, '&', '{', H2, '&', H3, '}'], '-'), finprove([H, '&', H2, '&', H3], '-').
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
