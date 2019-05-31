@@ -137,7 +137,7 @@ mbr(lp,X,[atm(not,X)|_]):- assert(list([atm(not,X)],-)).
 mbr(lp,X,[_|T]):- mbr(X,T).
 
 wr(atm(not,A)):- write("not"), write(A).
-wr(A):- A\=atm(not,_), write("A").
+wr(A):- A\=atm(not,_), write(A).
 
 printCounter(Logic,[],PL,NL):- write("counter-examples found "), write(Logic), writeln(": "), print(PL, NL).
 printCounter(Logic,List,_,_):- List\=[], write("Closed branch "), write(Logic), writeln(": "), printCounter2(List).
