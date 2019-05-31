@@ -129,12 +129,15 @@ mbr(lp,atm(not,X),[X|_]):- assert(list([atm(not,X),-])).
 mbr(lp,X,[atm(not,X)|_]):- assert(list([atm(not,X)],-)).
 mbr(lp,X,[_|T]):- mbr(X,T).
 
+wr(atm(not,A)):- write("not"), write(A).
+wr(A):- A\=atm(not,_), write("A").
+
 printCounter(Logic,[],PL,NL):- write("counter-examples found "), write(Logic), writeln(": "), print(PL, NL).
 printCounter(Logic,List,_,_):- List\=[], write("Closed branches "), write(Logic), writeln(": "), printCounter2(List).
 printCounter2([]).
-printCounter2([[X,+,-]|T]):- write("closed branch has "), write(X), write(",+ and "), write(X), writeln(",-"), printCounter2(T).
-printCounter2([[atm(not,X),+]|T]):- write("closed branch has not"), write(X), write(",+ and "), write(X), writeln(",+"), printCounter2(T).
-printCounter2([[atm(not,X),-]|T]):- write("closed branch has not"), write(X), write(",- and "), write(X), writeln(",-"), printCounter2(T).
+printCounter2([[X,+,-]|T]):- write("closed branch has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(T).
+printCounter2([[atm(not,X),+]|T]):- write("closed branch has not"), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(T).
+printCounter2([[atm(not,X),-]|T]):- write("closed branch has not"), wr(X), write(",- and "), wr(X), writeln(",-"), printCounter2(T).
 
 print(PL, NL) :- PL\=[], NL\=[], print(PL,[]), write(" "), print([],NL).
 print([],[]).
