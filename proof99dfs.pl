@@ -108,10 +108,12 @@ prepareAnswer2([[H]|T],[]):- retract(noPrint(H, '+')), prepareAnswer2(T,[]).
 prepareAnswer2([],[[H]|T]):- retract(noPrint(H, '-')), prepareAnswer2([],T).
 
 showCounters(fde, PosL, NegL):- counter(fde,PosL,NegL), findall(Z, list(Z), ZZ), printCounter(fde,ZZ,PosL,NegL), retractall(list(_)). 
-showCounters(k3, PosL, NegL):- counter(k3,PosL,PosL), findall(Z, list(Z), ZZ), printCounter(fde,ZZ,PosL,NegL), printCounter(k3,ZZ,PosL,NegL), retractall(list(_)).
-showCounters(lp, PosL, NegL):- counter(lp,NegL,NegL), findall(Z, list(Z), ZZ), printCounter(fde,ZZ,PosL,NegL), printCounter(lp,ZZ,PosL,NegL), retractall(list(_)).
+showCounters(k3, PosL, NegL):- counter(k3,PosL,NegL), findall(Z, list(Z), ZZ), printCounter(k3,ZZ,PosL,NegL), retractall(list(_)).
+showCounters(lp, PosL, NegL):- counter(lp,PosL,NegL), findall(Z, list(Z), ZZ), printCounter(lp,ZZ,PosL,NegL), retractall(list(_)).
 
-counter(Logic,L1,L2):- membr(Logic,L1,L2).
+counter(fde,PosL,NegL):- membr(fde,PosL,NegL).
+counter(k3,PosL,NegL):- membr(fde,PosL,NegL), membr(k3,PosL,PosL).
+counter(lp,PosL,NegL):- membr(fde,PosL,NegL), membr(lp,NegL,NegL).
 membr(_,[],[]).
 membr(_,[],_).
 membr(_,_,[]).
@@ -129,10 +131,10 @@ mbr(_,[],_).
 mbr(_,_,[]).
 mbr(k3,atm(not,X),[X|_]):- assert(list([atm(not,X),+])).
 mbr(k3,X,[atm(not,X)|_]):- assert(list([atm(not,X),+])).
-mbr(k3,X,[B|T]):- B\=X, B\=atm(not,X), X\=atm(not,B), mbr(k3,X,T).
+mbr(k3,X,[_|T]):- mbr(k3,X,T).
 mbr(lp,atm(not,X),[X|_]):- assert(list([atm(not,X),-])).
 mbr(lp,X,[atm(not,X)|_]):- assert(list([atm(not,X)],-)).
-mbr(lp,X,[B|T]):- B\=X, B\=atm(not,X), X\=atm(not,B), mbr(X,T).
+mbr(lp,X,[_|T]):- mbr(X,T).
 
 printCounter(Logic,[],PL,NL):- write("counter-examples found "), write(Logic), writeln(": "), print(PL, NL).
 printCounter(Logic,List,_,_):- List\=[], write("Closed branch "), write(Logic), writeln(": "), printCounter2(List).
