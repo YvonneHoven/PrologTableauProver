@@ -19,57 +19,130 @@ prove([not,not,not,a,'&',not,not,not,b], '|', k3, [a, '&', f, '&',d]).
 prove([not,not,not,a,'&',not,not,not,b], '|', lp, [f, '&', not,e, '&',b]).
 prove(['{',not,not,not,a,'&',not,not,not,b,'}'], '|', fde, [d,'V',e]).
 prove(['{',not,not,not,a,'&',not,not,not,b,'}'], '|', k3, [not,d,'V',e]).
-prove(['{'not,not,not,a,'&',not,not,not,b,'}'], '|', lp, [not,d,'V',not,a]).
+prove(['{',not,not,not,a,'&',not,not,not,b,'}'], '|', lp, [not,d,'V',not,a]).
 
 prove([not,not,a,'&',not,not,not,b], '|', fde, [b,'V',d,'V',not,f]).
 prove([not,not,a,'&',not,not,not,b], '|', k3, [not,a,'V',d,'V',f]).
 prove([not,not,a,'&',not,not,not,b], '|', lp, [not,not,a,'V',not,b,'V',g]).
 prove(['{',not,not,a,'&',not,not,not,b,'}'], '|', fde, ['{',d,'&', h'}']).
 prove(['{',not,not,a,'&',not,not,not,b,'}'], '|', k3, ['{',b,'&',not,c'}']).
-prove(['{'not,not,a,'&',not,not,not,b,'}'], '|', lp, ['{',not,b,'&',not,c,'}']).
+prove(['{',not,not,a,'&',not,not,not,b,'}'], '|', lp, ['{',not,b,'&',not,c,'}']).
 
 prove([not,not,a,'&',not,not,b], '|', fde, ['{',d,'V', h'}']).
 prove([not,not,a,'&',not,not,b], '|', k3, ['{',b,'&',not,c'}']).
 prove([not,not,a,'&',not,not,b], '|', lp, ['{',not,b,'&',not,c,'}']).
-prove(['{',not,not,a,'&',not,not,b,'}'], '|', fde, ['{',b,'V',not,d'}']).
-prove(['{',not,not,a,'&',not,not,b,'}'], '|', k3, ['{',b,'&',not,c'}']).
-prove(['{'not,not,a,'&',not,not,b,'}'], '|', lp, ['{',b,'V',not,c'}']).
+prove(['{',not,not,a,'&',not,not,b,'}'], '|', fde, ['{',b,'V',not,d,'}']).
+prove(['{',not,not,a,'&',not,not,b,'}'], '|', k3, ['{',b,'&',not,c,'}']).
+prove(['{',not,not,a,'&',not,not,b,'}'], '|', lp, ['{',b,'V',not,c,'}']).
 
 prove([not,a,'&',not,b], '|', fde, [not,b]).
 prove([not,a,'&',not,b], '|', k3, [not,g]).
 prove([not,a,'&',not,b], '|', lp, [not,not,a]).
 prove(['{',not,a,'&',not,b,'}'], '|', fde, [p,'V',q]).
 prove(['{',not,a,'&',not,b,'}'], '|', k3, [p,'V',not,q]).
-prove(['{'not,a,'&',not,b,'}'], '|', lp, [not,p,'V',p]).
+prove(['{',not,a,'&',not,b,'}'], '|', lp, [not,p,'V',p]).
 
-prove([not,not,'{',not,a,'&',not,b,'}'], '|', fde, [not,not,a,'&','{',b,'&',not,c'}']).
-prove([not,not,'{',not,a,'&',not,b,'}'], '|', k3, [not,a,'&','{',c,'&',d'}']).
-prove([not,not,'{'not,a,'&',not,b,'}'], '|', lp, [b,'&','{',c,'&', not,d'}']).
-prove([not,not,'{',a,'&',b,'}'], '|', fde, [not,not,a,'V','{',b,'V',not,c'}']).
-prove([not,not,'{',a,'&',b,'}'], '|', k3, [not,a,'V','{',c,'V',d'}']).
-prove([notnot,'{'a,'&',b,'}'], '|', lp, [b,'V','{',c,'V', not,d'}']).
+prove([not,not,'{',not,a,'&',not,b,'}'], '|', fde, [not,not,a,'&','{',b,'&',not,c,'}']).
+prove([not,not,'{',not,a,'&',not,b,'}'], '|', k3, [not,a,'&','{',c,'&',d,'}']).
+prove([not,not,'{',not,a,'&',not,b,'}'], '|', lp, [b,'&','{',c,'&', not,d,'}']).
+prove([not,not,'{',a,'&',b,'}'], '|', fde, [not,not,a,'V','{',b,'V',not,c,'}']).
+prove([not,not,'{',a,'&',b,'}'], '|', k3, [not,a,'V','{',c,'V',d,'}']).
+prove([not,not,'{',a,'&',b,'}'], '|', lp, [b,'V','{',c,'V', not,d,'}']).
 
-prove([not,'{',not,a,'&',not,b,'}'], '|', fde, [b,'V','{',c,'&', not,d'}']).
-prove([not,'{',not,a,'&',not,b,'}'], '|', k3, [not,b,'V','{',not,c,'&', not,d'}']).
-prove([not,'{'not,a,'&',not,b,'}'], '|', lp, [not,not,b,'&',not,not,c]).
-prove([not,'{',a,'&',b,'}'], '|', fde, [not,b,'&',not,c]).
-prove([not,'{',a,'&',b,'}'], '|', k3, [b,'&',not,c]).
-prove([not, '{'a,'&',b,'}'], '|', lp, [b,'&',c]).
+prove([not,'{',not,a,'V',not,b,'}'], '|', fde, [b,'V','{',c,'&', not,d'}']).
+prove([not,'{',not,a,'V',not,b,'}'], '|', k3, [not,b,'V','{',not,c,'&', not,d,'}']).
+prove([not,'{',not,a,'V',not,b,'}'], '|', lp, [not,not,b,'&',not,not,c]).
+prove([not,'{',a,'V',b,'}'], '|', fde, [not,b,'&',not,c]).
+prove([not,'{',a,'V',b,'}'], '|', k3, [b,'&',not,c]).
+prove([not,'{',a,'V',b,'}'], '|', lp, [b,'&',c]).
 
 prove([not,c,'&','{',not,a,'&',not,b,'}'], '|', fde, [b,'&',c,'&'not,d]).
 prove([not,c,'&','{',not,a,'&',not,b,'}'], '|', k3, [b,'V',c,'V',not,d]).
-prove([not,c,'&','{'not,a,'&',not,b,'}'], '|', lp, [not,not,b,'&',not,not,c]).
+prove([not,c,'&','{',not,a,'&',not,b,'}'], '|', lp, [not,not,b,'&',not,not,c]).
 prove([not,c,'&','{',a,'&',b,'}'], '|', fde, [not,b,'V',not,c]).
 prove([not,c,'&','{',a,'&',b,'}'], '|', k3, [b,'V',not,c]).
-prove([not,c,'&', '{'a,'&',b,'}'], '|', lp, [b,'V',c]).
+prove([not,c,'&','{',a,'&',b,'}'], '|', lp, [b,'V',c]).
 
 prove([c,'&','{',not,a,'&',not,b,'}'], '|', fde, ['{',a,'&',c,'}','&',not,d]).
 prove([c,'&','{',not,a,'&',not,b,'}'], '|', k3, ['{',a,'V',c,'}','V',d]).
-prove([c,'&','{'not,a,'&',not,b,'}'], '|', lp, ['{',b,'&'c'}','V',d]).
-prove([c,'&','{',a,'&',b,'}'], '|', fde, ['{',b,'V',c,'}','&',d]).
-prove([c,'&','{',a,'&',b,'}'], '|', k3, [not,not,'{',not,b,'&',c'}']).
-prove([c,'&', '{'a,'&',b,'}'], '|', lp, [not,not,'{',not,b,'V',c'}']).
+prove([c,'&','{',not,a,'&',not,b,'}'], '|', lp, ['{',b,'&',c',}','V',d]).
+prove([c,'&','{',a,'&',b,'}'], '|', fde, ['{',b,'&',c,'}','&',d]).
+prove([c,'&','{',a,'&',b,'}'], '|', k3, [not,not,'{',not,b,'&',c,'}']).
+prove([c,'&','{',a,'&',b,'}'], '|', lp, [not,not,'{',not,b,'V',c,'}']).
 
-prove([c,'&',a], '|', fde, [not,'{',not,b,'&',c'}']).
-prove([c,'&',a], '|', k3, [not,'{',b,'&',not,c'}']).
-prove([c,'&',a], '|', lp, [not,'{',not,b,'V',c'}']).
+prove([c,'&',a], '|', fde, [not,'{',not,b,'&',c,'}']).
+prove([c,'&',a], '|', k3, [not,'{',b,'&',not,c,'}']).
+prove([c,'&',a], '|', lp, [not,'{',not,b,'V',c,'}']).
+
+
+possibilities with this prover to prove inferences
+notnotA & {notB V notC} + till
+A & {B V C} +
+
+
+
+
+
+
+
+
+
+
+foutieven:
+
+prove([not,not,not,a], '|', k3, [not,not,not,a]).
+prove([not,not,not,a], '|', lp, [not,not,a]).
+counter: not a,- -> nota,-
+prove([not,not,a], '|', k3, [not,b]).
+prove([not,not,a], '|', lp, [a]).
+prove([not,a], '|', fde, [not,not,a,'&',not,not,b]).  bfs
+prove([not,a], '|', k3, [not,not,a,'&',not,b]).  
+prove([not,a], '|', lp, [not,a,'&',not,b]).
+prove([a], '|', k3, [f,'&',not,b]).
+prove([a], '|', lp, [c,'&',b]).
+prove([not,not,not,a,'&',not,not,not,b], '|', fde, [not,a,'&',not,b,'&',c]).
+prove([not,not,not,a,'&',not,not,not,b], '|', k3, [a, '&', f, '&',d]).
+prove([not,not,not,a,'&',not,not,not,b], '|', lp, [f, '&', not,e, '&',b]).
+prove(['{',not,not,not,a,'&',not,not,not,b,'}'], '|', k3, [not,d,'V',e]).
+prove(['{',not,not,not,a,'&',not,not,not,b,'}'], '|', lp, [not,d,'V',not,a]).
+prove([not,not,a,'&',not,not,not,b], '|', fde, [b,'V',d,'V',not,f]).
+prove([not,not,a,'&',not,not,not,b], '|', k3, [not,a,'V',d,'V',f]).
+prove([not,not,a,'&',not,not,not,b], '|', lp, [not,not,a,'V',not,b,'V',g]).
+prove(['{',not,not,a,'&',not,not,not,b,'}'], '|', k3, ['{',b,'&',not,c,'}']).
+prove(['{',not,not,a,'&',not,not,not,b,'}'], '|', lp, ['{',not,b,'&',not,c,'}']).
+prove([not,not,a,'&',not,not,b], '|', fde, ['{',d,'V', h,'}']).
+prove([not,not,a,'&',not,not,b], '|', k3, ['{',b,'&',not,c,'}']).
+prove([not,not,a,'&',not,not,b], '|', lp, ['{',not,b,'&',not,c,'}']).
+prove(['{',not,not,a,'&',not,not,b,'}'], '|', k3, ['{',b,'&',not,c,'}']).
+prove(['{',not,not,a,'&',not,not,b,'}'], '|', lp, ['{',b,'V',not,c,'}']).
+prove([not,a,'&',not,b], '|', fde, [not,b]).
+prove([not,a,'&',not,b], '|', k3, [not,g]).
+prove([not,a,'&',not,b], '|', lp, [not,not,a])
+prove(['{',not,a,'&',not,b,'}'], '|', k3, [p,'V',not,q]).
+prove(['{',not,a,'&',not,b,'}'], '|', lp, [not,p,'V',p]).
+prove([not,not,'{',not,a,'&',not,b,'}'], '|', fde, [not,not,a,'&','{',b,'&',not,c'}']). dfs print a,-
+prove([not,not,'{',not,a,'&',not,b,'}'], '|', k3, [not,a,'&','{',c,'&',d,'}']).
+prove([not,not,'{',not,a,'&',not,b,'}'], '|', lp, [b,'&','{',c,'&', not,d,'}']).
+prove([not,not,'{',a,'&',b,'}'], '|', k3, [not,a,'V','{',c,'V',d,'}']).
+
+prove([not,not,'{',a,'&',b,'}'], '|', lp, [b,'V','{',c,'V', not,d,'}']). 
+prove([not,'{',not,a,'V',not,b,'}'], '|', fde, [b,'V','{',c,'&', not,d,'}']).   
+prove([not,'{',not,a,'V',not,b,'}'], '|', k3, [not,b,'V','{',not,c,'&', not,d,'}']). 
+prove([not,'{',not,a,'V',not,b,'}'], '|', lp, [not,not,b,'&',not,not,c]). 
+prove([not,'{',a,'V',b,'}'], '|', fde, [not,b,'&',not,c]). 
+prove([not,'{',a,'V',b,'}'], '|', k3, [b,'&',not,c]). 
+prove([not, '{',a,'V',b,'}'], '|', lp, [b,'&',c]). 
+
+prove([not,c,'&','{',not,a,'&',not,b,'}'], '|', fde, [b,'&',c,'&',not,d]).
+prove([not,c,'&','{',not,a,'&',not,b,'}'], '|', k3, [b,'V',c,'V',not,d]).
+prove([not,c,'&','{'not,a,'&',not,b,'}'], '|', lp, [not,not,b,'&',not,not,c]).
+prove([not,c,'&','{',a,'&',b,'}'], '|', fde, [not,b,'V',not,c]). dfs teveel, bfs truetre
+prove([not,c,'&','{',a,'&',b,'}'], '|', k3, [b,'V',not,c]).
+prove([not,c,'&', '{',a,'&',b,'}'], '|', lp, [b,'V',c]).
+prove([c,'&','{',not,a,'&',not,b,'}'], '|', k3, ['{',a,'V',c,'}','V',d]).
+prove([c,'&','{',not,a,'&',not,b,'}'], '|', lp, ['{',b,'&',c,'}','V',d]).
+prove([c,'&','{',a,'&',b,'}'], '|', fde, ['{',b,'V',c,'}','&',d]).
+prove([c,'&','{',a,'&',b,'}'], '|', k3, [not,not,'{',not,b,'&',c,'}']).
+prove([c,'&', '{',a,'&',b,'}'], '|', lp, [not,not,'{',not,b,'V',c,'}']).
+prove([c,'&',a], '|', k3, [not,'{',b,'&',not,c,'}']).
+prove([c,'&',a], '|', lp, [not,'{',not,b,'V',c,'}']).
