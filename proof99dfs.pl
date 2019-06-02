@@ -139,7 +139,7 @@ mbr(lp,X,[B|T]):- B\=atm(not,X), X\=atm(not,B), mbr(lp,X,T).
 wr(atm(not,A)):- write("not"), write(A).
 wr(A):- A\=atm(not,_), write(A).
 
-printCounter(Logic,[],PL,NL):- write("all branches are open, counter-examples found "), write(Logic), writeln(": "), print(PL, NL).
+printCounter(Logic,[],PL,NL):- write("branch is open, counter-examples found "), write(Logic), writeln(": "), print(PL, NL).
 printCounter(Logic,List,_,_):- List\=[], write("Closed branch "), write(Logic), writeln(": "), printCounter2(List).
 printCounter2([]).
 printCounter2([[X,+,-]|T]):- write("closed branch has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(T).
