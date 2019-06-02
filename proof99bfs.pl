@@ -107,17 +107,21 @@ prepareAnswer2(L,PL,NL,[],[],[],[],[],[]):-
         
 prepareAnswer2(L,PL,NL,PoL,NeL,PosL,NegL,PosiL,NegaL):- (Pol\=[]; NeL\=[]),
     	write('positive literals: '), nl, write("|"), printList(PL, '+'), printList(PoL, '+'), nl, 
-    	write('negative literals: '), nl, write("|"), printList(NL, '-'), printList(NeL, '-'), nl, showAllCounters(L,PL,NL,PoL,NeL).
+    	write('negative literals: '), nl, write("|"), printList(NL, '-'), printList(NeL, '-'), nl, showAllCounters(1,L,PL,NL,PoL,NeL).
         
 prepareAnswer2(L,PL,NL,PoL,NeL,PosL,NegL,PosiL,NegaL):- (Posl\=[]; NegL\=[]),
         write('positive literals: '), nl, write("|"), printList(PL, '+'), printList(PosL, '+'), nl,
-    	write('negative literals: '), nl, write("|"), printList(NL, '-'), printList(NegL, '-'), nl, showAllCounters(L,PL,NL,PosL,NegL).
+    	write('negative literals: '), nl, write("|"), printList(NL, '-'), printList(NegL, '-'), nl, showAllCounters(2,L,PL,NL,PosL,NegL).
         
 prepareAnswer2(L,PL,NL,PoL,NeL,PosL,NegL,PosiL,NegaL):- (Posil\=[]; NegaL\=[]),
         write('positive literals: '), nl, write("|"), printList(PL, '+'), printList(PosiL, '+'), nl,
-    	write('negative literals: '), nl, write("|"), printList(NL, '-'), printList(NegaL, '-'), nl, showAllCounters(L,PL,NL,PosiL,NegaL).
+    	write('negative literals: '), nl, write("|"), printList(NL, '-'), printList(NegaL, '-'), nl, showAllCounters(3,L,PL,NL,PosiL,NegaL).
 
-showAllCounters(L,PL,NL,P,N):- append(PL,P,Positive), append(NL,N,Negative), showCounters(L,Positive,Negative).
+showAllCounters(Num,L,PL,NL,P,N):- append(PL,P,Positive), append(NL,N,Negative), showCounters(Num,L,Positive,Negative).
+
+showCounters(Num,fde, PosL, NegL):- counter(fde,PosL,NegL), findall(Z, list(Z), ZZ), printCounter(Num,fde,ZZ,PosL,NegL), retractall(list(_)). 
+showCounters(Num,k3, PosL, NegL):- counter(k3,PosL,NegL), findall(Z, list(Z), ZZ), printCounter(Num,k3,ZZ,PosL,NegL), retractall(list(_)).
+showCounters(Num,lp, PosL, NegL):- counter(lp,PosL,NegL), findall(Z, list(Z), ZZ), printCounter(Num,lp,ZZ,PosL,NegL), retractall(list(_)).
 
 showCounters(fde, PosL, NegL):- counter(fde,PosL,NegL), findall(Z, list(Z), ZZ), printCounter(fde,ZZ,PosL,NegL), retractall(list(_)). 
 showCounters(k3, PosL, NegL):- counter(k3,PosL,NegL), findall(Z, list(Z), ZZ), printCounter(k3,ZZ,PosL,NegL), retractall(list(_)).
@@ -151,8 +155,15 @@ mbr(lp,X,[B|T]):- B\=atm(not,X), X\=atm(not,B), mbr(lp,X,T).
 wr(atm(not,A)):- write("not"), write(A).
 wr(A):- A\=atm(not,_), write(A).
 
+printCounter(Num,Logic,[],PL,NL):- write("branch #"), write(Num), write(" is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL).
+printCounter(Num,Logic,List,_,_):- List\=[], write("Closed branches "), write(Logic), writeln(": "), printCounter2(Num,List).
+printCounter2(_,[]).
+printCounter2(Num,[[X,+,-]|T]):- write("closed branch #"), write(Num), write(" has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(T).
+printCounter2(Num,[[atm(not,X),+]|T]):- write("closed branch #"), write(Num), write(" has not"), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(T).
+printCounter2(Num,[[atm(not,X),-]|T]):- write("closed branch #"), write(Num), write(" has not"), wr(X), write(",- and "), wr(X), writeln(",-"), printCounter2(T).
+
 printCounter(Logic,[],PL,NL):- write("all branches are open, counter-examples found "), write(Logic), writeln(": "), print(PL, NL).
-printCounter(Logic,List,_,_):- List\=[], write("Closed branch "), write(Logic), writeln(": "), printCounter2(List).
+printCounter(Logic,List,_,_):- List\=[], write("Closed branches "), write(Logic), writeln(": "), printCounter2(List).
 printCounter2([]).
 printCounter2([[X,+,-]|T]):- write("closed branch has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(T).
 printCounter2([[atm(not,X),+]|T]):- write("closed branch has not"), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(T).
