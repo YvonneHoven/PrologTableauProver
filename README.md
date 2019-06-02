@@ -1,6 +1,9 @@
 # PrologTableauProver
 for Many-Valued Logics
 
+assumptions: 
+- never assert a premise which can branch out the tableau
+- never have more than 1 branch splitting moments (in bfs)
 
 System Usability Scores
 
@@ -21,8 +24,8 @@ notnotnotA & notnotnotB till
 A & B
 notnot{notnotA & notnotB} till
 notnot{A & B}
-not{notnotA & notnotB} till
-not{A & B}
+not{notnotA V notnotB} till
+not{A V B}
 notA&{notB & notC} till
 notA&{B & C}
 A&{notB & notC} till
@@ -69,24 +72,5 @@ notnot {notnotA & notnotB} +/- till
 not{A&B} +/-
 notnot {notnotA V notnotB} +/-
 not{AVB} +/-
-
-
-
-
-
-moet nog even alle mogelijke inputs uittesten of alles klopt
-bfs;
-hoe bfs per branch counterex
-indenting?
-dfs;
-
-
-mailtje prolog proff
-linkje vrebrugge 3.6
-- creates technical difficulties in implementation due to very complicated memory management being needed in the general case.
-- Prolog program which searches a (simple) tree using a breadth-first traversal is shown
-
-
-
 
 
