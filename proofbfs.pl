@@ -98,6 +98,15 @@ printList([], _).
 printList([atm(not,H)|T], S):- write("not "), write(H), write(", "), write(S),  write(' | '), printList(T, S).
 printList([H|T], S) :- H\=atm(not,_), write(H), write(", "), write(S), write(' | '), printList(T, S).
 
+final(L,P,_):- L\=lp, search(L,P,+).
+final(lp,_,N):- search(lp,N,-).
+
+search(_,[],_):- write("No other facts about rho obtain").
+search(L,[H|T],+):- H\=atm(not,_), write(H), writeln(" is related to true (1)"), search(L,T,+).
+search(L,[H|T],+):- H=atm(not,B), write(B), writeln(" is related to false (0)"), search(L,T,+).
+search(lp,[H|T],-):- H\=atm(not,_), search(lp,T,-).
+search(lp,[H|T],-):- H=atm(not,_), search(lp,T,-).
+
 prepareAnswer(L):- findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), findall(YY, prf(1,YY, '+'), PoL), findall(XX, prf(1,XX, '-'), NeL), findall(YYY, prf(2,YYY, '+'), PosL), findall(XXX, prf(2,XXX, '-'), NegL), findall(YYYY, prf(3,YYYY, '+'), PosiL), findall(XXXX, prf(3,XXXX, '-'), NegaL),
     	prepareAnswer2(L,PL,NL,PoL,NeL,PosL,NegL,PosiL,NegaL).
         
@@ -153,14 +162,14 @@ mbr(lp,X,[B|T]):- B\=atm(not,X), mbr(lp,X,T).
 wr(atm(not,A)):- write("not"), write(A).
 wr(A):- A\=atm(not,_), write(A).
 
-printCounter(Num,Logic,[],PL,NL):- write("branch #"), write(Num), write(" "), write(Logic), write(" is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL).
+printCounter(Num,Logic,[],PL,NL):- write("branch #"), write(Num), write(" "), write(Logic), write(" is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL), nl, final(Logic,PL,NL).
 printCounter(Num,Logic,List,_,_):- List\=[], printCounter2(Logic,Num,List).
 printCounter2(_,_,[]).
 printCounter2(Logic,Num,[[X,+,-]|T]):- write("Closed branch "), write(Logic), write(" #"), write(Num), write(" has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(Logic,Num,T).
 printCounter2(Logic,Num,[[atm(not,X),+]|T]):- write("Closed branch "), write(Logic), write(" #"), write(Num), write(" has not"), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(Logic,Num,T).
 printCounter2(Logic,Num,[[atm(not,X),-]|T]):- write("Closed branch "), write(Logic), write(" #"), write(Num), write(" has not"), wr(X), write(",- and "), wr(X), writeln(",-"), printCounter2(Logic,Num,T).
 
-printCounter(Logic,[],PL,NL):- write("branch is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL).
+printCounter(Logic,[],PL,NL):- write("branch is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL), nl, final(Logic,PL,NL).
 printCounter(Logic,List,_,_):- List\=[], printCounter2(Logic,List).
 printCounter2(_,[]).
 printCounter2(Logic,[[X,+,-]|T]):- write("Closed branch "), write(Logic), write(" has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(Logic,T).
