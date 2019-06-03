@@ -96,6 +96,15 @@ printList([], _) :- nl.
 printList([atm(not,H)|T], S):- write("not "), write(H), write(", "), write(S),  write(' | '), printList(T, S).
 printList([H|T], S) :- H\=atm(not,_), write(H), write(", "), write(S), write(' | '), printList(T, S).
 
+final(L,P,_):- L\=lp, search(L,P,+).
+final(lp,_,N):- search(lp,N,-).
+
+search(_,[],_):- write("No other facts about rho obtain").
+search(L,[H|T],+):- H\=atm(not,_), write(H), writeln(" is related to true (1)"), search(L,T,+).
+search(L,[H|T],+):- H=atm(not,B), write(B), writeln(" is related to false (0)"), search(L,T,+).
+search(lp,[H|T],-):- H\=atm(not,_), search(lp,T,-).
+search(lp,[H|T],-):- H=atm(not,_), search(lp,T,-).
+
 prepareAnswer(L):- findall([Q3], noPrint(Q3, '+'), NP3), findall([Q4], noPrint(Q4, '-'), NP4), prepareAnswer1(L, NP3,NP4).
 prepareAnswer1(L, [],[]):- nl, findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
     	write('positive literals: '), nl, write("|"), printList(PL, '+'),
@@ -137,7 +146,7 @@ mbr(lp,X,[B|T]):- B\=atm(not,X), mbr(lp,X,T).
 wr(atm(not,A)):- write("not"), write(A).
 wr(A):- A\=atm(not,_), write(A).
 
-printCounter(Logic,[],PL,NL):- write(Logic), write(" branch is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL).
+printCounter(Logic,[],PL,NL):- write(Logic), write(" branch is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL), nl, final(Logic,PL,NL).
 printCounter(Logic,List,_,_):- List\=[], printCounter2(Logic,List).
 printCounter2(_,[]).
 printCounter2(Logic,[[X,+,-]|T]):- write("Closed branch "), write(Logic), write(" has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(Logic,T).
