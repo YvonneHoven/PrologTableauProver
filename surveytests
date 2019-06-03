@@ -1,0 +1,23 @@
+
+prove([not,not,not,a], '|',k3, ['{',b,'V',c,'}','V',a]).
+prove(['{',not,not,b,'&',not,e,'}'], '|',fde, [not,not,e,'V',d,'V',not,f]).
+prove([not,'{',b,'V',not,d,'}'], '|',fde, [c,'V','{',b,'&',d'}']).
+
+
+
+prove([c,'&',not,f], '|',fde, [f]).
+prove([not,not,'{',g,'&',h'}'], '|',fde, [not,f,'&',not,not,g,'&',i]).
+prove([not,c,'&','{',e,'&',not,f,'}'], '|',fde, [not,not,'{',e,'&',not,f'}']).
+
+
+
+
+prove([not,not,not,z], '|',k3, ['{',x,'V',y,'}','V',z]).
+prove(['{',not,not,x,'&',not,y,'}'], '|', , [not,not,x,'V',z,'V',not,y]]).
+prove([not,'{',p,'V',not,q,'}'], '|', , [r,'V','{',p,'&',q'}']).
+
+
+
+prove([not, s,'&',t], '|', , [not,t]).
+prove([not,not,'{',x,'&',r'}'], '|', , [not,r,'&',not,not,q,'&',p]).
+prove([not,t,'&','{',not,w,'&',q,'}'], '|', , [not,not,'{',not,w,'&',q'}']).
