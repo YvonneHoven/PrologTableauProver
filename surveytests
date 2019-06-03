@@ -5,7 +5,7 @@ prove([not,'{',b,'V',not,d,'}'], '|',fde, [c,'V','{',b,'&',d,'}']).             
 
 
 
-prove([c,'&',not,f], '|',fde, [f]).                                                open lp
+prove([c,'&',not,f], '|',lp, [f]).                                                open lp
 prove([not,not,'{',g,'&',h,'}'], '|',k3, [not,f,'&',not,not,g,'&',i]).           open closed open k3
 prove([not,c,'&','{',e,'&',not,f,'}'], '|',fde, [not,not,'{',e,'&',not,f,'}']).    closed closed fde
 
