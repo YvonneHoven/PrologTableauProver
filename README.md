@@ -6,7 +6,9 @@ assumptions:
 - never have more than 1 branch splitting moments (in bfs)
 
 System Usability Scores : 
+
 https://www.survio.com/survey/d/M8R2S8P5K9X3Q9W3I
+
 
 possibilities with this prover to assert premises : 
 
@@ -28,6 +30,7 @@ A&{notB & notC} till
 A&{B & C}
 
 possibilities with this prover to prove inferences : 
+
 notnotnotH
 notnotH
 notH
