@@ -105,15 +105,15 @@ prepareAnswer2(L,PL,NL,[],[],[],[],[],[]):-
         write('positive literals: '), nl, write("|"), printList(PL, '+'), nl,
     	write('negative literals: '), nl, write("|"), printList(NL, '-'), nl, showCounters(L, PL, NL).
         
-prepareAnswer2(L,PL,NL,PoL,NeL,PosL,NegL,PosiL,NegaL):- (Pol\=[]; NeL\=[]),
+prepareAnswer2(L,PL,NL,PoL,NeL,_,_,_,_):- (PoL\=[]; NeL\=[]),
     	write('positive literals: '), nl, write("|"), printList(PL, '+'), printList(PoL, '+'), nl, 
     	write('negative literals: '), nl, write("|"), printList(NL, '-'), printList(NeL, '-'), nl, showAllCounters(1,L,PL,NL,PoL,NeL).
         
-prepareAnswer2(L,PL,NL,PoL,NeL,PosL,NegL,PosiL,NegaL):- (Posl\=[]; NegL\=[]),
+prepareAnswer2(L,PL,NL,_,_,PosL,NegL,_,_):- (PosL\=[]; NegL\=[]),
         write('positive literals: '), nl, write("|"), printList(PL, '+'), printList(PosL, '+'), nl,
     	write('negative literals: '), nl, write("|"), printList(NL, '-'), printList(NegL, '-'), nl, showAllCounters(2,L,PL,NL,PosL,NegL).
         
-prepareAnswer2(L,PL,NL,PoL,NeL,PosL,NegL,PosiL,NegaL):- (Posil\=[]; NegaL\=[]),
+prepareAnswer2(L,PL,NL,_,_,_,_,PosiL,NegaL):- (PosiL\=[]; NegaL\=[]),
         write('positive literals: '), nl, write("|"), printList(PL, '+'), printList(PosiL, '+'), nl,
     	write('negative literals: '), nl, write("|"), printList(NL, '-'), printList(NegaL, '-'), nl, showAllCounters(3,L,PL,NL,PosiL,NegaL).
 
@@ -155,19 +155,19 @@ mbr(lp,X,[B|T]):- B\=atm(not,X), X\=atm(not,B), mbr(lp,X,T).
 wr(atm(not,A)):- write("not"), write(A).
 wr(A):- A\=atm(not,_), write(A).
 
-printCounter(Num,Logic,[],PL,NL):- write("branch #"), write(Num), write(" is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL).
-printCounter(Num,Logic,List,_,_):- List\=[], write("Closed branches "), write(Logic), writeln(": "), printCounter2(Num,List).
-printCounter2(_,[]).
-printCounter2(Num,[[X,+,-]|T]):- write("closed branch #"), write(Num), write(" has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(T).
-printCounter2(Num,[[atm(not,X),+]|T]):- write("closed branch #"), write(Num), write(" has not"), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(T).
-printCounter2(Num,[[atm(not,X),-]|T]):- write("closed branch #"), write(Num), write(" has not"), wr(X), write(",- and "), wr(X), writeln(",-"), printCounter2(T).
+printCounter(Num,Logic,[],PL,NL):- write("branch #"), write(Num), write(" "), write(Logic), write(" is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL).
+printCounter(Num,Logic,List,_,_):- List\=[], printCounter2(Logic,Num,List).
+printCounter2(_,_,[]).
+printCounter2(Logic,Num,[[X,+,-]|T]):- write("Closed branch "), write(Logic), write(" #"), write(Num), write(" has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(Logic,Num,T).
+printCounter2(Logic,Num,[[atm(not,X),+]|T]):- write("Closed branch "), write(Logic), write(" #"), write(Num), write(" has not"), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(Logic,Num,T).
+printCounter2(Logic,Num,[[atm(not,X),-]|T]):- write("Closed branch "), write(Logic), write(" #"), write(Num), write(" has not"), wr(X), write(",- and "), wr(X), writeln(",-"), printCounter2(Logic,Num,T).
 
-printCounter(Logic,[],PL,NL):- write("all branches are open, counter-examples found "), write(Logic), writeln(": "), print(PL, NL).
-printCounter(Logic,List,_,_):- List\=[], write("Closed branches "), write(Logic), writeln(": "), printCounter2(List).
-printCounter2([]).
-printCounter2([[X,+,-]|T]):- write("closed branch has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(T).
-printCounter2([[atm(not,X),+]|T]):- write("closed branch has not"), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(T).
-printCounter2([[atm(not,X),-]|T]):- write("closed branch has not"), wr(X), write(",- and "), wr(X), writeln(",-"), printCounter2(T).
+printCounter(Logic,[],PL,NL):- write("branch is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL).
+printCounter(Logic,List,_,_):- List\=[], printCounter2(Logic,List).
+printCounter2(_,[]).
+printCounter2(Logic,[[X,+,-]|T]):- write("Closed branch "), write(Logic), write(" has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(Logic,T).
+printCounter2(Logic,[[atm(not,X),+]|T]):- write("Closed branch "), write(Logic), write(" has not"), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(Logic,T).
+printCounter2(Logic,[[atm(not,X),-]|T]):- write("Closed branch "), write(Logic), write(" has not"), wr(X), write(",- and "), wr(X), writeln(",-"), printCounter2(Logic,T).
 
 print(PL, NL) :- PL\=[], NL\=[], print(PL,[]), write(" "), print([],NL).
 print([],[]).
@@ -182,10 +182,12 @@ wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot"), write(A), wrt(T
 wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not"), write(A), wrt(T,S).
 wrt([H|T],S):- H\=atm(not,_), write(H), wrt(T,S).
 
+asst(A):- retractall(prf(_,_)), retractall(prf(_,_,_)), ass(A).
+
 %%prove([premises], '|fde', [inferences]), prove([premises], '|k3', [inferences]), prove([premises], '|lp', [inferences]) 
-prove(A, '|',L, C):- C\=[_], C\=[not,_], ass(A), wrt(C, '-'), nl, findall([Z], assprove(Z), AS), check(AS), writeln("inferences solving:"), prove(C, '-'), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
-prove(A, '|',L, C):- C=[B], ass(A), wrt(C, '-'), assert(prf(B, '-')), nl, findall([Z], assprove(Z), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
-prove(A, '|',L, C):- C=[not,B], ass(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), nl, findall([Z], assprove(Z), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
+prove(A, '|',L, C):- C\=[_], C\=[not,_], asst(A), wrt(C, '-'), nl, findall([Z], assprove(Z), AS), check(AS), writeln("inferences solving:"), prove(C, '-'), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
+prove(A, '|',L, C):- C=[B], asst(A), wrt(C, '-'), assert(prf(B, '-')), nl, findall([Z], assprove(Z), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
+prove(A, '|',L, C):- C=[not,B], asst(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), nl, findall([Z], assprove(Z), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
 
 check(TP, FP):- TP\=[], FP\=[], nl, write("//"), finprove(TP, '+'), finprove(FP, '-'), retractall(toprove(_,_)).
 check(TP, []):- TP\=[], nl, write("//"), finprove(TP, '+'), retractall(toprove(_,_)).
@@ -352,9 +354,6 @@ prove([atm(not,atm(not,H)), 'V', '{', H2, 'V', H3, '}'|T], '+'):- wrt([atm(not,a
 finprove([atm(not,atm(not,H)), 'V', '{', H2, 'V', H3, '}'], '+'):- wrt([atm(not,atm(not,H)), 'V', '{', H2, 'V', H3, '}'], '+'), finprove([atm(not,atm(not,H)), 'V', H2, 'V', H3], '+').
 prove([H, 'V', '{', H2, 'V', H3, '}'|T], '+'):- H\=atm(not,atm(not,_)), wrt([H, 'V', '{', H2, 'V', H3, '}'], '+'), assert(toprove([H, 'V', '{', H2, 'V', H3, '}'], '+')), prove(T, '+').
 finprove([H, 'V', '{', H2, 'V', H3, '}'], '+'):- H\=atm(not,atm(not,_)), wrt([H, 'V', '{', H2, 'V', H3, '}'], '+'), finprove([H, 'V', H2, 'V', H3], '+').
-
-%prove([H, '&', '{', H2, 'V', H3, '}'|T], '-'):- wrt([H, '&', '{', H2, 'V', H3, '}'], '-'), wrt([H], '-'), wrt([H2, 'V', H3], '-'), assert(toprove([H2, 'V', H3], '-')), prove(T, '-').
-%prove([H, 'V', '{', H2, '&', H3, '}'|T], '+'):- wrt([H, 'V', '{', H2, '&', H3, '}'], '+'), wrt([H], '+'), wrt([H2, '&', H3], '+'), assert(toprove([H2, '&', H3], '+')), prove(T, '+').
 
 prove([atm(not,atm(not,H)), '&', '{', H2, '&', H3, '}'|T], '-'):- wrt([atm(not,atm(not,H)), '&', '{', H2, '&', H3, '}'], '-'), assert(toprove([atm(not,atm(not,H)), '&', '{',H2, '&', H3,'}'], '-')), prove(T, '-').
 finprove([atm(not,atm(not,H)), '&', '{', H2, '&', H3, '}'], '-'):- wrt([atm(not,atm(not,H)), '&', '{', H2, '&', H3, '}'], '-'), finprove([atm(not,atm(not,H)), '&', H2, '&', H3], '-').
