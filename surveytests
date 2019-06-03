@@ -1,23 +1,23 @@
 
-prove([not,not,not,a], '|',k3, ['{',b,'V',c,'}','V',a]).
-prove(['{',not,not,b,'&',not,e,'}'], '|',fde, [not,not,e,'V',d,'V',not,f]).
-prove([not,'{',b,'V',not,d,'}'], '|',fde, [c,'V','{',b,'&',d'}']).
+prove([not,not,a], '|',lp, ['{',b,'V',c,'}','V',a, not,a]).                              closed lp
+prove(['{',not,not,b,'&',not,e,'}',e], '|',k3, [not,not,c,'V',d,'V',not,f]).              closed k3     
+prove([not,'{',b,'V',not,d,'}'], '|',fde, [c,'V','{',b,'&',d,'}']).                    openclosed fde
 
 
 
-prove([c,'&',not,f], '|',fde, [f]).
-prove([not,not,'{',g,'&',h'}'], '|',fde, [not,f,'&',not,not,g,'&',i]).
-prove([not,c,'&','{',e,'&',not,f,'}'], '|',fde, [not,not,'{',e,'&',not,f'}']).
+prove([c,'&',not,f], '|',fde, [f]).                                                open lp
+prove([not,not,'{',g,'&',h,'}'], '|',k3, [not,f,'&',not,not,g,'&',i]).           open closed open k3
+prove([not,c,'&','{',e,'&',not,f,'}'], '|',fde, [not,not,'{',e,'&',not,f,'}']).    closed closed fde
 
 
 
 
-prove([not,not,not,z], '|',k3, ['{',x,'V',y,'}','V',z]).
-prove(['{',not,not,x,'&',not,y,'}'], '|', , [not,not,x,'V',z,'V',not,y]]).
-prove([not,'{',p,'V',not,q,'}'], '|', , [r,'V','{',p,'&',q'}']).
+prove([not,not,not,z], '|',lp, ['{',x,'V',y,'}','V',z, not,z]).                       closed lp
+prove(['{',not,not,x,'&',not,y,'}'], '|',k3, [not,not,x,'V',z,'V',not,y]).           closed k3
+prove([not,'{',p,'V',not,q,'}'], '|',fde, [r,'V','{',p,'&',q,'}']).                   openclosed fde
 
 
 
-prove([not, s,'&',t], '|', , [not,t]).
-prove([not,not,'{',x,'&',r'}'], '|', , [not,r,'&',not,not,q,'&',p]).
-prove([not,t,'&','{',not,w,'&',q,'}'], '|', , [not,not,'{',not,w,'&',q'}']).
+prove([not, s,'&',t], '|',lp, [not,t]).                                               open lp
+prove([not,not,'{',x,'&',r,'}'], '|',k3, [not,r,'&',not,not,q,'&',p]).               openopenopen k3
+prove([not,t,'&','{',not,w,'&',q,'}'], '|',fde, [not,not,'{',not,w,'&',q,'}']).      closed closed fde
