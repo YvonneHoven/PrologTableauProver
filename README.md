@@ -6,7 +6,7 @@ assumptions:
 - never have more than 1 branch splitting moments (in bfs)
 
 System Usability Scores
-https://nl.surveymonkey.com/r/2SVNWHF
+https://www.survio.com/survey/d/M8R2S8P5K9X3Q9W3I
 
 possibilities with this prover to assert premises
 notnotnotH
