@@ -1,3 +1,9 @@
+%% order of code:
+%% declare functions
+%% assertions of premises
+%% helper functions with main code
+%% real logic code
+
 %% making functions dynamic to be able to use assert & discontiguous to be able to put all functions not necessarily side by side
 :- dynamic prf(_,_).
 :- dynamic assprove(_).
@@ -90,6 +96,8 @@ ass([H, '&', '{', H2, '&', H3, '}'|T]):- wrt([H, '&', '{', H2, '&', H3, '}'], '+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% the main code for the program
+
+%% helper functions
 asst(A):- ass(A) ; ( retractall(prf(_,_)), retractall(list(_)), retractall(assprove(_)), retract(noPrint(_,_)), fail ).
 
 printList([], _) :- nl.
@@ -143,27 +151,27 @@ mbr(k3,X,[B|T]):- B\=atm(not,X), mbr(k3,X,T).
 mbr(lp,X,[atm(not,X)|_]):- assert(list([atm(not,X),-])).
 mbr(lp,X,[B|T]):- B\=atm(not,X), mbr(lp,X,T).
 
-wr(atm(not,A)):- write("not"), write(A).
+wr(atm(not,A)):- write("not "), write(A).
 wr(A):- A\=atm(not,_), write(A).
 
 printCounter(Logic,[],PL,NL):- write(Logic), write(" branch is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL), nl, final(Logic,PL,NL).
 printCounter(Logic,List,_,_):- List\=[], printCounter2(Logic,List).
 printCounter2(_,[]).
 printCounter2(Logic,[[X,+,-]|T]):- write("Closed branch "), write(Logic), write(" has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(Logic,T).
-printCounter2(Logic,[[atm(not,X),+]|T]):- write("Closed branch "), write(Logic), write(" has not"), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(Logic,T).
-printCounter2(Logic,[[atm(not,X),-]|T]):- write("Closed branch "), write(Logic), write(" has not"), wr(X), write(",- and "), wr(X), writeln(",-"), printCounter2(Logic,T).
+printCounter2(Logic,[[atm(not,X),+]|T]):- write("Closed branch "), write(Logic), write(" has not "), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(Logic,T).
+printCounter2(Logic,[[atm(not,X),-]|T]):- write("Closed branch "), write(Logic), write(" has not "), wr(X), write(",- and "), wr(X), writeln(",-"), printCounter2(Logic,T).
 
 print(PL, NL) :- PL\=[], NL\=[], print(PL,[]), write(" "), print([],NL).
 print([],[]).
-print([atm(not,H)|T], []):- write("not"), write(H), write(",+ "), print(T, []).
+print([atm(not,H)|T], []):- write("not "), write(H), write(",+ "), print(T, []).
 print([H|T], []):- H\=atm(not,_), write(H), write(",+ "), print(T, []).
-print([], [atm(not,H)|T]):- write("not"), write(H), write(",- "), print([], T).
+print([], [atm(not,H)|T]):- write("not "), write(H), write(",- "), print([], T).
 print([], [H|T]):- H\=atm(not,_), write(H), write(",- "), print([], T).
 
 wrt([],S):- write(","), writeln(S).
-wrt([atm(not,atm(not,atm(not,A)))|T],S):- write("notnotnot"), write(A), wrt(T,S).
-wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot"), write(A), wrt(T,S).
-wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not"), write(A), wrt(T,S).
+wrt([atm(not,atm(not,atm(not,A)))|T],S):- write("notnotnot "), write(A), wrt(T,S).
+wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot "), write(A), wrt(T,S).
+wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not "), write(A), wrt(T,S).
 wrt([H|T],S):- H\=atm(not,_), write(H), wrt(T,S).
 
 writeinf:- findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), writeinf(NP1,NP2).
@@ -171,11 +179,6 @@ writeinf([],[]):- writeln("inferences solving:").
 writeinf([_|_],[]):- fail.
 writeinf([],[_|_]):- fail. 
 writeinf([_|_],[_|_]):- fail. 
-
-%%prove([premises], '|fde', [inferences]), prove([premises], '|k3', [inferences]), prove([premises], '|lp', [inferences]) 
-prove(A, '|',L, C):- C\=[_], C\=[not,_], asst(A), wrt(C, '-'), findall([Z], assprove(Z), AS), check(AS), writeinf, provee(C, '-'), prepareAnswer(L).
-prove(A, '|',L, C):- C=[B], ass(A), wrt(C, '-'), assert(prf(B, '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
-prove(A, '|',L, C):- C=[not,B], ass(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
 
 check(AS):- findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), check(NP1,NP2,AS). 
 check([],[],[]):- nl.
@@ -191,6 +194,15 @@ prove(C,'-',[],[]):- prove(C, '-').
 prove(_,'-',[_|_],[]):- fail.
 prove(_,'-',[],[_|_]):- fail.
 prove(_,'-',[_|_],[_|_]):- fail.
+
+%% the starting and overall function
+
+%%prove([premises], '|fde', [inferences]), prove([premises], '|k3', [inferences]), prove([premises], '|lp', [inferences]) 
+prove(A, '|',L, C):- C\=[_], C\=[not,_], asst(A), wrt(C, '-'), findall([Z], assprove(Z), AS), check(AS), writeinf, provee(C, '-'), prepareAnswer(L).
+prove(A, '|',L, C):- C=[B], ass(A), wrt(C, '-'), assert(prf(B, '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
+prove(A, '|',L, C):- C=[not,B], ass(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%the real logic behind the code
