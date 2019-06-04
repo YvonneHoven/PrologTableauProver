@@ -23,8 +23,8 @@
 
 %% all assertions of the premises
 ass([]).
-ass([not,not,not, H]):- wrt([not,not,not, H], '+'), assert(assprove([not,not,not,H])).  
-ass([not,not, H]):- wrt([not,not, H], '+'), assert(assprove([not,not,H])).
+ass([not,not,not, H]):- wrt([not,not,not,H], '+'), assert(assprove([not,not,not,H])).  
+ass([not,not, H]):- wrt([not,not,H], '+'), assert(assprove([not,not,H])).
 ass([not, H]):- wrt([atm(not,H)], '+'), assert(prf(atm(not,H), '+')).
 ass([H]):- wrt([H], '+'), assert(prf(H, '+')).
 
@@ -63,7 +63,7 @@ ass([A, '&', not,not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([A, '&'
 ass([A, '&', not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([A, '&', atm(not,C)|T]).
 
 %%assert A&B
-ass([A, '&', C|T]):- A\=not, C\=not, C\='{', wrt([A,'&',C], '+'), write(" "), ass(T), assert(assprove([A, '&', C])).
+ass([A, '&', C|T]):- A\=not, C\=not, C\='{', wrt([A,'&',C], '+'), ass(T), assert(assprove([A, '&', C])).
 
 %%simplify assert notnot{A&B} 
 ass([not,not, '{', not,not,H, '&', not,not,H2, '}'|T]):- wrt([not,not, '{', atm(not,atm(not,H)), '&', atm(not,atm(not,H2)), '}'], '+'), ass([atm(not,atm(not,H)), '&', atm(not,atm(not,H2))|T]).
@@ -94,9 +94,9 @@ ass([H, '&', '{', not,H2, '&', H3, '}'|T]):- ass([H, '&', '{', atm(not,H2), '&',
 ass([H, '&', '{', H2, '&', not,H3, '}'|T]):- ass([H, '&', '{', H2, '&', H3, '}'|T]).
 
 %%assert not{AVB}
-ass([not, '{', H, 'V', H2, '}'|T]):- wrt([not, '{', H, 'V', H2, '}'], '+'), assert(assprove([not, '{', H, 'V', H2, '}'])), write(" "), ass(T).
+ass([not, '{', H, 'V', H2, '}'|T]):- wrt([not, '{', H, 'V', H2, '}'], '+'), assert(assprove([not, '{', H, 'V', H2, '}'])), ass(T).
 %%assert A&{B&C}
-ass([H, '&', '{', H2, '&', H3, '}'|T]):- wrt([H, '&', '{', H2, '&', H3, '}'], '+'), assert(assprove([H, '&', '{', H2, '&', H3, '}'])), write(" "), ass(T).
+ass([H, '&', '{', H2, '&', H3, '}'|T]):- wrt([H, '&', '{', H2, '&', H3, '}'], '+'), assert(assprove([H, '&', '{', H2, '&', H3, '}'])), ass(T).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -178,8 +178,8 @@ printCounter(Num,Logic,[],PL,NL):- write("branch #"), write(Num), write(" "), wr
 printCounter(Num,Logic,List,_,_):- List\=[], printCounter2(Logic,Num,List).
 printCounter2(_,_,[]).
 printCounter2(Logic,Num,[[X,+,-]|T]):- write("Closed branch "), write(Logic), write(" #"), write(Num), write(" has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(Logic,Num,T).
-printCounter2(Logic,Num,[[atm(not,X),+]|T]):- write("Closed branch "), write(Logic), write(" #"), write(Num), write(" has not"), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(Logic,Num,T).
-printCounter2(Logic,Num,[[atm(not,X),-]|T]):- write("Closed branch "), write(Logic), write(" #"), write(Num), write(" has not"), wr(X), write(",- and "), wr(X), writeln(",-"), printCounter2(Logic,Num,T).
+printCounter2(Logic,Num,[[atm(not,X),+]|T]):- write("Closed branch "), write(Logic), write(" #"), write(Num), write(" has not"), write(X), write(",+ and "), write(X), writeln(",+"), printCounter2(Logic,Num,T).
+printCounter2(Logic,Num,[[atm(not,X),-]|T]):- write("Closed branch "), write(Logic), write(" #"), write(Num), write(" has not"), write(X), write(",- and "), write(X), writeln(",-"), printCounter2(Logic,Num,T).
 
 printCounter(Logic,[],PL,NL):- write("branch is open, counter-example found "), write(Logic), writeln(": "), print(PL, NL), nl, final(Logic,PL,NL).
 printCounter(Logic,List,_,_):- List\=[], printCounter2(Logic,List).
@@ -196,9 +196,9 @@ print([], [atm(not,H)|T]):- write("not "), write(H), write(",- "), print([], T).
 print([], [H|T]):- H\=atm(not,_), write(H), write(",- "), print([], T).
 
 wrt([],S):- write(","), writeln(S).
-wrt([atm(not,atm(not,atm(not,A)))|T],S):- write("notnotnot "), write(A), wrt(T,S).
-wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot "), write(A), wrt(T,S).
-wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not "), write(A), wrt(T,S).
+wrt([atm(not,atm(not,atm(not,A)))|T],S):- write("notnotnot"), write(A), wrt(T,S).
+wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot"), write(A), wrt(T,S).
+wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not"), write(A), wrt(T,S).
 wrt([H|T],S):- H\=atm(not,_), write(H), wrt(T,S).
 
 asst(A):- retractall(prf(_,_)), retractall(prf(_,_,_)), ass(A).
