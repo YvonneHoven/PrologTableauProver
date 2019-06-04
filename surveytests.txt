@@ -1,0 +1,31 @@
+dfs
+
+prove([not,not,a], '|',lp, ['{',b,'V',c,'}','V',a, not,a]).                                 
+(closed)
+prove(['{',not,not,b,'&',not,e,'}',e], '|',k3, [not,not,c,'V',d,'V',not,f]).              
+(closed)     
+prove([not,'{',b,'V',not,d,'}'], '|',fde, [c,'V','{',b,'&',d,'}']).                       
+(open)
+
+prove([c,'&',not,f], '|',lp, [f]).  
+(open)                                                               
+prove([not,not,'{',g,'&',h,'}'], '|',k3, [not,f,'&',not,not,g,'&',i]).
+(open closed open)           
+prove([not,c,'&','{',e,'&',not,f,'}'], '|',fde, [not,not,'{',e,'&',not,f,'}']).    
+(closed closed)
+
+bfs
+
+prove([not,not,not,z], '|',lp, ['{',x,'V',y,'}','V',z, not,z]). 
+(closed)                           
+prove(['{',not,not,x,'&',not,y,'}'], '|',k3, [not,not,x,'V',z,'V',not,y]).           
+(closed)
+prove([not,'{',p,'V',not,q,'}'], '|',fde, [r,'V','{',p,'&',q,'}']).                       
+(open closed)
+
+prove([not, s,'&',t], '|',lp, [not,t]).                                                                   
+(open)
+prove([not,not,'{',x,'&',r,'}'], '|',k3, [not,r,'&',not,not,q,'&',p]).               
+(open open open)
+prove([not,t,'&','{',not,w,'&',q,'}'], '|',fde, [not,not,'{',not,w,'&',q,'}']).      
+(closed closed)
