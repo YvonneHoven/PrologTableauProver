@@ -107,8 +107,8 @@ printList([], _).
 printList([atm(not,H)|T], S):- write("not "), write(H), write(", "), write(S),  write(' | '), printList(T, S).
 printList([H|T], S) :- H\=atm(not,_), write(H), write(", "), write(S), write(' | '), printList(T, S).
 
-final(L,P,_):- L\=lp, search(L,P,+).
-final(lp,P,N):- append(P,N,NP), search(lp,NP,N).
+final(L,P,_):- L\=lp, writeln("p+? set pr1, notp+? set pr0"), search(L,P,+).
+final(lp,P,N):- append(P,N,NP), writeln("no p-? set pr1, no notp-? set pr0"), search(lp,NP,N).
 
 search(_,[],_):- write("No other facts about rho obtain").
 search(L,[H|T],+):- L\=lp, H\=atm(not,_), write("Set "), write(H), write(" related to true ("), write(H), writeln(" rho 1)"), search(L,T,+).
