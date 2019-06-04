@@ -14,6 +14,7 @@
 :- discontiguous prove/2.
 :- discontiguous prove/4.
 :- discontiguous membr/3.
+:- discontiguous search/3.
 
 
 %% all assertions of the premises
@@ -105,13 +106,16 @@ printList([atm(not,H)|T], S):- write("not "), write(H), write(", "), write(S),  
 printList([H|T], S) :- H\=atm(not,_), write(H), write(", "), write(S), write(' | '), printList(T, S).
 
 final(L,P,_):- L\=lp, search(L,P,+).
-final(lp,_,N):- search(lp,N,-).
+final(lp,P,N):- append(P,N,NP), search(lp,NP,N).
 
 search(_,[],_):- write("No other facts about rho obtain").
-search(L,[H|T],+):- H\=atm(not,_), write(H), writeln(" is related to true (1)"), search(L,T,+).
-search(L,[H|T],+):- H=atm(not,B), write(B), writeln(" is related to false (0)"), search(L,T,+).
-search(lp,[H|T],-):- H\=atm(not,_), search(lp,T,-).
-search(lp,[H|T],-):- H=atm(not,_), search(lp,T,-).
+search(L,[H|T],+):- L\=lp, H\=atm(not,_), write("Set "), write(H), write(" related to true ("), write(H), writeln(" rho 1)"), search(L,T,+).
+search(L,[H|T],+):- L\=lp, H=atm(not,B), write("Set "), write(B), write(" related to false ("), write(B), writeln(" rho 0)"), search(L,T,+).
+
+search(lp,[],N,List):- search(lp,List,N).
+search(lp,[H|T],N):- member(H,N), search(lp,T,N). 
+search(lp,[H|T],[H2|T2]):- H\=H2, ( ( H\=atm(not,_), write("Set "), write(H), write(" related to true ("), write(H), writeln(" rho 1)") )  ; 
+					   ( H=atm(not,B), write("Set "), write(B), write(" related to false ("), write(B), writeln(" rho 0)") ) ), search(lp,T,[H2|T2]).
 
 prepareAnswer(L):- findall([Q3], noPrint(Q3, '+'), NP3), findall([Q4], noPrint(Q4, '-'), NP4), prepareAnswer1(L, NP3,NP4).
 prepareAnswer1(L, [],[]):- nl, findall(Y, prf(Y, '+'), PL), findall(X, prf(X, '-'), NL), 
