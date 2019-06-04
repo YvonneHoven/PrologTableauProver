@@ -19,8 +19,8 @@
 
 %% all assertions of the premises
 ass([]).
-ass([not,not,not, H]):- wrt([not,not,not, H], '+'), assert(assprove([not,not,not,H])).  
-ass([not,not, H]):- wrt([not,not, H], '+'), assert(assprove([not,not,H])).
+ass([not,not,not, H]):- wrt([not,not,not,H], '+'), assert(assprove([not,not,not,H])).  
+ass([not,not, H]):- wrt([not,not,H], '+'), assert(assprove([not,not,H])).
 ass([not, H]):-  wrt([atm(not,H)], '+'), assert(prf(atm(not,H),'+')).
 ass([H]):- wrt([H], '+'), assert(prf(H, '+')).
 
@@ -59,7 +59,7 @@ ass([A, '&', not,not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([A, '&'
 ass([A, '&', not,C|T]):- C\=not, C\='{', T\=['&'|_], T\=['V'|_], ass([A, '&', atm(not,C)|T]).
 
 %%assert A&B 
-ass([A, '&', C|T]):- A\=not, C\=not, C\='{', wrt([A,'&',C], '+'), write(" "), ass(T), assert(assprove([A, '&', C])).
+ass([A, '&', C|T]):- A\=not, C\=not, C\='{', wrt([A,'&',C], '+'), ass(T), assert(assprove([A, '&', C])).
 
 %%simplify assert notnot{A&B} 
 ass([not,not, '{', not,not,H, '&', not,not,H2, '}'|T]):- wrt([not,not, '{', atm(not,atm(not,H)), '&', atm(not,atm(not,H2)), '}'], '+'), ass([atm(not,atm(not,H)), '&', atm(not,atm(not,H2))|T]).
@@ -90,9 +90,9 @@ ass([H, '&', '{', not,H2, '&', H3, '}'|T]):- ass([H, '&', '{', atm(not,H2), '&',
 ass([H, '&', '{', H2, '&', not,H3, '}'|T]):- ass([H, '&', '{', H2, '&', H3, '}'|T]).
 
 %%assert not{AVB} 
-ass([not, '{', H, 'V', H2, '}'|T]):- wrt([not, '{', H, 'V', H2, '}'], '+'), assert(assprove([not, '{', H, 'V', H2, '}'])), write(" "), ass(T).
+ass([not, '{', H, 'V', H2, '}'|T]):- wrt([not, '{', H, 'V', H2, '}'], '+'), assert(assprove([not, '{', H, 'V', H2, '}'])), ass(T).
 %%assert A&{B&C}
-ass([H, '&', '{', H2, '&', H3, '}'|T]):- wrt([H, '&', '{', H2, '&', H3, '}'], '+'), assert(assprove([H, '&', '{', H2, '&', H3, '}'])), write(" "), ass(T).
+ass([H, '&', '{', H2, '&', H3, '}'|T]):- wrt([H, '&', '{', H2, '&', H3, '}'], '+'), assert(assprove([H, '&', '{', H2, '&', H3, '}'])), ass(T).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -162,8 +162,8 @@ printCounter(Logic,[],PL,NL):- write(Logic), write(" branch is open, counter-exa
 printCounter(Logic,List,_,_):- List\=[], printCounter2(Logic,List).
 printCounter2(_,[]).
 printCounter2(Logic,[[X,+,-]|T]):- write("Closed branch "), write(Logic), write(" has "), wr(X), write(",+ and "), wr(X), writeln(",-"), printCounter2(Logic,T).
-printCounter2(Logic,[[atm(not,X),+]|T]):- write("Closed branch "), write(Logic), write(" has not "), wr(X), write(",+ and "), wr(X), writeln(",+"), printCounter2(Logic,T).
-printCounter2(Logic,[[atm(not,X),-]|T]):- write("Closed branch "), write(Logic), write(" has not "), wr(X), write(",- and "), wr(X), writeln(",-"), printCounter2(Logic,T).
+printCounter2(Logic,[[atm(not,X),+]|T]):- write("Closed branch "), write(Logic), write(" has not "), write(X), write(",+ and "), write(X), writeln(",+"), printCounter2(Logic,T).
+printCounter2(Logic,[[atm(not,X),-]|T]):- write("Closed branch "), write(Logic), write(" has not "), write(X), write(",- and "), write(X), writeln(",-"), printCounter2(Logic,T).
 
 print(PL, NL) :- PL\=[], NL\=[], print(PL,[]), write(" "), print([],NL).
 print([],[]).
@@ -173,9 +173,9 @@ print([], [atm(not,H)|T]):- write("not "), write(H), write(",- "), print([], T).
 print([], [H|T]):- H\=atm(not,_), write(H), write(",- "), print([], T).
 
 wrt([],S):- write(","), writeln(S).
-wrt([atm(not,atm(not,atm(not,A)))|T],S):- write("notnotnot "), write(A), wrt(T,S).
-wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot "), write(A), wrt(T,S).
-wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not "), write(A), wrt(T,S).
+wrt([atm(not,atm(not,atm(not,A)))|T],S):- write("notnotnot"), write(A), wrt(T,S).
+wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot"), write(A), wrt(T,S).
+wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not"), write(A), wrt(T,S).
 wrt([H|T],S):- H\=atm(not,_), write(H), wrt(T,S).
 
 writeinf:- findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), writeinf(NP1,NP2).
