@@ -203,8 +203,8 @@ prove(_,'-',[_|_],[_|_]):- fail.
 
 %%prove([premises], '|fde', [inferences]), prove([premises], '|k3', [inferences]), prove([premises], '|lp', [inferences]) 
 prove(A, '|',L, C):- C\=[_], C\=[not,_], asst(A), wrt(C, '-'), findall([Z], assprove(Z), AS), check(AS), writeinf, provee(C, '-'), prepareAnswer(L).
-prove(A, '|',L, C):- C=[B], ass(A), wrt(C, '-'), assert(prf(B, '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
-prove(A, '|',L, C):- C=[not,B], ass(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
+prove(A, '|',L, C):- C=[B], asst(A), wrt(C, '-'), assert(prf(B, '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
+prove(A, '|',L, C):- C=[not,B], asst(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
