@@ -1,4 +1,4 @@
-dfs
+system D first time
 
 prove([not,not,a], '|',lp, ['{',b,'V',c,'}','V',a, not,a]).                                 
 (closed)
@@ -7,14 +7,7 @@ prove(['{',not,not,b,'&',not,e,'}',e], '|',k3, [not,not,c,'V',d,'V',not,f]).
 prove([not,'{',b,'V',not,d,'}'], '|',fde, [c,'V','{',b,'&',d,'}']).                       
 (open)
 
-prove([c,'&',not,f], '|',lp, [f]).  
-(open)                                                               
-prove([not,not,'{',g,'&',h,'}'], '|',k3, [not,f,'&',not,not,g,'&',i]).
-(open closed open)           
-prove([not,c,'&','{',e,'&',not,f,'}'], '|',fde, [not,not,'{',e,'&',not,f,'}']).    
-(closed closed)
-
-bfs
+system B first time
 
 prove([not,not,not,z], '|',lp, ['{',x,'V',y,'}','V',z, not,z]). 
 (closed)                           
@@ -22,6 +15,17 @@ prove(['{',not,not,x,'&',not,y,'}'], '|',k3, [not,not,x,'V',z,'V',not,y]).
 (closed)
 prove([not,'{',p,'V',not,q,'}'], '|',fde, [r,'V','{',p,'&',q,'}']).                       
 (open closed)
+
+system D second time
+
+prove([c,'&',not,f], '|',lp, [f]).  
+(open)                                                               
+prove([not,not,'{',g,'&',h,'}'], '|',k3, [not,f,'&',not,not,g,'&',i]).
+(open closed open)           
+prove([not,c,'&','{',e,'&',not,f,'}'], '|',fde, [not,not,'{',e,'&',not,f,'}']).    
+(closed closed)
+
+system B second time
 
 prove([not, s,'&',t], '|',lp, [not,t]).                                                                   
 (open)
