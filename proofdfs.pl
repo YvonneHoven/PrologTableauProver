@@ -178,11 +178,11 @@ wrt([atm(not,atm(not,A))|T],S):- A\=atm(not,_), write("notnot"), write(A), wrt(T
 wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not"), write(A), wrt(T,S).
 wrt([H|T],S):- H\=atm(not,_), write(H), wrt(T,S).
 
-writeinf:- findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), writeinf(NP1,NP2).
-writeinf([],[]):- writeln("inferences solving:").
-writeinf([_|_],[]):- fail.
-writeinf([],[_|_]):- fail. 
-writeinf([_|_],[_|_]):- fail. 
+writeconc:- findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), writeinf(NP1,NP2).
+writeconc([],[]):- writeln("conclusions solving:").
+writeconc([_|_],[]):- fail.
+writeconc([],[_|_]):- fail. 
+writeconc([_|_],[_|_]):- fail. 
 
 check(AS):- findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), check(NP1,NP2,AS). 
 check([],[],[]):- nl.
@@ -201,8 +201,8 @@ prove(_,'-',[_|_],[_|_]):- fail.
 
 %% the starting and overall function
 
-%%prove([premises], '|fde', [inferences]), prove([premises], '|k3', [inferences]), prove([premises], '|lp', [inferences]) 
-prove(A, '|',L, C):- C\=[_], C\=[not,_], asst(A), wrt(C, '-'), findall([Z], assprove(Z), AS), check(AS), writeinf, provee(C, '-'), prepareAnswer(L).
+%%prove([premises], '|fde', [conclusions]), prove([premises], '|k3', [conclusions]), prove([premises], '|lp', [conclusions]) 
+prove(A, '|',L, C):- C\=[_], C\=[not,_], asst(A), wrt(C, '-'), findall([Z], assprove(Z), AS), check(AS), writeconc, provee(C, '-'), prepareAnswer(L).
 prove(A, '|',L, C):- C=[B], asst(A), wrt(C, '-'), assert(prf(B, '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
 prove(A, '|',L, C):- C=[not,B], asst(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
 
