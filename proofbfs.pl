@@ -215,8 +215,8 @@ prsolve([[H]|T]):- prove(H, '+'), prsolve(T).
 
 %% the starting and overall function
 
-%%prove([premises], '|fde', [conclusions]), prove([premises], '|k3', [conclusions]), prove([premises], '|lp', [conclusions]) 
-prove(A, '|',L, C):- C\=[_], C\=[not,_], asst(A), wrt(C, '-'), nl, findall([Z], assprove(Z), AS), check(AS), writeln("conclusions solving:"), prove(C, '-'), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
+%%prove([premises], '|fde', [conclusion]), prove([premises], '|k3', [conclusion]), prove([premises], '|lp', [conclusion]) 
+prove(A, '|',L, C):- C\=[_], C\=[not,_], asst(A), wrt(C, '-'), nl, findall([Z], assprove(Z), AS), check(AS), writeln("conclusion solving:"), prove(C, '-'), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
 prove(A, '|',L, C):- C=[B], asst(A), wrt(C, '-'), assert(prf(B, '-')), nl, findall([Z], assprove(Z), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
 prove(A, '|',L, C):- C=[not,B], asst(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), nl, findall([Z], assprove(Z), AS), check(AS), findall([Y], toprove(Y, '+'), TP), findall([X], toprove(X, '-'), FP), check(TP, FP), nl, prepareAnswer(L).
 
