@@ -9,7 +9,7 @@ prove([not,'{',b,'V',not,d,'}'], '|',fde, [c,'V','{',b,'&',d,'}']).
 
 system B first time
 
-prove([not,not,not,z], '|',lp, ['{',x,'V',y,'}','V',z]). 
+prove([not,not,x], '|',lp, ['{',z,'V',y,'}','V',x]). 
 (closed)                           
 prove(['{',not,not,x,'&',not,y,'}'], '|',k3, [not,not,x,'V',z,'V',not,y]).           
 (closed)
