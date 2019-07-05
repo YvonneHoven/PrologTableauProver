@@ -179,7 +179,7 @@ wrt([atm(not,A)|T],S):- A\=atm(not,_), write("not"), write(A), wrt(T,S).
 wrt([H|T],S):- H\=atm(not,_), write(H), wrt(T,S).
 
 writeconc:- findall([Q1], noPrint(Q1,'+'), NP1), findall([Q2], noPrint(Q2,'-'), NP2), writeinf(NP1,NP2).
-writeconc([],[]):- writeln("conclusions solving:").
+writeconc([],[]):- writeln("conclusion solving:").
 writeconc([_|_],[]):- fail.
 writeconc([],[_|_]):- fail. 
 writeconc([_|_],[_|_]):- fail. 
@@ -201,7 +201,7 @@ prove(_,'-',[_|_],[_|_]):- fail.
 
 %% the starting and overall function
 
-%%prove([premises], '|fde', [conclusions]), prove([premises], '|k3', [conclusions]), prove([premises], '|lp', [conclusions]) 
+%%prove([premises], '|fde', [conclusion]), prove([premises], '|k3', [conclusion]), prove([premises], '|lp', [conclusion]) 
 prove(A, '|',L, C):- C\=[_], C\=[not,_], asst(A), wrt(C, '-'), findall([Z], assprove(Z), AS), check(AS), writeconc, provee(C, '-'), prepareAnswer(L).
 prove(A, '|',L, C):- C=[B], asst(A), wrt(C, '-'), assert(prf(B, '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
 prove(A, '|',L, C):- C=[not,B], asst(A), wrt(C, '-'), assert(prf(atm(not,B), '-')), findall([Z], assprove(Z), AS), check(AS), prepareAnswer(L).
