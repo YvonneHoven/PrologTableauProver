@@ -1,6 +1,6 @@
 system D first time
 
-prove([not,not,a], '|',lp, ['{',b,'V',c,'}','V',a, not,a]).                                 
+prove([not,not,a], '|',lp, ['{',b,'V',c,'}','V',a,'V',not,a]).                                 
 (closed)
 prove(['{',not,not,b,'&',not,e,'}',e], '|',k3, [not,not,c,'V',d,'V',not,f]).              
 (closed)     
@@ -9,7 +9,7 @@ prove([not,'{',b,'V',not,d,'}'], '|',fde, [c,'V','{',b,'&',d,'}']).
 
 system B first time
 
-prove([not,not,not,z], '|',lp, ['{',x,'V',y,'}','V',z, not,z]). 
+prove([not,not,not,z], '|',lp, ['{',x,'V',y,'}','V',z,'V',not,z]). 
 (closed)                           
 prove(['{',not,not,x,'&',not,y,'}'], '|',k3, [not,not,x,'V',z,'V',not,y]).           
 (closed)
